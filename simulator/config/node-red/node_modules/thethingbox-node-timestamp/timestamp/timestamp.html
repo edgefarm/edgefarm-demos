@@ -1,0 +1,36 @@
+
+
+<script type="text/x-red" data-template-name="timestamp">
+	<div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="timestamp">
+	<font size="-2">Adds the timestamp to the message</font>
+	<h2><p>Timestamp</p></h2>
+
+	<font size="-1"><p>Set msg.timestamp to the current datetime in ISO format in UTC (ex. 2013-12-31T23:59:59.999Z).</p></font><br/>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('timestamp',{
+        category: 'function',
+        color: "#FFD1DF",
+        defaults: {
+            name: {value:""},
+        },
+        inputs:1,
+        outputs:1,
+        
+        icon: "timestamp.png",
+        label: function() {
+            return this.name||this.to||"timestamp";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+    });
+</script>
