@@ -1,0 +1,9 @@
+# ===================================================
+# meta infos
+# ===================================================
+
+meta:
+  project: train-simulator-edge-demo
+  include:
+    - dobi.yaml
+    - version.yaml

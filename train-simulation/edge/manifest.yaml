@@ -1,0 +1,18 @@
+application: train-simulator-demo
+modules:
+  - name: alm-mqtt-module
+    image: harbor.ci4rail.com/edgefarm-dev/alm-mqtt-module:7c1ba40
+    createOptions: '{}'
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+    envs:
+      MQTT_SERVER: 192.168.24.14:1883
+  - name: train-simulator-edge-demo
+    image:  harbor.ci4rail.com/edgefarm/train-simulator-edge-demo:3bd4fe2
+    createOptions: '{}'
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1

@@ -2,7 +2,7 @@
 
 *Note: this demo is still WIP*
 
-This demo demonstrates the complete stack from the sensor (GPS) on the device to data in the cloud. 
+This demo demonstrates the complete stack from the sensor (GPS) on the device to data in the cloud.
 
 ## Usage
 
