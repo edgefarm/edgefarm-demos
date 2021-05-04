@@ -27,12 +27,25 @@ image=dind-buildx:
   tags:
     - stable
 
+image=qemu-user-static:
+  image: tonistiigi/binfmt
+  pull: once
+  tags:
+    - latest
+
 # ===================================================
 # jobs
 # ===================================================
 
+job=setup-qemu-user-static:
+  use: qemu-user-static
+  command: "--install all"
+  privileged: true
+
+
 job=build-and-push-train-simulator-edge-demo:
   use: dind-buildx
+  depends: [setup-qemu-user-static]
   mounts:
     - mount-src
     - mount-docker-socket

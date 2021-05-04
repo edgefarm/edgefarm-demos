@@ -78,7 +78,7 @@ ${dobi} --filename meta.yaml version
 # check argument count
 if [ -z ${1} ]; then
     echo "no arguments!"
-    dobi --filename meta.yaml list
+    ${dobi} --filename meta.yaml list
     exit 1
 fi
 
@@ -86,4 +86,4 @@ fi
 source gen/gitversion/env/gitversion.env
 
 # execute dobi with meta as default
-exec dobi --filename meta.yaml ${@}
+exec ${dobi} --filename meta.yaml ${@}
