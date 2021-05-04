@@ -1,0 +1,13 @@
+# ===================================================
+# mounts
+# ===================================================
+
+mount=mount-src:
+  bind: "src"
+  path: "/src"
+  read-only: false
+
+mount=mount-docker-config:
+  bind: "~/.docker"
+  path: "/root/.docker"
+  read-only: false
