@@ -34,4 +34,4 @@ job=version:
   artifact: /gen/gitversion/
   env:
     - "USERID={user.uid}"
-    - DEFAULT_BRANCH=mains
+    - DEFAULT_BRANCH=main
