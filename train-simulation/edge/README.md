@@ -1,5 +1,7 @@
 # Train Simulation - demo application
 
+[![CI](https://concourse.ci4rail.com/api/v1/teams/edgefarm/pipelines/train-simulator-edge-demo/jobs/build-train-simulator-edge-demo/badge)](https://concourse.ci4rail.com/teams/edgefarm/pipelines/train-simulator-edge-demo)
+
 This demo application is written in python3 and connects to `alm-mqtt-module` and subscribes to the MQTT topic `simulation/temperature`.
 The received data is simply dumped to stdout.
 
