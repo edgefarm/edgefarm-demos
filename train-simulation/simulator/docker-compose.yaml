@@ -11,6 +11,8 @@ services:
       - edgefarm-simulator
     volumes:
       - ./config/node-red:/data
+    user: "${UID}:${GID}"
+    entrypoint: /data/entrypoint.sh
 
   mosquitto:
     image: eclipse-mosquitto:2.0.10
