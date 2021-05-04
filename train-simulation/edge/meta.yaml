@@ -13,6 +13,6 @@ alias=build:
   tasks:
     - build-and-push-demo-image
   annotations:
-    description: "\t\t ->[alias] build (and push) all"
+    description: "\t\t-> [alias] build (and push) all"
     tags:
       - alias
