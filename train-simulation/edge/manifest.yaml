@@ -9,8 +9,8 @@ modules:
     startupOrder: 1
     envs:
       MQTT_SERVER: <IP>:1883
-  - name: train-simulator-edge-demo
-    image:  harbor.ci4rail.com/edgefarm/train-simulator-edge-demo:0.1.0-1-11.Branch.edge.Sha.6ca4acf594abc615678d360bf3df68f60e47f8fd
+  - name: edge-demo
+    image:  harbor.ci4rail.com/edgefarm/train-simulator-edge-demo:0.1.0-11.Branch.main.Sha.80849351b5dedfb10f4c894c2cf4e471d16e0708
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always
