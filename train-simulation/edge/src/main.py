@@ -71,13 +71,13 @@ async def run(loop):
     global ads_client, ads_encoder
 
     # Connect to ALM MQTT module and register the MQTT subjects we want to receive
-    client = AlmMqttModuleClient(loop)
-    await client.connect()
+    mqtt_client = AlmMqttModuleClient(loop)
+    await mqtt_client.connect()
     try:
         for key in topics:
             print("Registering to '{}'".format(key))
             for handler in topics[key]:
-                subject = await client.subscribe(key, handler)
+                subject = await mqtt_client.subscribe(key, handler)
                 if key not in subjects:
                     subjects[key] = list()
                 subjects[key].append(subject)
@@ -94,14 +94,22 @@ async def run(loop):
     # Register the embedded data schemas (here: temperature data)
     # If you need further schemas, add them to the list of <payload_schemas>
 
-    device_id = os.getenv('IOTEDGE_DEVICEID', 'no-device-id')
+    device_id = os.getenv("IOTEDGE_DEVICEID", "no-device-id")
     ads_encoder = AdsEncoder(
         app="HVAC", module=f"{device_id}.hvac", payload_schemas=["temperature_data"]
     )
 
+    #
+    # The following code handles keyboard interrupts and shuts down gracefully.
+    #
+    async def shutdown():
+        await mqtt_client.close()
+        await ads_client.close()
+        loop.stop()
+
     def signal_handler():
         print("Unsubscribing and shutting down...")
-        loop.create_task(client.close())
+        loop.create_task(shutdown())
 
     for sig in ("SIGINT", "SIGTERM"):
         loop.add_signal_handler(getattr(signal, sig), signal_handler)

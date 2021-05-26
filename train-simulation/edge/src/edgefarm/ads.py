@@ -29,6 +29,14 @@ class AdsProducer:
     async def publish(self, data):
         await self.nc.publish("ads", data)
 
+    async def close(self):
+        if self.nc.is_closed:
+            return
+        try:
+            await self.nc.close()
+        except Exception as e:
+            print(e)
+
 
 class AdsEncoder:
     def __init__(self, app, module, payload_schemas):
