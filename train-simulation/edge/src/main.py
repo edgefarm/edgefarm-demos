@@ -9,7 +9,7 @@ from edgefarm.alm_mqtt_module_client import AlmMqttModuleClient
 async def temperature_handler(msg):
     """This is the handler function that gets registered for `simulation/temperature`.
     The data is encoded using `Apache avro` with the schema from the file `edgefarm/avro_schemas/dataSchema.avro`."""
-    message = avro.new_reader(io.BytesIO(msg.data))
+    message = avro.schema_reader(io.BytesIO(msg.data))
     print(message)
 
 

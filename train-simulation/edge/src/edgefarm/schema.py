@@ -11,3 +11,5 @@ unregister_sub_response_codec = fastavro.schema.load_schema(
     "edgefarm/avro_schemas/unregisterSubResponse.avro")
 data_codec = fastavro.schema.load_schema(
     "edgefarm/avro_schemas/dataSchema.avro")
+ads_codec = fastavro.schema.load_schema(
+    "edgefarm/ads-schemas/ads_data.avsc")
