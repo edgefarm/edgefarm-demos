@@ -1,0 +1,110 @@
+resource_types:
+  - name: docker-buildx
+    type: docker-image
+    privileged: true
+    source:
+      repository: starkandwayne/docker-buildx-resource
+      tag: edge
+
+resources:
+  # Upstream docker images
+  - name: image-bb-gitversion-tool
+    type: docker-image
+    source:
+      repository: elbb/bb-gitversion
+      tag: 0.8.3
+
+  - name: image-busybox
+    type: docker-image
+    source:
+      repository: busybox
+      tag: 1.33.0
+
+  # Git sources
+  - name: source
+    type: git
+    source:
+      uri: ((git_source))
+      branch: ((git_branch))
+      skip_ssl_verification: ((git_skip_ssl_verification))
+      paths:
+        - train-simulation/edge/*
+
+  # Own docker images
+  - name: image-train-simulator-edge-demo-harbor
+    type: docker-buildx
+    source:
+      repository: harbor.ci4rail.com/edgefarm/train-simulator-edge-demo
+      username: ((harbor_registry_user))
+      password: ((harbor_registry_password))
+
+  - name: image-train-simulator-edge-demo-dockerhub
+    type: docker-buildx
+    source:
+      repository: ci4rail/train-simulator-edge-demo
+      username: ((dockerhub_registry_user))
+      password: ((dockerhub_registry_password))
+
+jobs:
+  - name: build-((name))
+    public: true
+    plan:
+      - in_parallel:
+          - get: image-bb-gitversion-tool
+          - get: source
+            trigger: true
+          - get: image-busybox
+      - task: generate-version
+        image: image-bb-gitversion-tool
+        config:
+          platform: linux
+          inputs:
+            - name: source
+          outputs:
+            - name: gitversion
+          run:
+            path: /bin/bash
+            args:
+              - -exc
+              - |
+                entrypoint.sh &&
+                jq empty gitversion/json/gitversion.json &&
+                cat gitversion/json/gitversion.json
+          params:
+            GIT_PATH: source
+            GEN_PATH: gitversion
+            DEFAULT_BRANCH: ((git_default_branch))
+            GIT_BRANCH: ((git_branch))
+
+      - task: generate-build-args-for-images
+        image: image-busybox
+        config:
+          platform: linux
+          inputs:
+            - name: gitversion
+          outputs:
+            - name: build-args
+          run:
+            path: /bin/sh
+            args:
+              - -ec
+              - |
+                ROOT=$(pwd)
+                echo {\"VERSION\":\"$(cat gitversion/plain/Sha)\"} > build-args/build-args
+
+      - in_parallel:
+        - put: image-train-simulator-edge-demo-harbor
+          params:
+            build: source/train-simulation/edge/src
+            buildx_platforms: "linux/amd64,linux/arm64"
+            build_args_file: build-args/build-args
+            latest: false
+            tag_file: gitversion/plain/InformationalVersionDockerLabel
+
+        - put: image-train-simulator-edge-demo-dockerhub
+          params:
+            build: source/train-simulation/edge/src/
+            buildx_platforms: "linux/amd64,linux/arm64"
+            build_args_file: build-args/build-args
+            latest: false
+            tag_file: gitversion/plain/InformationalVersionDockerLabel

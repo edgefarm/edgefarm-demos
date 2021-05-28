@@ -1,0 +1,90 @@
+resource_types:
+  - name: docker-buildx
+    type: docker-image
+    privileged: true
+    source:
+      repository: starkandwayne/docker-buildx-resource
+      tag: edge
+
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
+
+resources:
+  - name: pull-request
+    type: pull-request
+    check_every: 30s
+    webhook_token: ((webhook_token))
+    source:
+      repository: edgefarm/edgefarm-demos
+      access_token: ((access_token))
+      paths:
+        - GPS-demo/gps-to-ads-app/**/*
+
+  - name: image-gps-to-ads-app-dev
+    type: docker-buildx
+    source:
+      repository: harbor.ci4rail.com/edgefarm-dev/gps-to-ads-app
+      username: ((harbor_registry_user))
+      password: ((harbor_registry_password))
+
+  - name: image-bb-gitversion-tool
+    type: docker-image
+    source:
+      repository: elbb/bb-gitversion
+      tag: 0.8.3
+
+jobs:
+  - name: build
+    plan:
+      - get: pull-request
+        trigger: true
+        version: every
+
+      - put: pull-request
+        params:
+          path: pull-request
+          status: pending
+
+      - in_parallel:
+          - get: image-bb-gitversion-tool
+
+      - task: generate-version
+        image: image-bb-gitversion-tool
+        config:
+          platform: linux
+          inputs:
+            - name: pull-request
+          outputs:
+            - name: gitversion
+          run:
+            path: /bin/bash
+            args:
+              - -exc
+              - |
+                entrypoint.sh &&
+                jq empty gitversion/json/gitversion.json &&
+                cat gitversion/json/gitversion.json
+          params:
+            GIT_PATH: pull-request
+            GEN_PATH: gitversion
+            DEFAULT_BRANCH: ((git_default_branch))
+            GIT_BRANCH: ((git_default_branch))
+
+      - put: image-gps-to-ads-app-dev
+        params:
+          build: pull-request/GPS-demo/gps-to-ads-app/src
+          buildx_platforms: "linux/amd64,linux/arm64"
+          latest: false
+          tag_file: gitversion/plain/ShortSha
+        on_failure:
+          put: pull-request
+          params:
+            path: pull-request
+            status: failure
+
+      - put: pull-request
+        params:
+          path: pull-request
+          status: success
