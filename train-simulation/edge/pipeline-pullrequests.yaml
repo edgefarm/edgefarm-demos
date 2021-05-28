@@ -20,7 +20,7 @@ resources:
       repository: edgefarm/edgefarm-demos
       access_token: ((access_token))
       paths:
-        - train-simulation/edge/*
+        - train-simulation/edge/**/*
 
   - name: image-train-simulator-edge-demo-dev
     type: docker-buildx
