@@ -1,4 +1,0 @@
-[submodule "ads-schemas"]
-	path = train-simulation/edge/src/edgefarm/ads-schemas
-	url = git@github.com:edgefarm/ads-schemas.git
-	branch = initial
