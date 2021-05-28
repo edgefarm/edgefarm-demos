@@ -7,10 +7,10 @@ install_dependencies:
 	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/client/avro_schemas/dataSchema.avro
 
 	mkdir -p edgefarm/ads_schemas && cd edgefarm/ads_schemas && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads_schemas/main/ads_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads_schemas/main/temperature_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads_schemas/main/gps_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads_schemas/main/mvb_data.avsc
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/ads_data.avsc && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/temperature_data.avsc && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/gps_data.avsc && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/mvb_data.avsc
 
 install_requirements:
 	pip3 install -r requirements.txt
