@@ -40,14 +40,14 @@ class AdsProducer:
 
 class AdsEncoder:
     def __init__(self, app, module, payload_schemas):
-        self.codec = fastavro.schema.load_schema("edgefarm/ads-schemas/ads_data.avsc")
+        self.codec = fastavro.schema.load_schema("edgefarm/ads_schemas/ads_data.avsc")
         self.payload_codecs = {}
         self.app = app
         self.module = module
         self.sequence_number = 0
         for f in payload_schemas:
             self.payload_codecs[f] = fastavro.schema.load_schema(
-                f"edgefarm/ads-schemas/{f}.avsc"
+                f"edgefarm/ads_schemas/{f}.avsc"
             )
 
     def encode(self, tags, payload_schema, schema_version, data):

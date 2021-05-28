@@ -8,9 +8,16 @@ modules:
     status: running
     startupOrder: 1
     envs:
-      MQTT_SERVER: 192.168.24.14:1883
+      MQTT_SERVER: <IP>:1883
   - name: edge-demo
-    image:  harbor.ci4rail.com/edgefarm/train-simulator-edge-demo:0.1.0-11.Branch.main.Sha.80849351b5dedfb10f4c894c2cf4e471d16e0708
+    image:  harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo:05b50cd
+    createOptions: '{}'
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+  - name: ads-node-module
+    image: harbor.ci4rail.com/edgefarm/ads-node-module:0.1.0-9.Branch.main.Sha.0e4f2e736b64fc1c69b5479743ee89580bdcf3fe
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always

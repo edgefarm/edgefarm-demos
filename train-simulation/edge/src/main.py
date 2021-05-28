@@ -20,8 +20,8 @@ async def temperature_handler(msg):
     """This is the handler function that gets registered for `simulation/temperature`.
     The received data is encoded using `Apache avro` with the schema from the file `edgefarm/avro_schemas/dataSchema.avro`.
 
-    This example unpacks the original message and encodes it into an ADS_DATA avro message (see `edgefarm/ads-schemas/ads_data.avsc`).
-    The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `edgefarm/ads-schemas/temperature_data.avsc`)
+    This example unpacks the original message and encodes it into an ADS_DATA avro message (see `edgefarm/ads_schemas/ads_data.avsc`).
+    The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `edgefarm/ads_schemas/temperature_data.avsc`)
     The whole ADS_DATA message is then sent to ads-node module.
     """
     message = avro.schema_decode(io.BytesIO(msg.data))

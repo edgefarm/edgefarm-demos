@@ -10,7 +10,7 @@ async def run(loop):
 
     nats_server = os.getenv("NATS_SERVER", "nats:4222")
     ads_codec = fastavro.schema.load_schema(
-        os.path.join("../edgefarm/ads-schemas", "ads_data.avsc")
+        os.path.join("../edgefarm/ads_schemas", "ads_data.avsc")
     )
 
     await nc.connect(servers="nats://" + nats_server, loop=loop)
@@ -29,7 +29,7 @@ async def run(loop):
 
 def decode_payload(payload):
     codec = fastavro.schema.load_schema(
-        os.path.join("../edgefarm/ads-schemas", payload["schema"])
+        os.path.join("../edgefarm/ads_schemas", payload["schema"])
     )
     return avro_deserialize(payload["data"], codec)
 
