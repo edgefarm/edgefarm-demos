@@ -28,20 +28,20 @@ resources:
       branch: ((git_branch))
       skip_ssl_verification: ((git_skip_ssl_verification))
       paths:
-        - train-simulation/edge/*
+        - GPS-demo/gps-to-ads-app/*
 
   # Own docker images
-  - name: image-train-simulator-edge-demo-harbor
+  - name: image-gps-to-ads-app-harbor
     type: docker-buildx
     source:
-      repository: harbor.ci4rail.com/edgefarm/train-simulator-edge-demo
+      repository: harbor.ci4rail.com/edgefarm/gps-to-ads-app
       username: ((harbor_registry_user))
       password: ((harbor_registry_password))
 
-  - name: image-train-simulator-edge-demo-dockerhub
+  - name: image-gps-to-ads-app-dockerhub
     type: docker-buildx
     source:
-      repository: ci4rail/train-simulator-edge-demo
+      repository: ci4rail/gps-to-ads-app
       username: ((dockerhub_registry_user))
       password: ((dockerhub_registry_password))
 
@@ -93,17 +93,17 @@ jobs:
                 echo {\"VERSION\":\"$(cat gitversion/plain/Sha)\"} > build-args/build-args
 
       - in_parallel:
-        - put: image-train-simulator-edge-demo-harbor
+        - put: image-gps-to-ads-app-harbor
           params:
-            build: source/train-simulation/edge/src
+            build: source/GPS-demo/gps-to-ads-app/src
             buildx_platforms: "linux/amd64,linux/arm64"
             build_args_file: build-args/build-args
             latest: false
             tag_file: gitversion/plain/InformationalVersionDockerLabel
 
-        - put: image-train-simulator-edge-demo-dockerhub
+        - put: image-gps-to-ads-app-dockerhub
           params:
-            build: source/train-simulation/edge/src/
+            build: source/GPS-demo/gps-to-ads-app/src/
             buildx_platforms: "linux/amd64,linux/arm64"
             build_args_file: build-args/build-args
             latest: false

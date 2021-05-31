@@ -1,3 +1,5 @@
+---
+# Before deploying this manifest, ensure you have deployed the ads-node module (see base.yaml)
 application: train-simulator
 modules:
   - name: alm-mqtt-module
@@ -10,14 +12,7 @@ modules:
     envs:
       MQTT_SERVER: <IP>:1883
   - name: edge-demo
-    image:  harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo:05b50cd
-    createOptions: '{}'
-    imagePullPolicy: on-create
-    restartPolicy: always
-    status: running
-    startupOrder: 1
-  - name: ads-node-module
-    image: harbor.ci4rail.com/edgefarm/ads-node-module:0.1.0-9.Branch.main.Sha.0e4f2e736b64fc1c69b5479743ee89580bdcf3fe
+    image:  harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo:d825dc5
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always
