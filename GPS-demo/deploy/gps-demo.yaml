@@ -10,7 +10,7 @@ modules:
     status: running
     startupOrder: 1
   - name: gps-edge-demo
-    image:  harbor.ci4rail.com/edgefarm-dev/gps-to-ads-app:da4901e
+    image:  harbor.ci4rail.com/edgefarm-dev/gps-to-ads-app:51251a8
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always
