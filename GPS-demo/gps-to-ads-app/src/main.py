@@ -11,6 +11,10 @@ from edgefarm.ads import AdsProducer, AdsEncoder
 # Using ads_client, you can publish a message towards ADS
 #
 ads_client = None
+
+#
+# Use the ads encoder to encode data into ADS DATA format
+#
 ads_encoder = None
 
 
