@@ -1,7 +1,5 @@
 # GPS-demo
 
-*Note: this demo is still WIP*
-
 This demo demonstrates the complete stack from the sensor (GPS) on the device to data in the cloud.
 
 It takes the data from the alm-location-module, converts it to ADS_DATA schema and pushe it towards ads-node module.
