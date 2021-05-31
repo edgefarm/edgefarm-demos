@@ -1,0 +1,18 @@
+# ===================================================
+# meta infos
+# ===================================================
+
+meta:
+  project: gps-demo
+  include:
+    - dobi.yaml
+    - src/dobi.yaml
+    - version.yaml
+
+alias=build:
+  tasks:
+    - build-and-push-demo-image
+  annotations:
+    description: "\t\t-> [alias] build (and push) all"
+    tags:
+      - alias

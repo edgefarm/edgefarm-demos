@@ -1,15 +1,16 @@
 ---
+# Before deploying this manifest, ensure you have deployed the ads-node module (see base.yaml)
 application: gps-demo
 modules:
-  - name: ads-node-module
-    image: harbor.ci4rail.com/edgefarm/ads-node-module:0.1.0-6.Branch.main.Sha.8b658abe571e44597fb67cec0370835b2df3acfb
+  - name: service-location
+    image: harbor.ci4rail.com/edgefarm/alm-location-module:0.1.0-22.Branch.main.Sha.08e21b9e732fe725a4722302bf0c46e27afa76cc
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always
     status: running
     startupOrder: 1
-  - name: service-location
-    image: harbor.ci4rail.com/edgefarm/alm-location-module:0.1.0-19.Branch.main.Sha.2a5d06d0d5829ac2ee13c27d69b7efa8599c6e55
+  - name: gps-edge-demo
+    image:  harbor.ci4rail.com/edgefarm-dev/gps-to-ads-app:51251a8
     createOptions: '{}'
     imagePullPolicy: on-create
     restartPolicy: always
@@ -19,7 +20,7 @@ modules:
   #   envs:
   #     GPSD_HOST: gps-demo_gpsfake:2947
   # - name: gpsfake
-  #   image: harbor.ci4rail.com/edgefarm/gpsfake-module:0.1.0-19.Branch.main.Sha.2a5d06d0d5829ac2ee13c27d69b7efa8599c6e55
+  #   image: harbor.ci4rail.com/edgefarm/gpsfake-module:0.1.0-22.Branch.main.Sha.08e21b9e732fe725a4722302bf0c46e27afa76cc
   #   createOptions: '{}'
   #   imagePullPolicy: on-create
   #   restartPolicy: always

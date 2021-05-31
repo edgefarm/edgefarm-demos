@@ -20,12 +20,12 @@ resources:
       repository: edgefarm/edgefarm-demos
       access_token: ((access_token))
       paths:
-        - train-simulation/edge/**/*
+        - GPS-demo/gps-to-ads-app/**/*
 
-  - name: image-train-simulator-edge-demo-dev
+  - name: image-gps-to-ads-app-dev
     type: docker-buildx
     source:
-      repository: harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo
+      repository: harbor.ci4rail.com/edgefarm-dev/gps-to-ads-app
       username: ((harbor_registry_user))
       password: ((harbor_registry_password))
 
@@ -72,9 +72,9 @@ jobs:
             DEFAULT_BRANCH: ((git_default_branch))
             GIT_BRANCH: ((git_default_branch))
 
-      - put: image-train-simulator-edge-demo-dev
+      - put: image-gps-to-ads-app-dev
         params:
-          build: pull-request/train-simulation/edge/src
+          build: pull-request/GPS-demo/gps-to-ads-app/src
           buildx_platforms: "linux/amd64,linux/arm64"
           latest: false
           tag_file: gitversion/plain/ShortSha

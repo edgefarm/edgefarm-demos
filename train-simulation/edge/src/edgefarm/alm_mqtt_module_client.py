@@ -1,6 +1,5 @@
 import os
 from nats.aio.client import Client as Nats
-import asyncio
 import edgefarm.client as client
 
 
@@ -8,6 +7,7 @@ class AlmMqttModuleClient:
     """A class to interact with the `alm-mqtt-module`. It supports
     registering and unregistering to MQTT topics proxied over nats
     via `alm-mqtt-module`."""
+
     __subjects = {}
     __subject_handlers = {}
 
@@ -45,13 +45,13 @@ class AlmMqttModuleClient:
         await mqttClient.connect()
         ```
         """
-        nats_server = os.getenv('NATS_SERVER', 'nats:4222')
+        nats_server = os.getenv("NATS_SERVER", "nats:4222")
         options = {
-            "servers": ["nats://"+nats_server],
+            "servers": ["nats://" + nats_server],
             "loop": self.loop,
             "connect_timeout": 10,
             "ping_interval": 1,
-            "max_outstanding_pings": 5
+            "max_outstanding_pings": 5,
         }
 
         await self.nc.connect(**options)
@@ -84,12 +84,14 @@ class AlmMqttModuleClient:
         """
         response = await client.register_mqtt_topic("alm-mqtt-module", topic, self.nc)
         self.serverRunning = True
-        self.__subjects[response.subject] = await self.nc.subscribe(subject=response.subject, cb=self.__nats_handler)
+        self.__subjects[response.subject] = await self.nc.subscribe(
+            subject=response.subject, cb=self.__nats_handler
+        )
         self.__subject_handlers[response.subject] = handler
         return response.subject
 
     async def __nats_handler(self, msg):
-        await self.nc.publish(msg.reply, b'')
+        await self.nc.publish(msg.reply, b"")
         await self.__subject_handlers[msg.subject](msg)
 
     async def unsubscribe(self, subject):
@@ -128,5 +130,4 @@ class AlmMqttModuleClient:
             await self.nc.close()
         except Exception as e:
             print(e)
-        await asyncio.sleep(0.1)
-        self.loop.stop()
+        # await asyncio.sleep(0.1)

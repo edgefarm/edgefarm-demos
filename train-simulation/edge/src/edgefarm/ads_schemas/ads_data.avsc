@@ -1,0 +1,57 @@
+{
+    "name": "adsData",
+    "type":	"record",
+    "fields": [
+        {
+            "name": "meta",
+            "type": {
+                "name": "t_meta",
+                "type": "record",
+                "fields": [
+                    { "name": "format", "type": "string", "default": "ADS_DATA" },
+                    { "name": "version", "type": "bytes" }
+                ]
+            }
+        },
+        {
+            "name": "origin",
+            "type": {
+                "name": "t_origin",
+                "type": "record",
+                "fields": [
+                    { "name": "app", "type": "string" },
+                    { "name": "module", "type": "string" },
+                    {
+                        "name": "tags",
+                        "type": {
+                            "name": "t_tags",
+                            "type": "array",
+                            "items": {
+                                "name": "tag",
+                                "type": "record",
+                                "fields" : [
+                                    { "name": "key", "type": "string"},
+                                    { "name": "value", "type": "string"}
+                                ]
+                            }
+                        }
+                    },
+                    { "name": "sequenceNumber", "type": "int" }
+                ]
+            }
+        },
+        {
+            "name": "payload",
+            "type": {
+                "name": "t_payload",
+                "type": "record",
+                "fields": [
+                    { "name": "format", "type": "string" },
+                    { "name": "schema", "type": "string" },
+                    { "name": "schemaVersion", "type": "bytes" },
+                    { "name": "data", "type": "bytes" }
+                ]
+            }
+        }
+    ]
+}
