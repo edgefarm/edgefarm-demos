@@ -1,8 +1,6 @@
 ---
 # Project configuration
 # -----------------------------
-## Defines the name for the project
-name: train-simulator-edge-demo
 
 # Git configuration
 # -----------------

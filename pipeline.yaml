@@ -1,3 +1,9 @@
+#
+# Variables which differ between the different examples:
+#
+# docker-context: Relative path in repository where the sources and Dockerfile is located, e.g. GSP-Demo/gps-to-ads-app/src
+# docker-image-basename: Name of docker image, without registry. e.g. gps-to-ads-app
+#
 resource_types:
   - name: docker-buildx
     type: docker-image
@@ -28,25 +34,25 @@ resources:
       branch: ((git_branch))
       skip_ssl_verification: ((git_skip_ssl_verification))
       paths:
-        - train-simulation/edge/*
+        - ((docker-context))
 
   # Own docker images
-  - name: image-train-simulator-edge-demo-harbor
+  - name: image-((docker-image-basename))-harbor
     type: docker-buildx
     source:
-      repository: harbor.ci4rail.com/edgefarm/train-simulator-edge-demo
+      repository: harbor.ci4rail.com/edgefarm/((docker-image-basename))
       username: ((harbor_registry_user))
       password: ((harbor_registry_password))
 
-  - name: image-train-simulator-edge-demo-dockerhub
+  - name: image-((docker-image-basename))-dockerhub
     type: docker-buildx
     source:
-      repository: ci4rail/train-simulator-edge-demo
+      repository: ci4rail/((docker-image-basename))
       username: ((dockerhub_registry_user))
       password: ((dockerhub_registry_password))
 
 jobs:
-  - name: build-((name))
+  - name: build-((docker-image-basename))
     public: true
     plan:
       - in_parallel:
@@ -93,17 +99,17 @@ jobs:
                 echo {\"VERSION\":\"$(cat gitversion/plain/Sha)\"} > build-args/build-args
 
       - in_parallel:
-        - put: image-train-simulator-edge-demo-harbor
+        - put: image-((docker-image-basename))-harbor
           params:
-            build: source/train-simulation/edge/src
+            build: source/((docker-context))
             buildx_platforms: "linux/amd64,linux/arm64"
             build_args_file: build-args/build-args
             latest: false
             tag_file: gitversion/plain/InformationalVersionDockerLabel
 
-        - put: image-train-simulator-edge-demo-dockerhub
+        - put: image-((docker-image-basename))-dockerhub
           params:
-            build: source/train-simulation/edge/src/
+            build: source/((docker-context))
             buildx_platforms: "linux/amd64,linux/arm64"
             build_args_file: build-args/build-args
             latest: false
