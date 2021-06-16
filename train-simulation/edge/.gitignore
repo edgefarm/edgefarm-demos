@@ -2,3 +2,4 @@
 .vscode
 gen
 manifest.work.yaml
+schemas/

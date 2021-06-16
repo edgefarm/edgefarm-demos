@@ -58,7 +58,7 @@ async def main():
     # Create an encoder for an application specific payload
     ads_producer = ef.AdsProducer()
 
-    payload_schema = schema_read_builtin(__file__, "schema/gps_data.avsc")
+    payload_schema = schema_read_builtin(__file__, "schemas/gps_data.avsc")
     ads_encoder = ef.AdsEncoder(
         payload_schema,
         schema_name="gps_data",
