@@ -1,57 +1,17 @@
 # ===================================================
-# images
-# ===================================================
-
-image=dind-buildx:
-  image: jdrouet/docker-with-buildx
-  pull: once
-  tags:
-    - stable
-
-image=qemu-user-static:
-  image: tonistiigi/binfmt
-  pull: once
-  tags:
-    - latest
-
-# ===================================================
 # jobs
 # ===================================================
-
-job=install-qemu-user-static:
-  use: qemu-user-static
-  command: "--install all"
-  privileged: true
-  annotations:
-    description: "\t-> installs qemu-user-static for multiarch builds"
-
-
-job=uninstall-qemu-user-static:
-  use: qemu-user-static
-  command: "--uninstall qemu-aarch64,qemu-arm,qemu-mips64,qemu-mips64el,qemu-ppc64le,qemu-riscv64,qemu-s390x"
-  privileged: true
-  annotations:
-    description: "\t-> uninstalls qemu-user-static"
-
-
-job=check-qemu-user-static:
-  use: qemu-user-static
-  privileged: true
-  annotations:
-    description: "\t-> checks the qemu-user-static installation"
-
-
-job=build-and-push-demo-image:
+job=build-and-push-train-simulator-edge-app:
   use: dind-buildx
   depends: [install-qemu-user-static]
   provide-docker: true
   mounts:
-    - mount-src
+    - mount-project
     - mount-docker-config
   interactive: true
-  command: sh -c "cd /src;
+  command: sh -c "cd /project/train-simulation/edge/src;
            name=$(docker buildx create --use);
-           docker buildx build --push --platform linux/arm64,linux/amd64 --tag ${DOCKER_REGISTRY}/train-simulator-edge-demo:${VERSION} .;
+           docker buildx build --push --platform linux/arm64,linux/amd64 --tag ${DOCKER_REGISTRY}/train-simulator-edge-app:${VERSION} .;
            docker kill buildx_buildkit_${name}0;
            docker rm buildx_buildkit_${name}0"
   env:
@@ -59,4 +19,4 @@ job=build-and-push-demo-image:
    - VERSION={env.GitVersion_ShortSha}
    - DOCKER_REGISTRY={env.DOCKER_REGISTRY}
   annotations:
-    description: "\t-> builds and pushes demo docker images"
+    description: "\t-> builds and pushes train-simulator-edge-app docker image"

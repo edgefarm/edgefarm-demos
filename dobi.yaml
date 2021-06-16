@@ -1,0 +1,55 @@
+# ===================================================
+# mounts
+# ===================================================
+
+mount=mount-project:
+  bind: "."
+  path: "/project"
+  read-only: false
+
+mount=mount-docker-config:
+  bind: "~/.docker"
+  path: "/root/.docker"
+  read-only: false
+
+# ===================================================
+# images
+# ===================================================
+
+image=dind-buildx:
+  image: jdrouet/docker-with-buildx
+  pull: once
+  tags:
+    - stable
+
+image=qemu-user-static:
+  image: tonistiigi/binfmt
+  pull: once
+  tags:
+    - latest
+
+# ===================================================
+# jobs
+# ===================================================
+
+job=install-qemu-user-static:
+  use: qemu-user-static
+  command: "--install all"
+  privileged: true
+  annotations:
+    description: "\t\t\t-> installs qemu-user-static for multiarch builds"
+
+
+job=uninstall-qemu-user-static:
+  use: qemu-user-static
+  command: "--uninstall qemu-aarch64,qemu-arm,qemu-mips64,qemu-mips64el,qemu-ppc64le,qemu-riscv64,qemu-s390x"
+  privileged: true
+  annotations:
+    description: "\t\t\t-> uninstalls qemu-user-static"
+
+
+job=check-qemu-user-static:
+  use: qemu-user-static
+  privileged: true
+  annotations:
+    description: "\t\t\t-> checks the qemu-user-static installation"
