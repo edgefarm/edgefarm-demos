@@ -1,2 +1,3 @@
 asyncio-nats-client~=0.11.4
 fastavro~=1.4.0
+edgefarm-application>=0.1.4

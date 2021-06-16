@@ -1,36 +1,33 @@
-import io
 import os
 import signal
 import asyncio
 import datetime
 from nats.aio.client import Client as Nats
-import edgefarm.avro as avro
-from edgefarm.ads import AdsProducer, AdsEncoder
+
+import edgefarm_application as ef
+from edgefarm_application.base.schema import schema_read_builtin
+from edgefarm_application.base.avro import schema_decode
+
 
 #
-# Using ads_client, you can publish a message towards ADS
+# Using the ads_producer/encoder, you can publish a message towards ADS
 #
-ads_client = None
-
-#
-# Use the ads encoder to encode data into ADS DATA format
-#
+ads_producer = None
 ads_encoder = None
 
 
 async def gps_handler(msg):
-    """This is the handler function that is called whenever a new GPS dataset arrives`.
+    """This is the NATS handler function that is called whenever a new GPS dataset arrives`.
     The received data is encoded using `Apache avro` with the schema defined in
     "https://github.com/edgefarm/alm-service-modules/blob/main/alm-location-module/main.go"
 
-    This example unpacks the original message and encodes it into an ADS_DATA avro message (see `edgefarm/ads_schemas/ads_data.avsc`).
-    The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `edgefarm/ads_schemas/gps_data.avsc`)
+    This example unpacks the original message and encodes it into an ADS_DATA avro message.
+    The payload in ADS_DATA is an AVRO message with a schema for GPS (see `schemas/gps_data.avsc`)
     The whole ADS_DATA message is then sent to ads-node module.
     """
-    message = avro.schema_decode(io.BytesIO(msg.data))
+    org_payload = schema_decode(msg.data)
 
-    print(message)
-    org_payload = message
+    print(org_payload)
 
     # Generate an ADS payload with "temperature_data" schema
     ads_payload = {
@@ -43,19 +40,31 @@ async def gps_handler(msg):
             "gpsMode": int(org_payload["mode"]),
         },
     }
-    ads_data_binary = ads_encoder.encode(
-        tags=[{"key": "mon", "value": "true"}],
-        payload_schema="gps_data",
-        schema_version=b"\x01\x00\x00",
-        data=ads_payload,
-    )
     # Send data to ads node module
-    await ads_client.publish(ads_data_binary)
+    await ads_producer.encode_and_send(ads_encoder, ads_payload)
 
 
 async def main():
+    global ads_producer, ads_encoder
     loop = asyncio.get_event_loop()
-    global ads_client, ads_encoder
+
+    # Initialize EdgeFarm SDK
+    if os.getenv("IOTEDGE_MODULEID") is not None:
+        await ef.application_module_init_from_environment(loop)
+    else:
+        print("Warning: Running example outside IOTEDGE environment")
+        await ef.application_module_init(loop, "", "", "")
+
+    # Create an encoder for an application specific payload
+    ads_producer = ef.AdsProducer()
+
+    payload_schema = schema_read_builtin(__file__, "schema/gps_data.avsc")
+    ads_encoder = ef.AdsEncoder(
+        payload_schema,
+        schema_name="gps_data",
+        schema_version=(1, 0, 0),
+        tags={"monitor": "channel1"},
+    )
 
     #
     # Connect to NATS and subscribe to "service.location" subject
@@ -66,24 +75,11 @@ async def main():
     print("NATS connect ok")
     subscription_id = await nc.subscribe("service.location", cb=gps_handler)
 
-    # Connect to NATS to publish to "ads" subject which is consumed by ADS Node module
-    ads_client = AdsProducer(loop)
-    await ads_client.connect()
-
-    # Instantiate an ADS DATA encoder to produce the ADS avro message
-    # Register the embedded data schemas (here: temperature data)
-    # If you need further schemas, add them to the list of <payload_schemas>
-
-    device_id = os.getenv("IOTEDGE_DEVICEID", "no-device-id")
-    ads_encoder = AdsEncoder(
-        app="GPS", module=f"{device_id}.gps", payload_schemas=["gps_data"]
-    )
-
-    stop = {"stop": False}
-
     #
     # The following shuts down gracefully when SIGINT or SIGTERM is received
     #
+    stop = {"stop": False}
+
     def signal_handler():
         stop["stop"] = True
 
@@ -96,7 +92,7 @@ async def main():
     print("Unsubscribing and shutting down...")
     await nc.unsubscribe(subscription_id)
     await nc.close()
-    await ads_client.close()
+    await ef.application_module_term()
 
 
 if __name__ == "__main__":
