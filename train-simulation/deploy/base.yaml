@@ -8,3 +8,12 @@ modules:
     restartPolicy: always
     status: running
     startupOrder: 1
+  - name: alm-mqtt-module
+    image: harbor.ci4rail.com/edgefarm/alm-mqtt-module:0.1.0-37.Branch.main.Sha.a5242c288275e173efdfc6ed42c542cdd835870a
+    createOptions: '{}'
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+    envs:
+      MQTT_SERVER: mosquitto.default.svc.cluster.local:1883

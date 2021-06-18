@@ -1,0 +1,48 @@
+{
+    "name": "systemEvent",
+    "type": "record",
+    "fields": [
+        {
+            "name": "meta",
+            "type": {
+                "name": "t_meta",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "version",
+                        "type": "bytes"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "data",
+            "type": {
+                "name": "t_data",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "time",
+                        "type": {
+                            "doc": "generation time in microseconds since 1.1.1970",
+                            "type": "long",
+                            "logicalType": "timestamp-micros"
+                        }
+                    },
+                    {
+                        "name": "vehicleId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "systemName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "event",
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    ]
+}
