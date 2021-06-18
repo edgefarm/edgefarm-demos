@@ -20,7 +20,7 @@ async def temperature_handler(msg):
     msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
     a json message, so we convert the json to a python dictionary.
 
-    This example encodes the dat it into an ADS_DATA avro message.
+    This example encodes the data it into an ADS_DATA avro message.
     The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `schemas/temperature_data.avsc`)
     The whole ADS_DATA message is then sent to ads-node module.
     """
@@ -67,9 +67,9 @@ async def main():
         print("Warning: Running example outside IOTEDGE environment")
         await ef.application_module_init(loop, "", "", "")
 
-    # Create an encoder for an application specific payload
     ads_producer = ef.AdsProducer()
 
+    # Create an encoder for an application specific payload
     payload_schema = schema_read_builtin(__file__, "schemas/temperature_data.avsc")
     ads_encoder = ef.AdsEncoder(
         payload_schema,

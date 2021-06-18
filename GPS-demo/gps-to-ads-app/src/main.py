@@ -29,7 +29,7 @@ async def gps_handler(msg):
 
     print(org_payload)
 
-    # Generate an ADS payload with "temperature_data" schema
+    # Generate an ADS payload with "gps_data" schema
     ads_payload = {
         "meta": {"version": b"\x01\x00\x00"},
         "data": {
@@ -55,9 +55,9 @@ async def main():
         print("Warning: Running example outside IOTEDGE environment")
         await ef.application_module_init(loop, "", "", "")
 
-    # Create an encoder for an application specific payload
     ads_producer = ef.AdsProducer()
 
+    # Create the encoder for an application specific payload
     payload_schema = schema_read_builtin(__file__, "schemas/gps_data.avsc")
     ads_encoder = ef.AdsEncoder(
         payload_schema,
