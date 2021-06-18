@@ -244,9 +244,6 @@ module.exports = {
     // can be accessed in a function block as:
     //    global.get("os")
     functionGlobalContext: {
-        // -- Pass in Libraries for convenience in function nodes -- //
-        'path' : require('path'),
-        'fs'   : require('fs'),
         // os:require('os'),
         // jfive:require("johnny-five"),
         // j5board:require("johnny-five").Board({repl:false})
