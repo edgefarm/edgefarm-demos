@@ -1,32 +1,32 @@
-import io
 import os
 import signal
-import sys
 import asyncio
 import datetime
 import json
-import edgefarm.avro as avro
-from edgefarm.alm_mqtt_module_client import AlmMqttModuleClient
-from edgefarm.ads import AdsProducer, AdsEncoder
+import logging
+import edgefarm_application as ef
+from edgefarm_application.base.schema import schema_read_builtin
 
 #
-# Using ads_client, you can publish a message towards ADS
+# Using the ads_producer/encoder, you can publish a message towards ADS
 #
-ads_client = None
+ads_producer = None
 ads_encoder = None
 
 
 async def temperature_handler(msg):
-    """This is the handler function that gets registered for `simulation/temperature`.
-    The received data is encoded using `Apache avro` with the schema from the file `edgefarm/avro_schemas/dataSchema.avro`.
+    """ This is the handler function that gets registered for `simulation/temperature`.
+    The received data is a python dictionary.
+    msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
+    a json message, so we convert the json to a python dictionary.
 
-    This example unpacks the original message and encodes it into an ADS_DATA avro message (see `edgefarm/ads_schemas/ads_data.avsc`).
-    The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `edgefarm/ads_schemas/temperature_data.avsc`)
+    This example encodes the data it into an ADS_DATA avro message.
+    The payload in ADS_DATA is another AVRO message with a schema for a temperature sensor (see `schemas/temperature_data.avsc`)
     The whole ADS_DATA message is then sent to ads-node module.
     """
-    message = avro.schema_decode(io.BytesIO(msg.data))
+    org_payload = json.loads(msg["payload"])
+    print(f"{msg}: payload={org_payload}")
 
-    org_payload = json.loads(message["payload"])
     if org_payload["sensorname"] == "temperature":
         print(org_payload)
 
@@ -34,91 +34,79 @@ async def temperature_handler(msg):
         ads_payload = {
             "meta": {"version": b"\x01\x00\x00"},
             "data": {
-                "time": datetime.datetime.utcfromtimestamp(
+                "time": datetime.datetime.fromtimestamp(
                     int(org_payload["timestamp"])
                 ),
                 "temp": float(org_payload["value"]),
             },
         }
-        ads_data_binary = ads_encoder.encode(
-            tags=[{"key": "mon", "value": "true"}],
-            payload_schema="temperature_data",
-            schema_version=b"\x01\x00\x00",
-            data=ads_payload,
-        )
         # Send data to ads node module
-        await ads_client.publish(ads_data_binary)
+        await ads_producer.encode_and_send(ads_encoder, ads_payload)
     else:
         print(f"Received unknown payload: {org_payload}")
 
 
-# You can register multiple handlers for the same MQTT topic.
+# List of mqtt topics and corresponding handlers
 # Example:
 # topics = {
-#   'simulation/temperature': [temp_handler1, temp_handler2],
-#   'simulation/acceleration': [accel_handler]
+#   'simulation/temperature': temp_handler,
+#   'simulation/acceleration': accel_handler
 # }
-topics = {"simulation/temperature": [temperature_handler]}
-
-# This is to store corresponding nats subjects to handler functions for specific MQTT topics.Exception
-# Example for accessing subjects from topics example above:
-# Let's access the corresponding nats subject for `temp_handler2` for `simulation/temperature`
-# print(subjects["simulation/temperature"][1])
-subjects = {}
+topics = {"simulation/temperature": temperature_handler}
 
 
-async def run(loop):
-    global ads_client, ads_encoder
+async def main():
+    global ads_producer, ads_encoder
 
-    # Connect to ALM MQTT module and register the MQTT subjects we want to receive
-    mqtt_client = AlmMqttModuleClient(loop)
-    await mqtt_client.connect()
-    try:
-        for key in topics:
-            print("Registering to '{}'".format(key))
-            for handler in topics[key]:
-                subject = await mqtt_client.subscribe(key, handler)
-                if key not in subjects:
-                    subjects[key] = list()
-                subjects[key].append(subject)
-                print("-> corresponding nats subject: '{}'".format(subject))
-    except Exception as e:
-        sys.stderr.write(f"Error: '{e}'")
-        exit(1)
+    loop = asyncio.get_event_loop()
 
-    # Connect to NATS to publish to "ads" subject which is consumed by ADS Node module
-    ads_client = AdsProducer(loop)
-    await ads_client.connect()
+    # Initialize EdgeFarm SDK
+    if os.getenv("IOTEDGE_MODULEID") is not None:
+        await ef.application_module_init_from_environment(loop)
+    else:
+        print("Warning: Running example outside IOTEDGE environment")
+        await ef.application_module_init(loop, "", "", "")
 
-    # Instantiate an ADS DATA encoder to produce the ADS avro message
-    # Register the embedded data schemas (here: temperature data)
-    # If you need further schemas, add them to the list of <payload_schemas>
+    ads_producer = ef.AdsProducer()
 
-    device_id = os.getenv("IOTEDGE_DEVICEID", "no-device-id")
-    ads_encoder = AdsEncoder(
-        app="HVAC", module=f"{device_id}.hvac", payload_schemas=["temperature_data"]
+    # Create an encoder for an application specific payload
+    payload_schema = schema_read_builtin(__file__, "schemas/temperature_data.avsc")
+    ads_encoder = ef.AdsEncoder(
+        payload_schema,
+        schema_name="temperature_data",
+        schema_version=(1, 0, 0),
+        tags={"monitor": "channel1"},
     )
 
+    # Connect to ALM MQTT module and register the MQTT subjects we want to receive
+    mqtt_client = ef.AlmMqttModuleClient()
+    for mqtt_topic, handler in topics.items():
+        print(f"Registering to '{mqtt_topic}'")
+        await mqtt_client.subscribe(mqtt_topic, handler)
+
     #
-    # The following code handles keyboard interrupts and shuts down gracefully.
+    # The following shuts down gracefully when SIGINT or SIGTERM is received
     #
-    async def shutdown():
-        await mqtt_client.close()
-        await ads_client.close()
-        loop.stop()
+    stop = {"stop": False}
 
     def signal_handler():
-        print("Unsubscribing and shutting down...")
-        loop.create_task(shutdown())
+        stop["stop"] = True
 
     for sig in ("SIGINT", "SIGTERM"):
         loop.add_signal_handler(getattr(signal, sig), signal_handler)
 
+    while not stop["stop"]:
+        await asyncio.sleep(1)
+
+    print("Unsubscribing and shutting down...")
+    await mqtt_client.close()
+    await ef.application_module_term()
+
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(run(loop))
-    try:
-        loop.run_forever()
-    finally:
-        loop.close()
+    logging.basicConfig(
+        level=os.environ.get('LOGLEVEL', 'INFO').upper(),
+        format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+        datefmt="%m-%d %H:%M",
+    )
+    asyncio.run(main())

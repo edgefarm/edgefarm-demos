@@ -1,16 +1,9 @@
+ADS_SCHEMAS_GIT_COMMIT_ID = 28bc8c23c140da6ff21539b2780b07c3e8c1b81b
 install_dependencies:
-	mkdir -p edgefarm/avro_schemas && cd edgefarm/avro_schemas && \
-	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/schema/avro_schemas/registerSubRequest.avro && \
-	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/schema/avro_schemas/registerSubResponse.avro && \
-	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/schema/avro_schemas/unregisterSubRequest.avro && \
-	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/schema/avro_schemas/unregisterSubResponse.avro && \
-	curl -O https://raw.githubusercontent.com/edgefarm/alm-service-modules/main/alm-mqtt-module/pkg/client/avro_schemas/dataSchema.avro
-
-	mkdir -p edgefarm/ads_schemas && cd edgefarm/ads_schemas && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/ads_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/temperature_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/gps_data.avsc && \
-	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/main/mvb_data.avsc
+	mkdir -p schemas && cd schemas && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/temperature_data.avsc && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/gps_data.avsc && \
+	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/mvb_data.avsc
 
 install_requirements:
 	pip3 install -r requirements.txt
