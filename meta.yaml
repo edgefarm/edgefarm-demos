@@ -1,0 +1,20 @@
+# ===================================================
+# meta infos
+# ===================================================
+
+meta:
+  project: edgefarm-demos
+  include:
+    - dobi.yaml
+    - GPS-demo/gps-to-ads-app/src/dobi.yaml
+    - train-simulation/edge/src/dobi.yaml
+    - version.yaml
+
+alias=build:
+  tasks:
+    - build-and-push-gps-to-ads-app
+    - build-and-push-train-simulator-edge-app
+  annotations:
+    description: "\t\t\t\t-> [alias] build (and push) all"
+    tags:
+      - alias
