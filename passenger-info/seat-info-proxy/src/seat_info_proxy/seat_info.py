@@ -1,28 +1,9 @@
-"""
-This is a skeleton file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-``[options.entry_points]`` section in ``setup.cfg``::
-
-    console_scripts =
-         fibonacci = seat_info_proxy.skeleton:run
-
-Then run ``pip install .`` (or ``pip install -e .`` for editable mode)
-which will install the command ``fibonacci`` inside your current environment.
-
-Besides console scripts, the header (i.e. until ``_logger``...) of this file can
-also be used as template for Python modules.
-
-Note:
-    This skeleton file can be safely removed if not needed!
-
-References:
-    - https://setuptools.readthedocs.io/en/latest/userguide/entry_point.html
-    - https://pip.pypa.io/en/stable/reference/pip_install
-"""
-
 import argparse
 import logging
 import sys
+from sqlalchemy import create_engine, MetaData, Table, select
+from db import config
+
 
 from seat_info_proxy import __version__
 
@@ -36,7 +17,7 @@ _logger = logging.getLogger(__name__)
 # ---- Python API ----
 # The functions defined in this section can be imported by users in their
 # Python scripts/interactive interpreter, e.g. via
-# `from seat_info_proxy.skeleton import fib`,
+# `from seat_info_proxy.seat_info import fib`,
 # when using this Python module as a library.
 
 
@@ -123,7 +104,22 @@ def main(args):
     args = parse_args(args)
     setup_logging(args.loglevel)
     _logger.debug("Starting crazy calculations...")
-    print("The {}-th Fibonacci number is {}".format(args.n, fib(args.n)))
+
+    engine = create_engine(config.DATABASE_URI)
+    connection = engine.connect()
+    metadata = MetaData()
+    seat_reservation = Table('seat_reservation', metadata, autoload=True, autoload_with=engine)
+    print(seat_reservation.columns.keys())
+    print(repr(metadata.tables['seat_reservation']))
+
+    #Equivalent to 'SELECT * FROM census'
+    query = select([seat_reservation])
+    ResultProxy = connection.execute(query)
+    ResultSet = ResultProxy.fetchall()
+    print(ResultSet[:3])
+
+
+    # print("The {}-th Fibonacci number is {}".format(args.n, fib(args.n)))
     _logger.info("Script ends here")
 
 
@@ -144,6 +140,6 @@ if __name__ == "__main__":
     # After installing your project with pip, users can also run your Python
     # modules as scripts via the ``-m`` flag, as defined in PEP 338::
     #
-    #     python -m seat_info_proxy.skeleton 42
+    #     python -m seat_info_proxy.seat_info 42
     #
     run()
