@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Commit of node-red.trainsim repository
-TRAINSIM_COMMIT="55175d378c71921a1e1ce0e391d2a7735d198b58"
+TRAINSIM_COMMIT="b4a68f144e33fba3b053ff92503e352426f2fdc8"
 REPOSITORY="node-red.trainsim"
 
 DIR=`pwd`
