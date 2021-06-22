@@ -11,7 +11,7 @@ import os
 
 if __name__ == "__main__":
     try:
-        setup(use_scm_version={"root": "../..",  # ADD THIS...
+        setup(use_scm_version={"root": "../../..",  # ADD THIS...
                        "relative_to": __file__,  # ... AND THAT!
                        "version_scheme": "no-guess-dev"})
     except:  # noqa
