@@ -1,9 +1,10 @@
 ---
 # Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see base.yaml)
-application: train-simulator
+application: seat-info-simulation
 modules:
-  - name: edge-demo
-    image: harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo:d825dc5
+  - name: seat-info-forwarder
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder@sha256:TBD
+    type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always

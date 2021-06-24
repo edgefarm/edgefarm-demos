@@ -3,17 +3,17 @@ application: base
 modules:
   - name: ads-node-module
     image: harbor.ci4rail.com/edgefarm/ads-node-module:0.1.0-9.Branch.main.Sha.0e4f2e736b64fc1c69b5479743ee89580bdcf3fe
-    createOptions: '{}'
+    createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
     status: running
     startupOrder: 1
   - name: alm-mqtt-module
     image: harbor.ci4rail.com/edgefarm/alm-mqtt-module:0.1.0-37.Branch.main.Sha.a5242c288275e173efdfc6ed42c542cdd835870a
-    createOptions: '{}'
+    createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
     status: running
     startupOrder: 1
     envs:
-      MQTT_SERVER: mosquitto.default.svc.cluster.local:1883
+      MQTT_SERVER: <IP>:1883

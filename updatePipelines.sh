@@ -10,6 +10,7 @@ IMAGES=(
   gps-to-ads-app
   train-simulator-edge-app
   fleet-seatinfo-monitor
+  seat-info-forwarder
   )
 
 CONTEXTS=(
@@ -17,6 +18,7 @@ CONTEXTS=(
   train-simulation/edge/src
   train-simulation/monitoring/seat-reservation/fleet-seat-info-monitor
   train-simulation/monitoring/seat-reservation/train-seat-info-monitor
+  train-simulation/passenger-info/seat-info-forwarder
 )
 
 for i in "${!IMAGES[@]}"; do

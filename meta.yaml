@@ -10,6 +10,7 @@ meta:
     - train-simulation/edge/src/dobi.yaml
     - train-simulation/monitoring/seat-reservation/fleet-seat-info-monitor/dobi.yaml
     - train-simulation/monitoring/seat-reservation/train-seat-info-monitor/dobi.yaml
+    - train-simulation/passenger-info/seat-info-forwarder/dobi.yaml
     - version.yaml
 
 alias=build:
@@ -18,6 +19,7 @@ alias=build:
     - build-and-push-train-simulator-edge-app
     - build-and-push-fleet-seat-info-monitor
     - build-and-push-train-seat-info-monitor
+    - build-and-push-seat-info-forwarder
   annotations:
     description: "\t\t\t\t-> [alias] build (and push) all"
     tags:
