@@ -9,10 +9,11 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
 import os.path
 
+from db import config, models
+
 from seat_info_proxy import __version__
 
-from db import config
-from db import models
+import yaml
 
 __author__ = "Florian Reinhold"
 __copyright__ = "Ci4Rail GmbH"
@@ -69,9 +70,9 @@ def parse_args(args):
         "--file",
         dest="filename",
         required=True,
-        help="input csv",
-        metavar="FILE",
-        type=lambda x: is_valid_file(parser, x)
+        help="input yaml"
+        # metavar="FILE",
+        # type=lambda x: is_valid_file(parser, x)
     )
 
     return parser.parse_args(args)
@@ -122,20 +123,24 @@ def main(args):
     _logger.info("(Re-)creating table...")
     models.SeatReservation.__table__.create(engine)
 
+    _logger.info("Loading json...")
+    with open(args.filename, 'r') as stream:
+        try:
+            data = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            _logger.error(exc)
+
     try:
-
-        _logger.info("Loading csv...")
-        file_name = args.filename
-        data = genfromtxt(file_name, delimiter=';', skip_header=1, converters={0: lambda s: str(s)}).tolist()
-
         _logger.info("Creating Records...")
         for i in data:
             record = models.SeatReservation(**{
-                'trainid' : i[0],
-                'seatid' : i[1],
-                'startstation' : i[2],
-                'endstation' : i[3],
+                'trainid' : i["trainid"],
+                'seatid' : i["seatid"],
+                'startstation' : i["startstation"],
+                'endstation' : i["endstation"]
             })
+            print(record)
+
             s.add(record) #Add all the records
         _logger.info("Attempt to commit all the records...")
         s.commit()
@@ -147,19 +152,6 @@ def main(args):
         s.close() #Close the connection
 
     _logger.info("Done!")
-
-    # engine = create_engine(DATABASE_URI)
-    # connection = engine.connect()
-    # metadata = MetaData()
-    # seat_reservation = Table('seat_reservation', metadata, autoload=True, autoload_with=engine)
-    # print(seat_reservation.columns.keys())
-    # print(repr(metadata.tables['seat_reservation']))
-
-    # #Equivalent to 'SELECT * FROM census'
-    # query = select([seat_reservation])
-    # ResultProxy = connection.execute(query)
-    # ResultSet = ResultProxy.fetchall()
-    # print(ResultSet[:3])
 
 
 def run():

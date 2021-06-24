@@ -30,11 +30,11 @@
                         }
                     },
                     {
-                        "name": "vehicleId",
+                        "name": "trainId",
                         "type": "string"
                     },
                     {
-                        "name": "systemName",
+                        "name": "source",
                         "type": "string"
                     },
                     {

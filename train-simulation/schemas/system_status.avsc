@@ -30,7 +30,7 @@
                         }
                     },
                     {
-                        "name": "vehicleId",
+                        "name": "trainId",
                         "type": "string"
                     },
                     {
