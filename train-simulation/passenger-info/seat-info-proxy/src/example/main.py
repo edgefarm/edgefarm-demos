@@ -67,11 +67,11 @@ async def main(args):
     _seat_info_request_codec = schema_loader.schema_load(__file__, "seat_info_request")
     _seat_info_response_codec = schema_loader.schema_load(__file__, "seat_info_response")
 
-    nats_server = os.getenv("NATS_SERVER", "nats:4222")
+    nats_server = os.getenv("NATS_SERVER", "nats://localhost:4222")
 
     nc = NATS()
 
-    await nc.connect(servers=["nats://localhost:4222"])
+    await nc.connect(servers=[nats_server])
 
     for i in range(5):
 

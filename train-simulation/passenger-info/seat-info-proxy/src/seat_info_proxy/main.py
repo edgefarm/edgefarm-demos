@@ -12,7 +12,6 @@ import edgefarm_application as ef
 from seat_info_proxy_service import SeatInfoProxyService
 
 import cache
-import config
 
 __author__ = "Florian Reinhold"
 __copyright__ = "Ci4Rail GmbH"
@@ -22,7 +21,7 @@ _logger = logging.getLogger(__name__)
 
 def parse_args(args):
 
-    parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
+    parser = argparse.ArgumentParser(description="Seat information proxy")
     parser.add_argument(
         "-v",
         "--verbose",
@@ -56,7 +55,9 @@ async def main(args):
 
     loop = asyncio.get_event_loop()
 
-    cache.init(config.DATABASE_URI,'sqlite:///:memory:')
+    database_uri = os.getenv("DATABASE_URI", "sqlite:///seatinfos.db")
+
+    cache.init(database_uri,'sqlite:///:memory:')
 
     # Initialize EdgeFarm SDK
     if os.getenv("IOTEDGE_MODULEID") is not None:
@@ -85,7 +86,7 @@ async def main(args):
             break
 
     print("Shutting down...")
-    await seat_info_proxy_service.stop()
+    seat_info_proxy_service.stop()
     await ef.application_module_term()
 
 

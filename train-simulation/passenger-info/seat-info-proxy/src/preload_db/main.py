@@ -1,12 +1,13 @@
 import argparse
 import logging
 import sys
+import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError, OperationalError
 
-import config, models
+import models
 
 from seat_info_proxy import __version__
 
@@ -72,8 +73,10 @@ def main(args):
     setup_logging(args.loglevel)
     _logger.debug("Starting preloading db...")
 
+    database_uri = os.getenv("DATABASE_URI", "sqlite:///seatinfos.db")
+
     # Connect to db
-    engine = create_engine(config.DATABASE_URI)
+    engine = create_engine(database_uri)
 
     # Create the session
     session = sessionmaker()
