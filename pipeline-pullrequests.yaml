@@ -35,6 +35,12 @@ resources:
       repository: elbb/bb-gitversion
       tag: 0.8.3
 
+  - name: image-busybox
+    type: docker-image
+    source:
+      repository: busybox
+      tag: 1.33.0
+
 jobs:
   - name: build
     plan:
@@ -49,6 +55,7 @@ jobs:
 
       - in_parallel:
           - get: image-bb-gitversion-tool
+          - get: image-busybox
 
       - task: generate-version
         image: image-bb-gitversion-tool
@@ -72,10 +79,27 @@ jobs:
             DEFAULT_BRANCH: ((git_default_branch))
             GIT_BRANCH: ((git_default_branch))
 
+      - task: generate-build-args-for-images
+        image: image-busybox
+        config:
+          platform: linux
+          inputs:
+            - name: gitversion
+          outputs:
+            - name: build-args
+          run:
+            path: /bin/sh
+            args:
+              - -ec
+              - |
+                ROOT=$(pwd)
+                echo {\"VERSION\":\"$(cat gitversion/plain/Sha)\"} > build-args/build-args
+
       - put: image-((docker-image-basename))-dev
         params:
           build: pull-request/((docker-context))
           buildx_platforms: "linux/amd64,linux/arm64"
+          build_args_file: build-args/build-args
           latest: false
           tag_file: gitversion/plain/ShortSha
         on_failure:
