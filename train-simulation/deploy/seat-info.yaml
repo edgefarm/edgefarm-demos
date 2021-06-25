@@ -3,7 +3,7 @@
 application: seat-info-simulation
 modules:
   - name: seat-info-forwarder
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder@sha256:TBD
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:384f16e
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
