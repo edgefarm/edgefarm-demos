@@ -5,7 +5,7 @@ from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.schema import DropTable, CreateTable
-from db import models
+import models
 import logging
 
 from sqlalchemy.sql.expression import update
@@ -54,25 +54,5 @@ def sync():
 
     global _update
     _update = datetime.now()
-    return _update
     _logger.debug("cache syncronized.")
-
-    # # Clear table
-    # # DestSession().query(models.SeatReservation).delete()
-
-    # # Take a full copy
-    # query = SourceSession().query(models.SeatReservation).all()
-    # for row in query:
-    #     _logger.info(row)
-    #     sr = models.SeatReservation(id = row.id, trainid = row.trainid, seatid = row.seatid, startstation = row.startstation, endstation = row.endstation)
-    #     DestSession().add(sr)
-
-    # # commit changes to destination db
-    # DestSession().commit()
-
-    # result = DestSession().query(models.SeatReservation).all()
-    # _logger.info(len(result))
-    # for row in result:
-    #     _logger.info("id: ",row.id, "trainid:",row.trainid, "startstation:",row.startstation)
-
-
+    return _update

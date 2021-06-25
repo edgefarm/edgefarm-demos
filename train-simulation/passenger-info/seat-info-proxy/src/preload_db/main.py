@@ -2,14 +2,11 @@ import argparse
 import logging
 import sys
 
-from numpy import genfromtxt
-from time import time
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import ProgrammingError
-import os.path
+from sqlalchemy.exc import ProgrammingError, OperationalError
 
-from db import config, models
+import config, models
 
 from seat_info_proxy import __version__
 
@@ -21,27 +18,8 @@ __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
 
-def is_valid_file(parser, arg):
-    if not os.path.exists(arg):
-        parser.error("The file %s does not exist!" % arg)
-    else:
-        return open(arg, 'r')  # return an open file handle
-
-# ---- CLI ----
-# The functions defined in this section are wrappers around the main Python
-# API allowing them to be called directly from the terminal as a CLI
-# executable/script.
-
 def parse_args(args):
-    """Parse command line parameters
 
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--help"]``).
-
-    Returns:
-      :obj:`argparse.Namespace`: command line parameters namespace
-    """
     parser = argparse.ArgumentParser(description="Preload DB with seat reservation data")
     parser.add_argument(
         "--version",
@@ -71,8 +49,6 @@ def parse_args(args):
         dest="filename",
         required=True,
         help="input yaml"
-        # metavar="FILE",
-        # type=lambda x: is_valid_file(parser, x)
     )
 
     return parser.parse_args(args)
@@ -91,15 +67,7 @@ def setup_logging(loglevel):
 
 
 def main(args):
-    """Wrapper allowing :func:`fib` to be called with string arguments in a CLI fashion
 
-    Instead of returning the value from :func:`fib`, it prints the result to the
-    ``stdout`` in a nicely formatted message.
-
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--verbose", "42"]``).
-    """
     args = parse_args(args)
     setup_logging(args.loglevel)
     _logger.debug("Starting preloading db...")
@@ -118,6 +86,9 @@ def main(args):
         models.SeatReservation.__table__.drop(engine)
     except ProgrammingError:
         _logger.info("No table to clean up")
+    except OperationalError:
+        _logger.info("No table to clean up")
+
 
     # Create Table
     _logger.info("(Re-)creating table...")
