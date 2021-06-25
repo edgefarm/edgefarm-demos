@@ -19,6 +19,7 @@ __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
 
+
 def parse_args(args):
 
     parser = argparse.ArgumentParser(description="Seat information proxy")
@@ -40,12 +41,14 @@ def parse_args(args):
     )
     return parser.parse_args(args)
 
+
 def setup_logging(loglevel):
 
     logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
     logging.basicConfig(
         level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
     )
+
 
 async def main(args):
 
@@ -57,7 +60,7 @@ async def main(args):
 
     database_uri = os.getenv("DATABASE_URI", "sqlite:///seatinfos.db")
 
-    cache.init(database_uri,'sqlite:///:memory:')
+    cache.init(database_uri, "sqlite:///:memory:")
 
     # Initialize EdgeFarm SDK
     if os.getenv("IOTEDGE_MODULEID") is not None:
@@ -92,6 +95,7 @@ async def main(args):
 
 def run():
     asyncio.run(main(sys.argv[1:]))
+
 
 if __name__ == "__main__":
     run()

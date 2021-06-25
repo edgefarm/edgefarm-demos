@@ -7,8 +7,8 @@ import json
 from edgefarm_application.base.application_module import application_module_network_nats
 import edgefarm_application as ef
 from edgefarm_application.base.avro import schemaless_decode
-from edgefarm_application.base.schema import schema_load_builtin
 from edgefarm_application.base.avro import schemaless_encode
+from schema_loader import schema_load
 
 
 # enable use of mqtt client and nats connection in seat_info_request_handler
@@ -17,7 +17,8 @@ nc = None
 
 mqtt_req_topic = "pis/req/seatRes"
 mqtt_res_topic = "pis/res/seatRes"
-nats_subject = "pis.seatRes"
+# nats subject needs to start with `public.` to enable access to clound module
+nats_subject = "public.pis.seatRes"
 
 
 async def seat_info_request_handler(msg):
@@ -26,12 +27,12 @@ async def seat_info_request_handler(msg):
     msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
     a string containing the train ID.
 
-    This example encodes the data it into an seat-info-request avro message (see `../schemas/seat-info-request.avsc`).
-    The message is transmitted via nats request reply to the cloud module, which responses with a seat-info-response avro message (see `../schemas/seat-info-response.avsc`).
+    This example encodes the data it into an seat_info_request avro message (see `../schemas/seat_info_request.avsc`).
+    The message is transmitted via nats request reply to the cloud module, which responses with a seat_info_response avro message (see `../schemas/seat_info_response.avsc`).
     The received data contains the reserved seats and is replied to the MQTT topic `pis/res/seatRes`.
     """
 
-    # Generate payload with "seat-info-request" schema
+    # Generate payload with "seat_info_request" schema
     train = msg["payload"].decode("utf-8")
     print("Train ID: " + train)
 
@@ -42,29 +43,34 @@ async def seat_info_request_handler(msg):
     # Pass request to clound module
     try:
         response = await nc.request(
-            nats_subject, schemaless_encode(seat_info_request, schema_load_builtin(
-                __file__, "schemas/seat-info-request"
-            )), timeout=2
+            nats_subject,
+            schemaless_encode(
+                seat_info_request, schema_load(__file__, "seat_info_request")
+            ),
+            timeout=2,
         )
+
+        m = schemaless_decode(
+            response.data, schema_load(__file__, "seat_info_response")
+        )
+        seat_reservations = []
+        for seat_info in m["seatReservations"]:
+            seat_reservations.append(
+                {
+                    "id": seat_info["id"],
+                    "startStation": seat_info["startStation"],
+                    "endStation": seat_info["endStation"],
+                }
+            )
+
+        print("Seat reservations received:")
+        print(seat_reservations)
+
+        # Send seat reservations response
+        json_dump = json.dumps(seat_reservations).encode()
+        await mqtt_client.publish(mqtt_res_topic, json_dump)
     except (NatsError.NatsError, NatsError.ErrTimeout) as e:
         print("error: " + str(e))
-
-    m = schemaless_decode(response.data, schema_load_builtin(
-        __file__, "schemas/seat-info-response"
-    ))
-
-    seat_reservations = []
-    for seat_info in m["seatReservations"]:
-        seat_reservations.append({"id": seat_info["id"],
-                                  "startStation": seat_info["startStation"],
-                                  "endStation": seat_info["endStation"]})
-
-    print("Seat reservations received:")
-    print(seat_reservations)
-
-    # Send seat reservations response
-    json_dump = json.dumps(seat_reservations).encode()
-    await mqtt_client.publish(mqtt_res_topic, json_dump)
 
 
 async def main():

@@ -1,6 +1,6 @@
 FROM python:3.9.4-slim-buster AS builder
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y --no-install-recommends make gcc curl build-essential
+RUN apt-get update && apt-get install -y --no-install-recommends make gcc curl build-essential libpq-dev
 WORKDIR /project
 COPY . /project
 RUN make install_requirements

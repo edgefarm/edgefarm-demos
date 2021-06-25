@@ -1,20 +1,16 @@
 from datetime import datetime
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy import Column, Integer, String, Table
-from sqlalchemy.exc import OperationalError, ProgrammingError
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.schema import DropTable, CreateTable
+from sqlalchemy import create_engine
+from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm import Session
 import models
 import logging
 
-from sqlalchemy.sql.expression import update
 
 _logger = logging.getLogger(__name__)
 _update = None
 
 # Session to the database to query the data from
-SourceSession = None
+# SourceSession = None
 source_engine = None
 
 # Session to the database to store the cache in
@@ -27,10 +23,10 @@ def init(source_db_uri, dest_db_uri):
 
     global SourceSession, DestSession, source_engine, dest_engine
     source_engine = create_engine(source_db_uri, echo=True)
-    SourceSession = sessionmaker(source_engine)
+    # SourceSession = sessionmaker(source_engine)
 
     dest_engine = create_engine(dest_db_uri, echo=True)
-    DestSession = sessionmaker(dest_engine)
+    # DestSession = sessionmaker(dest_engine)
 
     _logger.info("Cleanup cache...")
     try:
@@ -45,7 +41,13 @@ def init(source_db_uri, dest_db_uri):
 
 def get(trainid):
 
-    query = SourceSession().query(models.SeatReservation).filter(models.SeatReservation.trainid == trainid)
+    query = None
+
+    with Session(source_engine) as session:
+        query = session.query(models.SeatReservation).filter(
+            models.SeatReservation.trainid == trainid
+        )
+
     return query
 
 

@@ -1,7 +1,7 @@
 # ===================================================
 # jobs
 # ===================================================
-job=build-and-push-seat-info-forwarder:
+job=build-and-push-seat-info-proxy:
   use: dind-buildx
   depends: [install-qemu-user-static]
   provide-docker: true
@@ -10,9 +10,9 @@ job=build-and-push-seat-info-forwarder:
     - mount-docker-config
   interactive: true
   command:
-    sh -c "cd /project/train-simulation/passenger-info/seat-info-forwarder;
+    sh -c "cd /project/train-simulation/passenger-info/seat-info-proxy;
     name=$(docker buildx create --use);
-    docker buildx build --push --platform linux/arm64,linux/amd64 --build-arg VERSION=${VERSION} --tag ${DOCKER_REGISTRY}/seat-info-forwarder:${VERSION} .;
+    docker buildx build --push --platform linux/arm64,linux/amd64 --build-arg VERSION=${VERSION} --tag ${DOCKER_REGISTRY}/seat-info-proxy:${VERSION} .;
     docker kill buildx_buildkit_${name}0;
     docker rm buildx_buildkit_${name}0"
   env:
@@ -20,4 +20,4 @@ job=build-and-push-seat-info-forwarder:
     - VERSION={env.GitVersion_ShortSha}
     - DOCKER_REGISTRY={env.DOCKER_REGISTRY}
   annotations:
-    description: "\t\t-> builds and pushes seat-info-forwarder docker image"
+    description: "\t\t-> builds and pushes seat-info-proxy docker image"

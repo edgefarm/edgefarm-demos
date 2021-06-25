@@ -14,34 +14,31 @@ nats_topic = "pis.seatRes"
 
 
 async def nats_handler(msg):
-    """Receive nats messages here.
-    """
+    """Receive nats messages here."""
 
     # Decode received message
-    seat_info_request = schemaless_decode(msg.data, schema_load_builtin(
-        __file__, "../schemas/seat-info-request"
-    ))
+    seat_info_request = schemaless_decode(
+        msg.data, schema_load_builtin(__file__, "../schemas/seat_info_request")
+    )
 
     train = seat_info_request["train"]
     print("Train ID: " + train)
 
     # Prepare seat info data
-    seat_info_response = {"seatReservations": [{"id": 0,
-                                                "startStation": "Nürnberg",
-                                                "endStation": "München"},
-                                               {"id": 2,
-                                                "startStation": "Erlangen",
-                                                "endStation": "Frankf."},
-                                               {"id": 5,
-                                                "startStation": "Köln",
-                                                "endStation": "Berlin"}]
-                          }
+    seat_info_response = {
+        "seatReservations": [
+            {"id": 0, "startStation": "Nürnberg", "endStation": "München"},
+            {"id": 2, "startStation": "Erlangen", "endStation": "Frankf."},
+            {"id": 5, "startStation": "Köln", "endStation": "Berlin"},
+        ]
+    }
 
     print("Seat Info: " + str(seat_info_response))
 
-    resp_byte = schemaless_encode(seat_info_response, schema_load_builtin(
-        __file__, "../schemas/seat-info-response"
-    ))
+    resp_byte = schemaless_encode(
+        seat_info_response,
+        schema_load_builtin(__file__, "../schemas/seat_info_response"),
+    )
 
     # Reply seat info data
     await nc.publish(msg.reply, resp_byte)

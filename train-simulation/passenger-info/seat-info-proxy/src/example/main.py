@@ -3,14 +3,13 @@ import logging
 import sys
 import os
 import time
+import asyncio
 
-from nats import *
+from nats import *  # noqa
 
 from edgefarm_application.base.avro import schemaless_decode, schemaless_encode
 
 import schema_loader
-
-from seat_info_proxy import __version__
 
 __author__ = "Florian Reinhold"
 __copyright__ = "Ci4Rail GmbH"
@@ -18,13 +17,11 @@ __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
 
+
 def parse_args(args):
 
-    parser = argparse.ArgumentParser(description="Preload DB with seat reservation data")
-    parser.add_argument(
-        "--version",
-        action="version",
-        version="seat-info-proxy {ver}".format(ver=__version__),
+    parser = argparse.ArgumentParser(
+        description="Preload DB with seat reservation data"
     )
     parser.add_argument(
         "-v",
@@ -65,11 +62,13 @@ async def main(args):
 
     _timestamp_codec = schema_loader.schema_load(__file__, "timestamp")
     _seat_info_request_codec = schema_loader.schema_load(__file__, "seat_info_request")
-    _seat_info_response_codec = schema_loader.schema_load(__file__, "seat_info_response")
+    _seat_info_response_codec = schema_loader.schema_load(
+        __file__, "seat_info_response"
+    )
 
     nats_server = os.getenv("NATS_SERVER", "nats://localhost:4222")
 
-    nc = NATS()
+    nc = NATS()  # noqa
 
     await nc.connect(servers=[nats_server])
 
@@ -77,7 +76,7 @@ async def main(args):
 
         # get update timestamp
         try:
-            msg = await nc.request("seat_info_proxy.data_timestamp", b'', timeout=1)
+            msg = await nc.request("seat_info_proxy.data_timestamp", b"", timeout=1)
             # Use the response
             data = schemaless_decode(msg.data, _timestamp_codec)
             print("sync time:", data["data"]["time"])
@@ -101,6 +100,7 @@ async def main(args):
 
 def run():
     asyncio.run(main(sys.argv[1:]))
+
 
 if __name__ == "__main__":
     run()

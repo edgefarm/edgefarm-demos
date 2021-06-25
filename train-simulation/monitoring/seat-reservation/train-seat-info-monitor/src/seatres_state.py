@@ -31,9 +31,7 @@ class SeatResStateReporter:
         self._train_id_func = train_id_func
         self._nc = application_module_network_nats()
         self._task = asyncio.create_task(run_task(_logger, q, self._reporter))
-        self._status_codec = schema_load_builtin(
-            __file__, "../../../schemas/system_status"
-        )
+        self._status_codec = schema_load(__file__, "system_status")
 
     def stop(self):
         self._task.cancel()
@@ -45,10 +43,10 @@ class SeatResStateReporter:
             return (
                 1
                 if self._pis_monitor.state_tracker_online.state is True
-                and self._pis_monitor.state_tracker_seat_res_data_fresh.state
-                is True  # noqa W504
-                and self._pis_monitor.state_tracker_pis_no_error.state
-                is True  # noqa W504
+                and self._pis_monitor.state_tracker_seat_res_data_fresh.state  # noqa W504
+                is True
+                and self._pis_monitor.state_tracker_pis_no_error.state  # noqa W504
+                is True
                 else 0
             )
 
