@@ -49,35 +49,22 @@ class SeatInfoProxyService:
         await self._nc.subscribe(_proxy_status_subject, cb=self._handle_req_status)
         await self._nc.subscribe(_proxy_data_subject, cb=self._handle_req_data)
         while True:
-            self._sync = cache.sync()
+            self._sync = await cache.sync()
             await asyncio.sleep(SYNC_RATE)
 
     async def _handle_req_data(self, msg):
-        async with self._lock:
-            _logger.debug("request appinfos received")
-            request = schemaless_decode(msg.data, self._seat_info_request_codec)
-            trainid = request["train"]
+        _logger.debug("request appinfos received")
+        request = schemaless_decode(msg.data, self._seat_info_request_codec)
+        trainid = request["train"]
+        result = await cache.get(trainid)
 
-            result = cache.get(trainid)
+        # Prepare seat info data
+        reservations = []
+        for row in result:
+            reservations.append({"id": row.seatid, "startStation": row.startstation, "endStation": row.endstation})
 
-            # Prepare seat info data
-            reservations = []
-            for row in result:
-
-                if row.startstation is not None and row.endstation is not None:
-                    reservations.append(
-                        {
-                            "id": row.seatid,
-                            "startStation": row.startstation,
-                            "endStation": row.endstation,
-                        }
-                    )
-
-            seat_info_response = {"seatReservations": reservations}
-            await self._nc.publish(
-                msg.reply,
-                schemaless_encode(seat_info_response, self._seat_info_response_codec),
-            )
+        seat_info_response = {"seatReservations": reservations}
+        await self._nc.publish(msg.reply, schemaless_encode(seat_info_response, self._seat_info_response_codec))
 
     async def _handle_req_status(self, msg):
         _logger.debug("request status received")

@@ -72,7 +72,7 @@ async def main(args):
 
     await nc.connect(servers=[nats_server])
 
-    for i in range(5):
+    for i in range(100):
 
         # get update timestamp
         try:
@@ -93,7 +93,7 @@ async def main(args):
             print("reservation data: \n", data)
         except asyncio.TimeoutError:
             print("Timed out waiting for response")
-        time.sleep(2)
+        time.sleep(.1)
 
     _logger.info("Done!")
 
