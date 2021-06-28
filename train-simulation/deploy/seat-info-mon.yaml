@@ -3,7 +3,7 @@
 application: seat-info-monitoring
 modules:
   - name: train-seat-info-monitor
-    image: harbor.ci4rail.com/edgefarm-dev/train-seat-info-monitor:a94af81
+    image: harbor.ci4rail.com/edgefarm-dev/train-seat-info-monitor:3a5a797
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
