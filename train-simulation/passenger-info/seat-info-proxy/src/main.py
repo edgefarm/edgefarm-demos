@@ -60,7 +60,7 @@ async def main(args):
 
     database_uri = os.getenv("DATABASE_URI", "sqlite:///seatinfos.db")
 
-    await cache.init(database_uri,'sqlite:///:memory:')
+    await cache.init(database_uri, "sqlite:///:memory:")
 
     # Initialize EdgeFarm SDK
     if os.getenv("IOTEDGE_MODULEID") is not None:

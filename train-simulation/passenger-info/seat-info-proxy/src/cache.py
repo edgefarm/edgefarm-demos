@@ -1,6 +1,5 @@
 from datetime import datetime
 from sqlalchemy import select
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import create_async_engine
 
 import models
@@ -33,7 +32,11 @@ async def get(trainid):
 
         # select a Result, which will be delivered with buffered
         # results
-        result = await conn.execute(select(models.SeatReservation).where(models.SeatReservation.trainid == trainid))
+        result = await conn.execute(
+            select(models.SeatReservation).where(
+                models.SeatReservation.trainid == trainid
+            )
+        )
         r = result.fetchall()
         logging.debug(r)
         return r
