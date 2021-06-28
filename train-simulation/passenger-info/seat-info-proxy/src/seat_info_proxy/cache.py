@@ -1,7 +1,8 @@
 from datetime import datetime
-from sqlalchemy import create_engine
-from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm import Session
+from sqlalchemy import select
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine
+
 import models
 import logging
 
@@ -14,45 +15,32 @@ _update = None
 source_engine = None
 
 # Session to the database to store the cache in
-DestSession = None
-dest_engine = None
+# DestSession = None
+# dest_engine = None
 
 
 # Init database connections 'sqlite:///:memory:'
-def init(source_db_uri, dest_db_uri):
+async def init(source_db_uri, dest_db_uri):
 
-    global SourceSession, DestSession, source_engine, dest_engine
-    source_engine = create_engine(source_db_uri, echo=True)
-    # SourceSession = sessionmaker(source_engine)
-
-    dest_engine = create_engine(dest_db_uri, echo=True)
-    # DestSession = sessionmaker(dest_engine)
-
-    _logger.info("Cleanup cache...")
-    try:
-        models.SeatReservation.__table__.drop(dest_engine)
-    except OperationalError:
-        _logger.info("No cache to clean up")
-
-    # Create Table
-    _logger.info("(Re-)creating cache...")
-    models.SeatReservation.__table__.create(dest_engine)
+    # global SourceSession, DestSession, source_engine, dest_engine
+    global source_engine
+    source_engine = create_async_engine(source_db_uri, echo=True)
 
 
-def get(trainid):
+async def get(trainid):
 
-    query = None
+    async with source_engine.connect() as conn:
 
-    with Session(source_engine) as session:
-        query = session.query(models.SeatReservation).filter(
-            models.SeatReservation.trainid == trainid
-        )
-
-    return query
+        # select a Result, which will be delivered with buffered
+        # results
+        result = await conn.execute(select(models.SeatReservation).where(models.SeatReservation.trainid == trainid))
+        r = result.fetchall()
+        logging.debug(r)
+        return r
 
 
 # Sync source and destination db seatreservation tables
-def sync():
+async def sync():
 
     global _update
     _update = datetime.now()
