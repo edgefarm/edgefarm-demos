@@ -14,6 +14,7 @@ COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python
 ARG VERSION
 ADD https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/train-simulation/schemas/seat_info_request.avsc \
     https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/train-simulation/schemas/seat_info_response.avsc \
+    https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/train-simulation/schemas/timestamp.avsc \
     /app/schemas/
 
 ENV SCHEMA_PATH=/app/schemas
