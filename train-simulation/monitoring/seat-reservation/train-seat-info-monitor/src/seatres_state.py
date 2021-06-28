@@ -45,7 +45,7 @@ class SeatResStateReporter:
                 if self._pis_monitor.state_tracker_online.state is True
                 and self._pis_monitor.state_tracker_seat_res_data_fresh.state  # noqa W504
                 is True
-                and self._pis_monitor.state_tracker_pis_no_error.state  # noqa W504
+                and self._pis_monitor.state_tracker_pis_errors.state  # noqa W504
                 is True
                 else 0
             )
