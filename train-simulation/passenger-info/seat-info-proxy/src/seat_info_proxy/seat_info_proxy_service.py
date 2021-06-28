@@ -61,10 +61,20 @@ class SeatInfoProxyService:
         # Prepare seat info data
         reservations = []
         for row in result:
-            reservations.append({"id": row.seatid, "startStation": row.startstation, "endStation": row.endstation})
+            if row.startstation is not None and row.endstation is not None:
+                reservations.append(
+                    {
+                        "id": row.seatid,
+                        "startStation": row.startstation,
+                        "endStation": row.endstation,
+                    }
+                )
 
         seat_info_response = {"seatReservations": reservations}
-        await self._nc.publish(msg.reply, schemaless_encode(seat_info_response, self._seat_info_response_codec))
+        await self._nc.publish(
+            msg.reply,
+            schemaless_encode(seat_info_response, self._seat_info_response_codec),
+        )
 
     async def _handle_req_status(self, msg):
         _logger.debug("request status received")
