@@ -9,11 +9,26 @@ modules:
     status: running
     startupOrder: 1
   - name: alm-mqtt-module
-    image: harbor.ci4rail.com/edgefarm/alm-mqtt-module:0.1.0-37.Branch.main.Sha.a5242c288275e173efdfc6ed42c542cdd835870a
+    image: harbor.ci4rail.com/edgefarm-dev/alm-mqtt-module:7829ba9
+    type: edge
+    labelSelector:
+      mqtt: k8s
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
     status: running
     startupOrder: 1
     envs:
-      MQTT_SERVER: <IP>:1883
+      MQTT_SERVER: <IP1>:1883
+  - name: alm-mqtt-module
+    image: harbor.ci4rail.com/edgefarm-dev/alm-mqtt-module:7829ba9
+    type: edge
+    labelSelector:
+      mqtt: croco
+    createOptions: "{}"
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+    envs:
+      MQTT_SERVER: <IP2>:1883

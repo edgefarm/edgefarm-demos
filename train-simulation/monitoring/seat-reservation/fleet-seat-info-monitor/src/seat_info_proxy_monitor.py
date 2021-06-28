@@ -50,11 +50,12 @@ class SeatInfoProxyMonitor:
         while True:
             try:
                 avro_response = await self._nc.request(_proxy_subject, b"", timeout=2)
-                response = schemaless_decode(avro_response, self._timestamp_codec)
+                response = schemaless_decode(avro_response.data, self._timestamp_codec)
                 _logger.debug(f"response from proxy {response}")
 
                 ts = response["data"]["time"]
-                if (datetime.datetime.now() - ts).total_seconds() > FRESHNESS_TIMEOUT:
+                now = datetime.datetime.now(datetime.timezone.utc)
+                if (now - ts).total_seconds() > FRESHNESS_TIMEOUT:
                     await self._state.update_and_send_event(
                         "OUTDATED", self._send_event
                     )

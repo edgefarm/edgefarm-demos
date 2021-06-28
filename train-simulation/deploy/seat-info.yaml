@@ -3,10 +3,14 @@
 application: seat-info-simulation
 modules:
   - name: seat-info-forwarder
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:384f16e
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:a3fdfce
     type: edge
-    createOptions: "{}"
-    imagePullPolicy: on-create
-    restartPolicy: always
-    status: running
-    startupOrder: 1
+  - name: seat-info-proxy
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-proxy:????
+    type: edge
+  - name: train-seat-info-monitor
+    image: harbor.ci4rail.com/edgefarm-dev/train-seat-info-monitor:698ce63
+    type: edge
+  - name: cloud-seat-info-monitor
+    image: harbor.ci4rail.com/edgefarm-dev/fleet-seat-info-monitor:a3fdfce
+    type: cloud
