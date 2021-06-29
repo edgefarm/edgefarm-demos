@@ -1,0 +1,6 @@
+# Ignore everything in node-red folder
+node-red/*
+
+# But not these files...
+!node-red/settings.js
+!node-red/entrypoint.sh
