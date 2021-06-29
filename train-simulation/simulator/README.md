@@ -16,3 +16,5 @@ docker-compose up -d
 Next go to Node-Red's web UI [http://localhost:1880](http://localhost:1880) to start and modify the simulation.
 
 You also can view the dashboard for the simulation [http://localhost:1880/ui](http://localhost:1880/ui)
+
+> Note: Get latest version of docker-compose for ARM from [github](https://github.com/linuxserver/docker-docker-compose/releases).
