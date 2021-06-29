@@ -1,0 +1,12 @@
+
+{
+    "type": "record",
+    "name": "passenger-info.seat-info.request",
+    "doc": "Request seat info for the passed train",
+    "fields": [
+        {
+            "name": "train",
+            "type": "string"
+        }
+    ]
+}

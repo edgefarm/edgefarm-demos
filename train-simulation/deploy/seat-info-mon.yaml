@@ -1,0 +1,20 @@
+---
+# Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see base.yaml)
+application: seat-info-monitoring
+modules:
+  - name: train-seat-info-monitor
+    image: harbor.ci4rail.com/edgefarm-dev/train-seat-info-monitor:3a5a797
+    type: edge
+    createOptions: "{}"
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+  - name: cloud-seat-info-monitor
+    image: harbor.ci4rail.com/edgefarm-dev/fleet-seat-info-monitor:a94af81
+    type: cloud
+    createOptions: "{}"
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1

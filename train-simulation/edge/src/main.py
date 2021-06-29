@@ -107,6 +107,6 @@ if __name__ == "__main__":
     logging.basicConfig(
         level=os.environ.get('LOGLEVEL', 'INFO').upper(),
         format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-        datefmt="%m-%d %H:%M",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     asyncio.run(main())

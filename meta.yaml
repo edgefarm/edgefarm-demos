@@ -8,12 +8,20 @@ meta:
     - dobi.yaml
     - GPS-demo/gps-to-ads-app/src/dobi.yaml
     - train-simulation/edge/src/dobi.yaml
+    - train-simulation/monitoring/seat-reservation/fleet-seat-info-monitor/dobi.yaml
+    - train-simulation/monitoring/seat-reservation/train-seat-info-monitor/dobi.yaml
+    - train-simulation/passenger-info/seat-info-forwarder/dobi.yaml
+    - train-simulation/passenger-info/seat-info-proxy/dobi.yaml
     - version.yaml
 
 alias=build:
   tasks:
     - build-and-push-gps-to-ads-app
     - build-and-push-train-simulator-edge-app
+    - build-and-push-fleet-seat-info-monitor
+    - build-and-push-train-seat-info-monitor
+    - build-and-push-seat-info-forwarder
+    - build-and-push-seat-info-proxy
   annotations:
     description: "\t\t\t\t-> [alias] build (and push) all"
     tags:
