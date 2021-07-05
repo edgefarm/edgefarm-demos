@@ -1,5 +1,5 @@
 ---
-# Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see base.yaml)
+# Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
 application: train-simulator
 modules:
   - name: edge-demo
