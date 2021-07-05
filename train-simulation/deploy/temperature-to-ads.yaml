@@ -3,7 +3,7 @@
 application: train-simulator
 modules:
   - name: edge-demo
-    image: harbor.ci4rail.com/edgefarm-dev/train-simulator-edge-demo:d825dc5
+    image: harbor.ci4rail.com/edgefarm-dev/temperature-to-ads:d825dc5
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
