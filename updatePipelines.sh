@@ -13,6 +13,7 @@ IMAGES=(
   seat-info-forwarder
   seat-info-proxy
   temperature-to-ads
+  vibration-peak-detector
   )
 
 CONTEXTS=(
@@ -22,6 +23,7 @@ CONTEXTS=(
   train-simulation/passenger-info/seat-info-forwarder
   train-simulation/passenger-info/seat-info-proxy
   train-simulation/environment/temperature-to-ads
+  train-simulation/environment/vibration_peak_detector
 )
 
 for i in "${!IMAGES[@]}"; do

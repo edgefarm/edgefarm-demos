@@ -4,6 +4,7 @@ import json
 import logging
 import datetime
 import math
+import time
 
 from fifo import Fifo
 from run_task import run_task
@@ -11,7 +12,7 @@ from run_task import run_task
 ACCEL_FIFO_CAPACITY = 600
 ACCEL_NOMINAL_SAMPLE_PERIOD = 0.01  # sample rate we except the samples to arrive
 RMS_WINDOW_SIZE = 80
-
+PEAK_THRESHOLD = 0.42
 
 _logger = logging.getLogger(__name__)
 
@@ -31,6 +32,7 @@ class Analyzer:
         msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
         a json message, so we convert the json to a python dictionary.
         """
+        t1 = time.perf_counter()
         payload = json.loads(msg["payload"])
         # print(f"{msg}: payload={payload}")
 
@@ -55,6 +57,8 @@ class Analyzer:
         except BufferError as e:
             _logger.warn(e)
 
+        _logger.debug(f"accel_handler: {time.perf_counter()-t1}")
+
     async def register_handlers(self):
         await self._mqtt_client.subscribe(
             "environment/acceleration", self.accel_handler
@@ -76,6 +80,7 @@ class Analyzer:
                     break
 
     def _peak_detect(self, accel):
+        t1 = time.perf_counter()
 
         # ensure all data in the buffer is from the "same" moment
         if self._has_time_gaps(accel):
@@ -92,11 +97,16 @@ class Analyzer:
         ts = accel[int(len(accel) / 2), 0]
         _logger.info(f"RMS at {ts}: {rms}")
 
+        if rms > PEAK_THRESHOLD:
+            _logger.info(f"DETECT PEAK at {ts}: {rms}")
+
+        _logger.debug(f"peak_detect: {time.perf_counter()-t1}")
+
     def _calculate_rms(self, chunk):
         chunk = pow(abs(chunk), 2)
         return math.sqrt(chunk.mean())
 
     def _has_time_gaps(self, accel):
         dt = accel[-1, 0] - accel[0, 0]
-        _logger.info(f"time_gap={dt}")
+        _logger.debug(f"time_gap={dt}")
         return dt > (ACCEL_NOMINAL_SAMPLE_PERIOD * RMS_WINDOW_SIZE * 1.1)

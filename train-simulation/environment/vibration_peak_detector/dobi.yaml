@@ -10,8 +10,8 @@ job=build-and-push-vibration-peak-detector:
     - mount-docker-config
   interactive: true
   command:
-    sh -c "cd /project/train-simulation/environment/vibration-peak-detector;
-    docker buildx build --push --platform linux/arm64,linux/amd64 --tag ${DOCKER_REGISTRY}/temperature-to-ads:${VERSION} .;
+    sh -c "cd /project/train-simulation/environment/vibration_peak_detector;
+    docker buildx build --push --platform linux/arm64,linux/amd64 --build-arg VERSION=${VERSION} --tag ${DOCKER_REGISTRY}/temperature-to-ads:${VERSION} .;"
   env:
     - DOCKER_DRIVER=overlay2
     - VERSION={env.GitVersion_ShortSha}

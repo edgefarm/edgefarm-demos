@@ -12,6 +12,7 @@ meta:
     - train-simulation/monitoring/seat-reservation/train-seat-info-monitor/dobi.yaml
     - train-simulation/passenger-info/seat-info-forwarder/dobi.yaml
     - train-simulation/passenger-info/seat-info-proxy/dobi.yaml
+    - train-simulation/environment/vibration_peak_detector/dobi.yaml
     - version.yaml
 
 alias=build:
@@ -22,6 +23,7 @@ alias=build:
     - build-and-push-train-seat-info-monitor
     - build-and-push-seat-info-forwarder
     - build-and-push-seat-info-proxy
+    - build-and-push-vibration-peak-detector
 
   annotations:
     description: "\t\t\t\t-> [alias] build (and push) all"
