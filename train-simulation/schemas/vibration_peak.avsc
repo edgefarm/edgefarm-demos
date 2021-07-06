@@ -1,0 +1,51 @@
+{
+    "name": "vibrationPeak",
+    "type": "record",
+    "fields": [
+        {
+            "name": "meta",
+            "type": {
+                "name": "t_meta",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "version",
+                        "type": "bytes"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "data",
+            "type": {
+                "name": "t_data",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "time",
+                        "type": {
+                            "doc": "time where peak occured in microseconds since 1.1.1970",
+                            "type": "long",
+                            "logicalType": "timestamp-micros"
+                        }
+                    },
+                    {
+                        "doc": "Latitude where peak occured (°)",
+                        "name": "lat",
+                        "type": "double"
+                    },
+                    {
+                        "doc": "Longitude where peak occured (°)",
+                        "name": "lon",
+                        "type": "double"
+                    },
+                    {
+                        "doc": "RMS of peak (m/s^2)",
+                        "name": "vibrationIntensity",
+                        "type": "double"
+                    }
+                ]
+            }
+        }
+    ]
+}

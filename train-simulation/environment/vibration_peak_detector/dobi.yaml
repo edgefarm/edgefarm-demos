@@ -1,7 +1,7 @@
 # ===================================================
 # jobs
 # ===================================================
-job=build-and-push-temperature-to-ads:
+job=build-and-push-vibration-peak-detector:
   use: dind-buildx
   depends: [install-qemu-user-static]
   provide-docker: true
@@ -9,11 +9,12 @@ job=build-and-push-temperature-to-ads:
     - mount-project
     - mount-docker-config
   interactive: true
-  command: sh -c "cd /project/train-simulation/environment/temperature;
+  command:
+    sh -c "cd /project/train-simulation/environment/vibration-peak-detector;
     docker buildx build --push --platform linux/arm64,linux/amd64 --tag ${DOCKER_REGISTRY}/temperature-to-ads:${VERSION} .;
   env:
     - DOCKER_DRIVER=overlay2
     - VERSION={env.GitVersion_ShortSha}
     - DOCKER_REGISTRY={env.DOCKER_REGISTRY}
   annotations:
-    description: "\t-> builds and pushes temperature-to-ads docker image"
+    description: "\t-> builds and pushes vibration-peak-detector docker image"
