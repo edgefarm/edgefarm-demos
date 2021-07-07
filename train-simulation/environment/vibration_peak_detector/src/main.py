@@ -5,6 +5,7 @@ import logging
 
 import edgefarm_application as ef
 from analyzer import Analyzer
+from ads_event_reporter import AdsEventReporter
 
 
 async def main():
@@ -19,11 +20,16 @@ async def main():
             loop, "SeatRes", "train-seat-info-monitor", "no-runtime-id"
         )
 
-    # Create a queue that we will use to store events.
+    # Create a queue that we will use to store events. Analyzer will report peaks there
     event_q = asyncio.Queue()
 
     # Connect to ALM MQTT module
     mqtt_client = ef.AlmMqttModuleClient()
+
+    # Prepare reporter to send detected peaks to ADS
+    event_reporter = AdsEventReporter()
+
+    # Start the Analyzer
     Analyzer(event_q, mqtt_client)
 
     def signal_handler():
@@ -38,7 +44,7 @@ async def main():
         if type(event) is str and event == "stop":
             break
         else:
-            pass
+            await event_reporter.report(event)
 
     print("Shutting down...")
     await mqtt_client.close()

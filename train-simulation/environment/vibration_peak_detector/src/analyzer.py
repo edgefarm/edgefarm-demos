@@ -9,9 +9,9 @@ import time
 from fifo import Fifo
 from run_task import run_task
 
-ACCEL_FIFO_CAPACITY = 600
+ACCEL_FIFO_CAPACITY = 6000  # 1 minute
 ACCEL_NOMINAL_SAMPLE_PERIOD = 0.01  # sample rate we except the samples to arrive
-LOC_FIFO_CAPACITY = 20
+LOC_FIFO_CAPACITY = 60
 RMS_WINDOW_SIZE = 80
 PEAK_THRESHOLD = 0.42
 
@@ -20,6 +20,7 @@ _logger = logging.getLogger(__name__)
 
 class Analyzer:
     def __init__(self, q, mqtt_client):
+        self._q = q
         self._mqtt_client = mqtt_client
         self._logic = AnalyzerLogic(
             RMS_WINDOW_SIZE, ACCEL_NOMINAL_SAMPLE_PERIOD, PEAK_THRESHOLD
@@ -90,18 +91,51 @@ class Analyzer:
                     accel = self._accel_fifo.pop(RMS_WINDOW_SIZE)
                     _logger.debug(f"Got {RMS_WINDOW_SIZE} accel samples from fifo.")
 
-                    locs = self._loc_fifo.peek(self._loc_fifo.entries())
+                    while True:
+                        locs = self._loc_fifo.peek(self._loc_fifo.entries())
 
-                    peak_value, ts, lat, lon, unused_loc_idx = self._logic.main(
-                        accel, locs
-                    )
-                    _logger.info(
-                        f"Peakvalue={peak_value} ts={ts} lat={lat} lon={lon} unused_loc_idx={unused_loc_idx}"
-                    )
+                        (
+                            peak_value,
+                            ts,
+                            lat,
+                            lon,
+                            unused_loc_idx,
+                            status,
+                        ) = self._logic.main(accel, locs)
+
+                        _logger.info(
+                            f"Peakvalue={peak_value} ts={ts} lat={lat} lon={lon} unused_loc_idx={unused_loc_idx}"
+                        )
+
+                        if status == "ts-too-new":
+                            # no location data available. Let's wait
+                            _logger.info("Wait for newer location data")
+                            await asyncio.sleep(2)
+                        else:
+                            break
 
                     # Discard location entries that are too old
                     if unused_loc_idx is not None:
                         self._loc_fifo.pop(unused_loc_idx + 1)
+
+                    # report peak to main task
+
+                    if (
+                        peak_value is not None
+                        and lat is not None  # noqa W503
+                        and lon is not None  # noqa W503
+                        and ts is not None  # noqa W503
+                    ):
+                        _logger.info("*** Peak detected!")
+
+                        await self._q.put(
+                            {
+                                "time": datetime.datetime.fromtimestamp(float(ts)),
+                                "lat": lat,
+                                "lon": lon,
+                                "vibrationIntensity": peak_value,
+                            }
+                        )
 
                 except BufferError:
                     # not enough data in fifo, wait for more
@@ -135,29 +169,30 @@ class AnalyzerLogic:
         lat = None
         lon = None
         unused_loc_idx = None
+        ts = None
 
         # ensure all data in the buffer is from the "same" moment
         if self._has_time_gaps(accel):
             _logger.error("Time gap. Not analyzing data")
+            status = "time-gap"
         else:
             # Compute RMS value
             rms = self._analyze_chunk(accel)
 
             # Get timestamp in the middle of the window
             ts = accel[int(len(accel) / 2), 0]
-            _logger.debug(f"RMS at {ts}: {rms}")
+            _logger.info(f"RMS at {ts}: {rms}")
 
             if rms > self._peak_threshold:
                 peak_value = rms
 
-            try:
-                lat, lon = self._map_timestamp_to_location(ts, locs)
-            except LookupError as e:
-                _logger.error(f"Could not map timestamp to location: {e}")
+            lat, lon, status = self._map_timestamp_to_location(ts, locs)
+            if status != "ok":
+                _logger.error(f"Could not map timestamp to location: {status}")
 
             unused_loc_idx = self._find_last_unused_location_entry(ts, locs)
 
-        return peak_value, ts, lat, lon, unused_loc_idx
+        return peak_value, ts, lat, lon, unused_loc_idx, status
 
     @staticmethod
     def _analyze_chunk(accel):
@@ -172,7 +207,7 @@ class AnalyzerLogic:
         accel[:, 1] = np.diff(accel[:, 1], prepend=accel[0, 1])
 
         # compute RMS value over differential
-        rms = AnalyzerLogic._calculate_rms(accel[:, 1])
+        rms = AnalyzerLogic._calculate_rms(accel[1:, 1])
 
         _logger.debug(f"analyze_window: {time.perf_counter()-t1}")
         return rms
@@ -195,9 +230,8 @@ class AnalyzerLogic:
 
         :return: lat, lon
         <lat>, <lon>: averaged position at time (linear interpolation)
-
-        :raise LookupError: if ts can't be mapped to a location
         """
+        status = "ts-too-old" if len(locs) > 0 else "ts-too-new"
         for idx in range(len(locs)):
             try:
                 if ts >= locs[idx, 0] and ts < locs[idx + 1, 0]:
@@ -206,13 +240,14 @@ class AnalyzerLogic:
                     lat = (locs[idx + 1, 1] - locs[idx, 1]) * f + locs[idx, 1]
                     lon = (locs[idx + 1, 2] - locs[idx, 2]) * f + locs[idx, 2]
 
-                    return lat, lon
+                    return lat, lon, "ok"
             except IndexError:
+                status = "ts-too-new"
                 break
 
         if len(locs > 0):
             _logger.error(f"oldest: {ts-locs[0,0]} newest: {ts-locs[-1,0]}")
-        raise (LookupError(f"ts {ts} can't be found. {len(locs)} entries present."))
+        return None, None, status
 
     @staticmethod
     def _find_last_unused_location_entry(ts, locs):

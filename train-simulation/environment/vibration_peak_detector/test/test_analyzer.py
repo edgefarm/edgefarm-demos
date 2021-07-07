@@ -43,24 +43,34 @@ class TestFifo(unittest.TestCase):
             ]
         )
 
-        lat, lon = AnalyzerLogic._map_timestamp_to_location(1.0, location_records)
+        lat, lon, status = AnalyzerLogic._map_timestamp_to_location(
+            1.0, location_records
+        )
         self.assertEqual(round(lat, 2), 49.1)
         self.assertEqual(round(lon, 2), 11.4)
+        self.assertEqual(status, "ok")
 
-        lat, lon = AnalyzerLogic._map_timestamp_to_location(3.5, location_records)
+        lat, lon, status = AnalyzerLogic._map_timestamp_to_location(
+            3.5, location_records
+        )
         self.assertEqual(round(lat, 2), 49.7)
         self.assertEqual(round(lon, 2), 11.3)
+        self.assertEqual(status, "ok")
 
-        with self.assertRaises(LookupError):
-            lat, lon = AnalyzerLogic._map_timestamp_to_location(5, location_records)
+        lat, lon, status = AnalyzerLogic._map_timestamp_to_location(5, location_records)
+        self.assertEqual(status, "ts-too-new")
 
-        with self.assertRaises(LookupError):
-            lat, lon = AnalyzerLogic._map_timestamp_to_location(0.5, location_records)
+        lat, lon, status = AnalyzerLogic._map_timestamp_to_location(
+            0.5, location_records
+        )
+        self.assertEqual(status, "ts-too-old")
 
         # no entries in fifo
         location_records = np.array([])
-        with self.assertRaises(LookupError):
-            lat, lon = AnalyzerLogic._map_timestamp_to_location(0.5, location_records)
+        lat, lon, status = AnalyzerLogic._map_timestamp_to_location(
+            0.5, location_records
+        )
+        self.assertEqual(status, "ts-too-new")
 
     def test_find_last_unused_location_entry(self):
         location_records = np.array(
