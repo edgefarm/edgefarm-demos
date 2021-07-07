@@ -9,11 +9,11 @@ import time
 from fifo import Fifo
 from run_task import run_task
 
-ACCEL_FIFO_CAPACITY = 6000  # 1 minute
+ACCEL_FIFO_CAPACITY = 6000  # number of samples in Acceleration Data Fifo ~1 minute
 ACCEL_NOMINAL_SAMPLE_PERIOD = 0.01  # sample rate we except the samples to arrive
-LOC_FIFO_CAPACITY = 60
-RMS_WINDOW_SIZE = 80
-PEAK_THRESHOLD = 0.42
+LOC_FIFO_CAPACITY = 60  # number of samples in Location Fifo
+RMS_WINDOW_SIZE = 80  # number of samples over which RMS is computed
+PEAK_THRESHOLD = 0.42  # if RMS value above that threshold, send ADS message
 
 _logger = logging.getLogger(__name__)
 
@@ -158,12 +158,16 @@ class AnalyzerLogic:
 
         :param accel: chunk of RMS_WINDOW_SIZE z-acceleration samples
         :param location: Location data records
-        :return: peak_value, ts, lat, lon, unused_loc_idx
+        :return: peak_value, ts, lat, lon, unused_loc_idx, status
 
         <peak_value> If peak detected, rms of peak else None
         <ts> timestamp of middle entry of accel
         <lat>,<lon> location at <ts>. None if it can't be mapped
         <unused_loc_idx>: last location entry that is no more used. Can be None
+        <status>: "ok" - mapping done
+                  "ts-too-new" mapping failed - ts is newer than all timestamps in locs, or locs is empty
+                  "ts-too-old" mapping failed - ts is older than all timestamps in locs
+                  "time-gap" mapping failed - time gap in accel
         """
         peak_value = None
         lat = None
@@ -228,8 +232,11 @@ class AnalyzerLogic:
         Find the location (lat,lon) at time <ts> in <locs>.
         <locs> must be array with entries [time,lat,lon], oldest entry first
 
-        :return: lat, lon
+        :return: lat, lon, status
         <lat>, <lon>: averaged position at time (linear interpolation)
+        <status>: "ok" - mapping done
+                  "ts-too-new" ts is newer than all timestamps in locs, or locs is empty
+                  "ts-too-old" ts is older than all timestamps in locs
         """
         status = "ts-too-old" if len(locs) > 0 else "ts-too-new"
         for idx in range(len(locs)):

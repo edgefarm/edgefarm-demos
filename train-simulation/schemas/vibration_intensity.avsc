@@ -24,23 +24,23 @@
                     {
                         "name": "time",
                         "type": {
-                            "doc": "time where peak occured in microseconds since 1.1.1970",
+                            "doc": "time of measurement in microseconds since 1.1.1970",
                             "type": "long",
                             "logicalType": "timestamp-micros"
                         }
                     },
                     {
-                        "doc": "Latitude where peak occured (°)",
+                        "doc": "Latitude (°)",
                         "name": "lat",
                         "type": "double"
                     },
                     {
-                        "doc": "Longitude where peak occured (°)",
+                        "doc": "Longitude (°)",
                         "name": "lon",
                         "type": "double"
                     },
                     {
-                        "doc": "RMS of peak (m/s^2)",
+                        "doc": "RMS of measurement (m/s^2)",
                         "name": "vibrationIntensity",
                         "type": "double"
                     }

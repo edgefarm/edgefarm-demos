@@ -15,10 +15,10 @@ class AdsEventReporter:
         self._ads_producer = ef.AdsProducer()
 
         # Create an encoder for an application specific payload
-        payload_schema = schema_read(__file__, "vibration_peak")
+        payload_schema = schema_read(__file__, "vibration_intensity")
         self._ads_encoder = ef.AdsEncoder(
             payload_schema,
-            schema_name="vibration_peak",
+            schema_name="vibration_intensity",
             schema_version=(1, 0, 0),
             tags={},
         )
