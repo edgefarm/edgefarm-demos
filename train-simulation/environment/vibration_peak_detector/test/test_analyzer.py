@@ -3,7 +3,7 @@ import numpy as np
 from vibration_peak_detector.src.analyzer import AnalyzerLogic
 
 
-class TestFifo(unittest.TestCase):
+class TestAnalyzer(unittest.TestCase):
     def test_calculate_rms(self):
         x = np.linspace(-np.pi, np.pi, 201)
         y = np.sin(x)
