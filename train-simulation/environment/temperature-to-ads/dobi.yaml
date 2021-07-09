@@ -9,7 +9,7 @@ job=build-and-push-temperature-to-ads:
     - mount-project
     - mount-docker-config
   interactive: true
-  command: sh -c "cd /project/train-simulation/environment/temperature;
+  command: sh -c "cd /project/train-simulation/environment/temperature-to-ads;
     docker buildx build --push --platform linux/arm64,linux/amd64 --build-arg VERSION=${VERSION} --tag ${DOCKER_REGISTRY}/temperature-to-ads:${VERSION} .;"
   env:
     - DOCKER_DRIVER=overlay2
