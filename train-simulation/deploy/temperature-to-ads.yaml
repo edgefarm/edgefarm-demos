@@ -1,6 +1,6 @@
 ---
 # Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
-application: train-simulator
+application: temperature-to-ads
 modules:
   - name: edge-demo
     image: harbor.ci4rail.com/edgefarm-dev/temperature-to-ads:d825dc5
