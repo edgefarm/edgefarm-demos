@@ -208,10 +208,11 @@ class AnalyzerLogic:
         t1 = time.perf_counter()
 
         # compute differential
-        accel[:, 1] = np.diff(accel[:, 1], prepend=accel[0, 1])
+        d_accel = np.ndarray((len(accel)))
+        d_accel = np.diff(accel[:, 1], prepend=accel[0, 1])
 
         # compute RMS value over differential
-        rms = AnalyzerLogic._calculate_rms(accel[1:, 1])
+        rms = AnalyzerLogic._calculate_rms(d_accel)
 
         _logger.debug(f"analyze_window: {time.perf_counter()-t1}")
         return rms
