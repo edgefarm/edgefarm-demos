@@ -2,8 +2,8 @@
 # Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
 application: vibration
 modules:
-  - name: edge-demo
-    image: harbor.ci4rail.com/edgefarm-dev/vibration_peak_detector:e804cb8
+  - name: vibration-peak-detector
+    image: harbor.ci4rail.com/edgefarm-dev/vibration-peak-detector:f570b1c
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always

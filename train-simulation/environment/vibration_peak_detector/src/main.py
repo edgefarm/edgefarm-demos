@@ -7,6 +7,8 @@ import edgefarm_application as ef
 from analyzer import Analyzer
 from ads_event_reporter import AdsEventReporter
 
+_logger = logging.getLogger(__name__)
+
 
 async def main():
     loop = asyncio.get_event_loop()
@@ -40,7 +42,7 @@ async def main():
 
     while True:
         event = await event_q.get()
-        print(f"main loop: event {event}")
+        _logger.info(f"main loop: event {event}")
         if type(event) is str and event == "stop":
             break
         else:

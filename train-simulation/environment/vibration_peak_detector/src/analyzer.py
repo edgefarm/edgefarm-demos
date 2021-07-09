@@ -4,10 +4,10 @@ import json
 import logging
 import datetime
 import math
-import time
 
 from fifo import Fifo
 from run_task import run_task
+import location_mapper
 
 ACCEL_FIFO_CAPACITY = 6000  # number of samples in Acceleration Data Fifo ~1 minute
 ACCEL_NOMINAL_SAMPLE_PERIOD = 0.01  # sample rate we except the samples to arrive
@@ -22,9 +22,7 @@ class Analyzer:
     def __init__(self, q, mqtt_client):
         self._q = q
         self._mqtt_client = mqtt_client
-        self._logic = AnalyzerLogic(
-            RMS_WINDOW_SIZE, ACCEL_NOMINAL_SAMPLE_PERIOD, PEAK_THRESHOLD
-        )
+        self._logic = AnalyzerLogic(RMS_WINDOW_SIZE, ACCEL_NOMINAL_SAMPLE_PERIOD)
         # communication between accel_handler and monitor task
         self._accel_fifo = Fifo((ACCEL_FIFO_CAPACITY, 2))
         self._accel_q = asyncio.Queue()
@@ -39,7 +37,6 @@ class Analyzer:
         msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
         a json message, so we convert the json to a python dictionary.
         """
-        t1 = time.perf_counter()
         payload = json.loads(msg["payload"])
 
         # Z-acceleration + timestamps to np-array
@@ -63,9 +60,8 @@ class Analyzer:
         except BufferError as e:
             _logger.error(f"Accel Fifo: {e}")
 
-        _logger.debug(f"accel_handler: {time.perf_counter()-t1}")
-
     async def _loc_handler(self, msg):
+        """This is the handler function that gets registered for `environment/location`"""
         payload = json.loads(msg["payload"])
         _logger.debug(f"loc_handler {payload}")
         try:
@@ -91,112 +87,104 @@ class Analyzer:
                     accel = self._accel_fifo.pop(RMS_WINDOW_SIZE)
                     _logger.debug(f"Got {RMS_WINDOW_SIZE} accel samples from fifo.")
 
-                    while True:
-                        locs = self._loc_fifo.peek(self._loc_fifo.entries())
+                    ts, rms = self._logic.analyze(accel)
 
-                        (
-                            peak_value,
-                            ts,
-                            lat,
-                            lon,
-                            unused_loc_idx,
-                            status,
-                        ) = self._logic.main(accel, locs)
+                    if ts is not None:
+                        map_status, lat, lon = await self.map_timestamp(ts)
+                        _logger.info(f"RMS={rms} at ts={ts} loc={lat}, {lon}")
 
-                        _logger.info(
-                            f"Peakvalue={peak_value} ts={ts} lat={lat} lon={lon} unused_loc_idx={unused_loc_idx}"
-                        )
+                        # Discard location entries that are too old
+                        self.clean_locs_fifo(ts)
 
-                        if status == "ts-too-new":
-                            # no location data available. Let's wait
-                            _logger.info("Wait for newer location data")
-                            await asyncio.sleep(2)
-                        else:
-                            break
+                        if map_status == "ok" and rms > PEAK_THRESHOLD:
+                            # report peak to main task
+                            _logger.info("*** Peak detected!")
 
-                    # Discard location entries that are too old
-                    if unused_loc_idx is not None:
-                        self._loc_fifo.pop(unused_loc_idx + 1)
-
-                    # report peak to main task
-
-                    if (
-                        peak_value is not None
-                        and lat is not None  # noqa W503
-                        and lon is not None  # noqa W503
-                        and ts is not None  # noqa W503
-                    ):
-                        _logger.info("*** Peak detected!")
-
-                        await self._q.put(
-                            {
-                                "time": datetime.datetime.fromtimestamp(float(ts)),
-                                "lat": lat,
-                                "lon": lon,
-                                "vibrationIntensity": peak_value,
-                            }
-                        )
+                            await self._q.put(
+                                {
+                                    "time": datetime.datetime.fromtimestamp(float(ts)),
+                                    "lat": lat,
+                                    "lon": lon,
+                                    "vibrationIntensity": rms,
+                                }
+                            )
 
                 except BufferError:
                     # not enough data in fifo, wait for more
                     break
 
+    async def map_timestamp(self, ts):
+        """
+        Map the timestamp to a location position.
+        If ts is newer than all received locations, wait for newer locations
+
+        :param ts: timestamp to map
+        :return: map_status, lat, lon
+                  "ok" - mapping done - lat, lon valid
+                  "ts-too-old" mapping failed - ts is older than all timestamps in locs
+                  "time-gap" mapping failed - time gap in accel
+        """
+        if ts is None:
+            map_status = "time-gap"
+            lat = lon = None
+        else:
+            while True:
+                locs = self._loc_fifo.peek(self._loc_fifo.entries())
+                lat, lon, map_status = location_mapper.map_timestamp_to_location(
+                    ts, locs
+                )
+
+                if map_status == "ts-too-new":
+                    # no location data available. Let's wait
+                    _logger.info("Wait for newer location data")
+                    await asyncio.sleep(2)
+                else:
+                    break
+
+        if map_status != "ok":
+            _logger.warn(f"Could not map timestamp to location: {map_status}")
+
+        return map_status, lat, lon
+
+    def clean_locs_fifo(self, ts):
+        locs = self._loc_fifo.peek(self._loc_fifo.entries())
+        unused_loc_idx = location_mapper.find_last_unused_location_entry(ts, locs)
+        if unused_loc_idx is not None:
+            self._loc_fifo.pop(unused_loc_idx + 1)
+
 
 class AnalyzerLogic:
-    def __init__(self, rms_window_size, accel_nominal_sample_period, peak_threshold):
+    def __init__(self, rms_window_size, accel_nominal_sample_period):
         """
         Stateless logic of Analyzer
         """
         self._rms_window_size = rms_window_size
         self._accel_nominal_sample_period = accel_nominal_sample_period
-        self._peak_threshold = peak_threshold
 
-    def main(self, accel, locs):
+    def analyze(self, accel):
         """
-        Determine if the <accel> data's RMS value is over <peak_threshold>.
-        Map the accel data to a location position (correlated by timestamps).
+        Determine RMS value of <accel>.
 
         :param accel: chunk of RMS_WINDOW_SIZE z-acceleration samples
-        :param location: Location data records
-        :return: peak_value, ts, lat, lon, unused_loc_idx, status
+        :return: ts, rms
 
-        <peak_value> If peak detected, rms of peak else None
-        <ts> timestamp of middle entry of accel
-        <lat>,<lon> location at <ts>. None if it can't be mapped
-        <unused_loc_idx>: last location entry that is no more used. Can be None
-        <status>: "ok" - mapping done
-                  "ts-too-new" mapping failed - ts is newer than all timestamps in locs, or locs is empty
-                  "ts-too-old" mapping failed - ts is older than all timestamps in locs
-                  "time-gap" mapping failed - time gap in accel
+        <ts> timestamp of middle entry of accel - none if accel data has time gaps
+        <rms> rms value of accel
         """
-        peak_value = None
-        lat = None
-        lon = None
-        unused_loc_idx = None
+        rms = None
         ts = None
 
         # ensure all data in the buffer is from the "same" moment
         if self._has_time_gaps(accel):
             _logger.error("Time gap. Not analyzing data")
-            status = "time-gap"
         else:
             # Compute RMS value
             rms = self._analyze_chunk(accel)
 
             # Get timestamp in the middle of the window
             ts = accel[int(len(accel) / 2), 0]
-            _logger.info(f"RMS at {ts}: {rms}")
 
-            if rms > self._peak_threshold:
-                peak_value = rms
-
-            lat, lon, status = self._map_timestamp_to_location(ts, locs)
-            if status != "ok":
-                _logger.error(f"Could not map timestamp to location: {status}")
-
-            unused_loc_idx = self._find_last_unused_location_entry(ts, locs)
-
-        return peak_value, ts, lat, lon, unused_loc_idx, status
+        return ts, rms
 
     @staticmethod
     def _analyze_chunk(accel):
@@ -204,17 +192,12 @@ class AnalyzerLogic:
         Build the RMS over differential over the z-acceleration
         :return: rms
         """
-
-        t1 = time.perf_counter()
-
         # compute differential
         d_accel = np.ndarray((len(accel)))
         d_accel = np.diff(accel[:, 1], prepend=accel[0, 1])
 
         # compute RMS value over differential
         rms = AnalyzerLogic._calculate_rms(d_accel)
-
-        _logger.debug(f"analyze_window: {time.perf_counter()-t1}")
         return rms
 
     @staticmethod
