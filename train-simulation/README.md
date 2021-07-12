@@ -11,6 +11,7 @@ runtime.
     * `monitoring`: Monitors the `seat-reservation` process.
         * `fleet-seat-info-monitor`: (cloud) Monitors the `seat-info-proxy` and the `train-seat-info-monitor` of each train and provides the status to ADS.
         * `train-seat-info-monitor`: (edge) Monitors the simulator passenger information system and reports the results to `fleet-seat-info-monitor`.
+* `environment/vibration_peak_detector`: (edge) Read Z-axis vibration published by the simulator, detect peaks in the vibration signal, map it to a location and forward it to edgefarm application data service (ADS).
 
 Those demo applicatios are written in python3.
 
@@ -22,9 +23,10 @@ The `deploy` folder contains deployment manifests.
     * Modify `<IP>` in the `MQTT_SERVER` variable to match the IP address of the MQTT broker of your simulator
 * `temperature-to-ads.yaml`: Manifest for the `temperature-to-ads` module
 * `seat-info-mon.yaml` and `seat-info.yaml`: Manifests for the seat-reservation edmo.
+* `vibration.yaml`: Manifest for `vibration_peak_detector` module
 
 For the manifests containing the demo applications, modify the docker image's tag for the correct version of the application image.
-You can either build your own docker image if you like to modify this demo. For this see the [building section](#building-yourself) of this Readme.
+You can either build your own docker image if you like to modify the demos. For this see the [building section](../README.md#building-yourself) of this Readme.
 
 Apply the application using the edgefarm cli. You must deploy the `basis` and at least one of the application manifests.
 
