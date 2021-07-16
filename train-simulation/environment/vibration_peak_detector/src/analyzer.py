@@ -14,6 +14,8 @@ ACCEL_NOMINAL_SAMPLE_PERIOD = 0.01  # sample rate we except the samples to arriv
 LOC_FIFO_CAPACITY = 60  # number of samples in Location Fifo
 RMS_WINDOW_SIZE = 80  # number of samples over which RMS is computed
 PEAK_THRESHOLD = 0.42  # if RMS value above that threshold, send ADS message
+MAP_TIMESTAMP_TIMEOUT_SECONDS = 60
+
 
 _logger = logging.getLogger(__name__)
 
@@ -22,7 +24,8 @@ class Analyzer:
     def __init__(self, q, mqtt_client):
         self._q = q
         self._mqtt_client = mqtt_client
-        self._logic = AnalyzerLogic(RMS_WINDOW_SIZE, ACCEL_NOMINAL_SAMPLE_PERIOD)
+        self._logic = AnalyzerLogic(
+            RMS_WINDOW_SIZE, ACCEL_NOMINAL_SAMPLE_PERIOD)
         # communication between accel_handler and monitor task
         self._accel_fifo = Fifo((ACCEL_FIFO_CAPACITY, 2))
         self._accel_q = asyncio.Queue()
@@ -51,7 +54,8 @@ class Analyzer:
             arr[i, 1] = accel[i]["z"]
 
         age = datetime.datetime.now() - datetime.datetime.fromtimestamp(float(ts))
-        _logger.debug(f"Place {n} accel samples into fifo. age={age.total_seconds()} s")
+        _logger.debug(
+            f"Place {n} accel samples into fifo. age={age.total_seconds()} s")
 
         # Push into Fifo
         try:
@@ -85,7 +89,8 @@ class Analyzer:
             while True:
                 try:
                     accel = self._accel_fifo.pop(RMS_WINDOW_SIZE)
-                    _logger.debug(f"Got {RMS_WINDOW_SIZE} accel samples from fifo.")
+                    _logger.debug(
+                        f"Got {RMS_WINDOW_SIZE} accel samples from fifo.")
 
                     ts, rms = self._logic.analyze(accel)
 
@@ -128,7 +133,8 @@ class Analyzer:
             map_status = "time-gap"
             lat = lon = None
         else:
-            while True:
+            elapsed_time_seconds = 0
+            while elapsed_time_seconds < MAP_TIMESTAMP_TIMEOUT_SECONDS:
                 locs = self._loc_fifo.peek(self._loc_fifo.entries())
                 lat, lon, map_status = location_mapper.map_timestamp_to_location(
                     ts, locs
@@ -137,7 +143,8 @@ class Analyzer:
                 if map_status == "ts-too-new":
                     # no location data available. Let's wait
                     _logger.info("Wait for newer location data")
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(1)
+                    elapsed_time_seconds += elapsed_time_seconds
                 else:
                     break
 
@@ -148,7 +155,8 @@ class Analyzer:
 
     def clean_locs_fifo(self, ts):
         locs = self._loc_fifo.peek(self._loc_fifo.entries())
-        unused_loc_idx = location_mapper.find_last_unused_location_entry(ts, locs)
+        unused_loc_idx = location_mapper.find_last_unused_location_entry(
+            ts, locs)
         if unused_loc_idx is not None:
             self._loc_fifo.pop(unused_loc_idx + 1)
 
