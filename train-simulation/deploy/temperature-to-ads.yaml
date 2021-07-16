@@ -1,9 +1,9 @@
 ---
 # Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
-application: temperature-to-ads
+application: hvac
 modules:
-  - name: edge-demo
-    image: harbor.ci4rail.com/edgefarm-dev/temperature-to-ads:d825dc5
+  - name: temperature-demo
+    image: harbor.ci4rail.com/edgefarm-dev/temperature-to-ads:a20a1a1
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
