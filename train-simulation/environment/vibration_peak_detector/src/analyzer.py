@@ -144,7 +144,7 @@ class Analyzer:
                     # no location data available. Let's wait
                     _logger.info("Wait for newer location data")
                     await asyncio.sleep(1)
-                    elapsed_time_seconds += elapsed_time_seconds
+                    elapsed_time_seconds += 1
                 else:
                     break
 

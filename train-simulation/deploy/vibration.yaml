@@ -3,7 +3,7 @@
 application: vibration
 modules:
   - name: vibration-peak-detector
-    image: harbor.ci4rail.com/edgefarm-dev/vibration-peak-detector:859a1f9
+    image: harbor.ci4rail.com/edgefarm-dev/vibration-peak-detector:9dcf88a
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
