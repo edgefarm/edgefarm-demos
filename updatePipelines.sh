@@ -12,7 +12,7 @@ IMAGES=(
   train-seat-info-monitor
   seat-info-forwarder
   seat-info-proxy
-  temperature-to-ads
+  push-temperature
   vibration-peak-detector
   )
 
@@ -22,7 +22,7 @@ CONTEXTS=(
   train-simulation/monitoring/seat-reservation/train-seat-info-monitor
   train-simulation/passenger-info/seat-info-forwarder
   train-simulation/passenger-info/seat-info-proxy
-  train-simulation/environment/temperature-to-ads
+  train-simulation/environment/push-temperature
   train-simulation/environment/vibration_peak_detector
 )
 

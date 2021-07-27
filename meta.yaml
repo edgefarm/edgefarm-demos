@@ -6,19 +6,17 @@ meta:
   project: edgefarm-demos
   include:
     - dobi.yaml
-    - GPS-demo/gps-to-ads-app/src/dobi.yaml
-    - train-simulation/environment/temperature-to-ads/dobi.yaml
-    - train-simulation/monitoring/seat-reservation/fleet-seat-info-monitor/dobi.yaml
-    - train-simulation/monitoring/seat-reservation/train-seat-info-monitor/dobi.yaml
-    - train-simulation/passenger-info/seat-info-forwarder/dobi.yaml
-    - train-simulation/passenger-info/seat-info-proxy/dobi.yaml
-    - train-simulation/environment/vibration_peak_detector/dobi.yaml
+    - usecase-1/push-temperature/dobi.yaml
+    - usecase-2/monitoring/fleet-seat-info-monitor/dobi.yaml
+    - usecase-2/monitoring/train-seat-info-monitor/dobi.yaml
+    - usecase-2/passenger-info/seat-info-forwarder/dobi.yaml
+    - usecase-2/passenger-info/seat-info-proxy/dobi.yaml
+    - usecase-3/vibration_peak_detector/dobi.yaml
     - version.yaml
 
 alias=build:
   tasks:
-    - build-and-push-gps-to-ads-app
-    - build-and-push-temperature-to-ads
+    - build-and-push-push-temperature
     - build-and-push-fleet-seat-info-monitor
     - build-and-push-train-seat-info-monitor
     - build-and-push-seat-info-forwarder

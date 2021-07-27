@@ -1,0 +1,19 @@
+# ===================================================
+# jobs
+# ===================================================
+job=build-and-push-fleet-seat-info-monitor:
+  use: dind-buildx
+  depends: [install-qemu-user-static]
+  provide-docker: true
+  mounts:
+    - mount-project
+    - mount-docker-config
+  interactive: true
+  command: sh -cx "cd /project/usecase-2/monitoring/fleet-seat-info-monitor;
+    docker buildx build --push --platform linux/arm64,linux/amd64 --build-arg VERSION=${VERSION} --tag ${DOCKER_REGISTRY}/fleet-seat-info-monitor:${VERSION} .;"
+  env:
+    - DOCKER_DRIVER=overlay2
+    - VERSION={env.GitVersion_ShortSha}
+    - DOCKER_REGISTRY={env.DOCKER_REGISTRY}
+  annotations:
+    description: "\t-> builds and pushes fleet-seat-info-monitor multiarch docker image"

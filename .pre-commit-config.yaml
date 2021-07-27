@@ -1,8 +1,8 @@
 parameters:
   excl: &excl |
     (?x)(
-      ^train-simulation/simulator/config/|
-      ^train-simulation/environment/vibration_peak_detector/design/
+      ^simulator/config/|
+      (.*).svg
     )
 
 repos:
