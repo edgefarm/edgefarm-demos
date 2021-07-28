@@ -5,7 +5,7 @@ import datetime
 import json
 import logging
 import edgefarm_application as ef
-from edgefarm_application.base.schema import schema_read_builtin
+from schema_loader import schema_read
 
 #
 # Using the ads_producer/encoder, you can publish a message towards ADS
@@ -15,7 +15,7 @@ ads_encoder = None
 
 
 async def temperature_handler(msg):
-    """ This is the handler function that gets registered for `simulation/temperature`.
+    """This is the handler function that gets registered for `simulation/temperature`.
     The received data is a python dictionary.
     msg['payload'] is the MQTT message as received from MQTT. Here, the payload is
     a json message, so we convert the json to a python dictionary.
@@ -34,9 +34,7 @@ async def temperature_handler(msg):
         ads_payload = {
             "meta": {"version": b"\x01\x00\x00"},
             "data": {
-                "time": datetime.datetime.fromtimestamp(
-                    int(org_payload["timestamp"])
-                ),
+                "time": datetime.datetime.fromtimestamp(int(org_payload["timestamp"])),
                 "temp": float(org_payload["value"]),
             },
         }
@@ -52,7 +50,7 @@ async def temperature_handler(msg):
 #   'simulation/temperature': temp_handler,
 #   'simulation/acceleration': accel_handler
 # }
-topics = {"simulation/temperature": temperature_handler}
+topics = {"environment/temperature": temperature_handler}
 
 
 async def main():
@@ -70,7 +68,7 @@ async def main():
     ads_producer = ef.AdsProducer()
 
     # Create an encoder for an application specific payload
-    payload_schema = schema_read_builtin(__file__, "schemas/temperature_data.avsc")
+    payload_schema = schema_read(__file__, "temperature_data")
     ads_encoder = ef.AdsEncoder(
         payload_schema,
         schema_name="temperature_data",
@@ -105,7 +103,7 @@ async def main():
 
 if __name__ == "__main__":
     logging.basicConfig(
-        level=os.environ.get('LOGLEVEL', 'INFO').upper(),
+        level=os.environ.get("LOGLEVEL", "INFO").upper(),
         format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )

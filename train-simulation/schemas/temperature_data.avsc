@@ -1,15 +1,17 @@
 {
     "name": "temperatureData",
-    "type":	"record",
+    "type": "record",
     "fields": [
         {
             "name": "meta",
             "type": {
                 "name": "t_meta",
                 "type": "record",
-
                 "fields": [
-                    { "name": "version", "type": "bytes" }
+                    {
+                        "name": "version",
+                        "type": "bytes"
+                    }
                 ]
             }
         },
@@ -27,7 +29,10 @@
                             "logicalType": "timestamp-micros"
                         }
                     },
-                    { "name": "temp", "type": "double" }
+                    {
+                        "name": "temp",
+                        "type": "double"
+                    }
                 ]
             }
         }

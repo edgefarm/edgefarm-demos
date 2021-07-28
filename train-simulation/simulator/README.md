@@ -1,7 +1,11 @@
 # Simulator
 
-This is the simulator for edgefarm. The simulation contains:
+This is the train-simulator for edgefarm. The simulation contains:
 * Temperature simulation
+* "Journey1" that replays data recorded on a regional train (location, acceleration, speed)
+* "Seat reservation" provides a simulation of a passenger information system
+
+The simulator publishes all its result to a MQTT `mosquitto` broker, that is started with the docker-compose command below, along with Node-Red.
 
 ## How to run
 
@@ -9,7 +13,7 @@ Clone this repository and run the simulation environment with docker-compose.
 
 ```bash
 git clone https://github.com/edgefarm/edgefarm-demos.git
-cd edgefarm-demos/simulator
+cd edgefarm-demos/train-simulation/simulator
 docker-compose up -d
 ```
 

@@ -8,20 +8,22 @@
 
 IMAGES=(
   gps-to-ads-app
-  train-simulator-edge-app
   fleet-seat-info-monitor
   train-seat-info-monitor
   seat-info-forwarder
   seat-info-proxy
+  temperature-to-ads
+  vibration-peak-detector
   )
 
 CONTEXTS=(
   GPS-demo/gps-to-ads-app/src
-  train-simulation/edge/src
   train-simulation/monitoring/seat-reservation/fleet-seat-info-monitor
   train-simulation/monitoring/seat-reservation/train-seat-info-monitor
   train-simulation/passenger-info/seat-info-forwarder
   train-simulation/passenger-info/seat-info-proxy
+  train-simulation/environment/temperature-to-ads
+  train-simulation/environment/vibration_peak_detector
 )
 
 for i in "${!IMAGES[@]}"; do

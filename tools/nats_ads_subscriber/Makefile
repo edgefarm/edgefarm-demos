@@ -4,5 +4,5 @@ install_dependencies:
 	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/ads_data.avsc && \
 	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/gps_data.avsc && \
 	curl -O https://raw.githubusercontent.com/edgefarm/ads-schemas/${ADS_SCHEMAS_GIT_COMMIT_ID}/temperature_data.avsc
-
+	cp ../../train-simulation/schemas/*.avsc schemas
 .PHONY: install_dependencies
