@@ -1,9 +1,9 @@
 ---
 # Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
-application: passenger-info
+application: seat-info-simulation
 modules:
   - name: seat-info-forwarder
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:a94af81
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:latest
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
@@ -11,7 +11,7 @@ modules:
     status: running
     startupOrder: 1
   - name: seat-info-proxy
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-proxy:a94af81-2
+    image: harbor.ci4rail.com/edgefarm-dev/seat-info-proxy:latest
     type: cloud
     createOptions: "{}"
     imagePullPolicy: on-create
