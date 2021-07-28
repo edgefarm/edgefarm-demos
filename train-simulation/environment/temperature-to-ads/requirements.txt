@@ -1,1 +1,1 @@
-edgefarm-application>=0.1.4
+edgefarm-application>=0.2.1

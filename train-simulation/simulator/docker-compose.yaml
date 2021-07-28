@@ -5,7 +5,7 @@ services:
     image: nodered/node-red:1.3.3
     environment:
       - TZ=Europe/Berlin
-      - TRAINSIM_COMMIT=9b18e9c8e5bb9ff8178adb5bff6953c9eea2cbd1
+      - TRAINSIM_COMMIT=0403b65ffd54f4fd03d80e2ed534c666e50dab39
       - REPOSITORY=node-red.trainsim
     ports:
       - "1880:1880"
