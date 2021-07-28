@@ -36,6 +36,7 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/push-temperature:latest \
                       --tag ${DOCKER_REPOSITORY}/push-temperature:${GITHUB_SHA::8} .
   build-push-fleet-seat-info-monitor-image:
     runs-on: ubuntu-latest
@@ -62,6 +63,7 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/fleet-seat-info-monitor:latest \
                       --tag ${DOCKER_REPOSITORY}/fleet-seat-info-monitor:${GITHUB_SHA::8} .
   build-push-train-seat-info-monitor-image:
     runs-on: ubuntu-latest
@@ -88,6 +90,7 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/train-seat-info-monitor:latest \
                       --tag ${DOCKER_REPOSITORY}/train-seat-info-monitor:${GITHUB_SHA::8} .
   build-push-seat-info-forwarder-image:
     runs-on: ubuntu-latest
@@ -114,6 +117,7 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-forwarder:latest \
                       --tag ${DOCKER_REPOSITORY}/seat-info-forwarder:${GITHUB_SHA::8} .
   build-push-seat-info-proxy-image:
     runs-on: ubuntu-latest
@@ -140,6 +144,7 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-proxy:latest \
                       --tag ${DOCKER_REPOSITORY}/seat-info-proxy:${GITHUB_SHA::8} .
   build-push-vibration-peak-detector-image:
     runs-on: ubuntu-latest
@@ -166,4 +171,5 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/vibration-peak-detector:latest \
                       --tag ${DOCKER_REPOSITORY}/vibration-peak-detector:${GITHUB_SHA::8} .
