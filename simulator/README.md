@@ -12,8 +12,8 @@ The simulator publishes all its result to a MQTT `mosquitto` broker, that is sta
 Clone this repository and run the simulation environment with docker-compose.
 
 ```bash
-git clone https://github.com/edgefarm/edgefarm-demos.git
-cd edgefarm-demos/train-simulation/simulator
+git clone https://github.com/edgefarm/train-simulation.git
+cd train-simulation/simulator
 docker-compose up -d
 ```
 

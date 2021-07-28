@@ -3,7 +3,7 @@
 # ===================================================
 
 meta:
-  project: edgefarm-demos
+  project: train-simulation
   include:
     - dobi.yaml
     - usecase-1/push-temperature/dobi.yaml

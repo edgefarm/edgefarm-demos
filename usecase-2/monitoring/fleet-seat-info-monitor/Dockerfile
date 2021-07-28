@@ -12,9 +12,9 @@ COPY --from=builder /project/src /app
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 
 ARG VERSION
-ADD https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/usecase-2/schemas/system_event.avsc \
-    https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/usecase-2/schemas/system_status.avsc \
-    https://raw.githubusercontent.com/edgefarm/edgefarm-demos/${VERSION}/usecase-2/schemas/timestamp.avsc \
+ADD https://raw.githubusercontent.com/edgefarm/train-simulation/${VERSION}/usecase-2/schemas/system_event.avsc \
+    https://raw.githubusercontent.com/edgefarm/train-simulation/${VERSION}/usecase-2/schemas/system_status.avsc \
+    https://raw.githubusercontent.com/edgefarm/train-simulation/${VERSION}/usecase-2/schemas/timestamp.avsc \
     /app/schemas/
 
 ENV SCHEMA_PATH=/app/schemas
