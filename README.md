@@ -1,9 +1,18 @@
-# edgefarm-demos
+# train-simulation
 
-This repository contains several demos in the edgefarm universe.
+The Train Simulator was developed to experience the complete data chain from the simulation of realistic train data, the recording in the edge device, the transfer to the cloud and the visualization in dashboards as well as the export to external data systems. The simulated data range from simple diagnostic data and train network messages to high-frequency measurement data. Furthermore the train simulator is able to interact with the device to transmit the current state of the simulation on request.
 
-* Demos working with a [train simulation](.train-simulator/README.md)
-* Demo working with [edge device GPS sensor](./GPS-demo/README.md)
+Therfore the repository contains the [train-simulator](./simulator/README.md) which generates the realistic train data. In addition to that there are demo use-cases contained that run demo-applications which run on edge devices or in edgefarm's cloud runtime, which use the generated data and interact with the train simulator. These demo applicatios are written in python3.
+
+## Usage
+
+* [Start the simulator](simulator/README.md)
+* [Get the EdgeFarm CLI](https://github.com/edgefarm/edgefarm-cli/releases)
+* [Deploy the basis manifest](basis/README.md)
+* Select a use case and try it:
+  * [usecase-1](usecase-1/README.md): Read temperature data published by the simulator and foward it to EdgeFarm.data
+  * [usecase-2](usecase-2/README.md): Seat-reservation system simulation with monitoring
+  * [usecase-3](usecase-3/README.md): Detect peaks in the vibration signal, map it to a GPS location and forward it to EdgeFarm.data
 
 ## Building yourself
 
@@ -34,8 +43,6 @@ To build the docker images run
 The build job registers `qemu-user-static` to run programs for foreign CPU architectures like `arm64` or `arm`.
 
 Once the build has finished, your docker images are located at the speficied docker registry.
-
-*Note: the docker images are build for amd64 and arm64 architectures. If you need to build for another architecture, please adapt the job `build-and-push-demo-image` in `dobi.yaml`.*
 
 ## Cleaning up
 

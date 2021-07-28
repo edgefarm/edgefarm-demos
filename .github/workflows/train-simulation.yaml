@@ -1,0 +1,175 @@
+name: train-simulation
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ARCHITECTURES: linux/arm64,linux/amd64
+  DOCKER_REPOSITORY: ci4rail
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build-push-temperature-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-1/push-temperature;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/push-temperature:latest \
+                      --tag ${DOCKER_REPOSITORY}/push-temperature:${GITHUB_SHA::8} .
+  build-push-fleet-seat-info-monitor-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-2/monitoring/fleet-seat-info-monitor;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/fleet-seat-info-monitor:latest \
+                      --tag ${DOCKER_REPOSITORY}/fleet-seat-info-monitor:${GITHUB_SHA::8} .
+  build-push-train-seat-info-monitor-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-2/monitoring/train-seat-info-monitor;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/train-seat-info-monitor:latest \
+                      --tag ${DOCKER_REPOSITORY}/train-seat-info-monitor:${GITHUB_SHA::8} .
+  build-push-seat-info-forwarder-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-2/passenger-info/seat-info-forwarder;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-forwarder:latest \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-forwarder:${GITHUB_SHA::8} .
+  build-push-seat-info-proxy-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-2/passenger-info/seat-info-proxy;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-proxy:latest \
+                      --tag ${DOCKER_REPOSITORY}/seat-info-proxy:${GITHUB_SHA::8} .
+  build-push-vibration-peak-detector-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd usecase-3/vibration-peak-detector;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --tag ${DOCKER_REPOSITORY}/vibration-peak-detector:latest \
+                      --tag ${DOCKER_REPOSITORY}/vibration-peak-detector:${GITHUB_SHA::8} .

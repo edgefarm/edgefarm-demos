@@ -1,0 +1,20 @@
+---
+application: basis
+modules:
+  - name: ads-node-module
+    image: harbor.ci4rail.com/edgefarm/ads-node-module:latest
+    createOptions: "{}"
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+  - name: alm-mqtt-module
+    image: harbor.ci4rail.com/edgefarm/alm-mqtt-module:latest
+    type: edge
+    createOptions: "{}"
+    imagePullPolicy: on-create
+    restartPolicy: always
+    status: running
+    startupOrder: 1
+    envs:
+      MQTT_SERVER: <IP>:1883
