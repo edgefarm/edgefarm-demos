@@ -84,7 +84,7 @@ async def main():
         print("Warning: Running example outside IOTEDGE environment")
         await ef.application_module_init(loop, "", "", "")
 
-    # Connect to ALM MQTT module and register the MQTT subjects
+    # Connect to EdgeFarm service module mqtt-bridge and register the MQTT subjects
     mqtt_client = ef.AlmMqttModuleClient()
     print("Registering to " + mqtt_req_topic)
     await mqtt_client.subscribe(mqtt_req_topic, seat_info_request_handler)

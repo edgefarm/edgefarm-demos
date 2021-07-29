@@ -25,7 +25,7 @@ async def main():
     # Create a queue that we will use to store events.
     event_q = asyncio.Queue()
 
-    # Connect to ALM MQTT module
+    # Connect to EdgeFarm service module mqtt-bridge
     mqtt_client = ef.AlmMqttModuleClient()
 
     train_id_provider = TrainIdProvider(event_q, mqtt_client)
