@@ -1,5 +1,5 @@
 ---
-# Before deploying this manifest, ensure you have deployed the ads-node and alm-mqtt module (see basis.yaml)
+# Before deploying this manifest, ensure you have deployed the EdgeFarm service modules ads-node and mqtt-bridge (see basis.yaml)
 application: monitoring
 modules:
   - name: train-seat-info-monitor

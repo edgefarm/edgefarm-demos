@@ -76,7 +76,7 @@ async def main():
         tags={"monitor": "channel1"},
     )
 
-    # Connect to ALM MQTT module and register the MQTT subjects we want to receive
+    # Connect to EdgeFarm service module mqtt-bridge and register the MQTT subjects we want to receive
     mqtt_client = ef.AlmMqttModuleClient()
     for mqtt_topic, handler in topics.items():
         print(f"Registering to '{mqtt_topic}'")

@@ -2,14 +2,14 @@
 application: basis
 modules:
   - name: ads-node-module
-    image: harbor.ci4rail.com/edgefarm/ads-node-module:latest
+    image: ci4rail/ads-node-module:latest
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
     status: running
     startupOrder: 1
-  - name: alm-mqtt-module
-    image: harbor.ci4rail.com/edgefarm/alm-mqtt-module:latest
+  - name: mqtt-bridge
+    image: ci4rail/mqtt-bridge:latest
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
