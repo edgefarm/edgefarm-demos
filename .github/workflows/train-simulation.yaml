@@ -166,7 +166,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-3/vibration-peak-detector;
+          cd usecase-3/vibration_peak_detector;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
