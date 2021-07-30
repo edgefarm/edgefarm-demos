@@ -3,7 +3,7 @@
 application: monitoring
 modules:
   - name: train-seat-info-monitor
-    image: harbor.ci4rail.com/edgefarm-dev/train-seat-info-monitor:latest
+    image: ci4rail/train-seat-info-monitor:latest
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
@@ -11,7 +11,7 @@ modules:
     status: running
     startupOrder: 1
   - name: cloud-seat-info-monitor
-    image: harbor.ci4rail.com/edgefarm-dev/fleet-seat-info-monitor:latest
+    image: ci4rail/fleet-seat-info-monitor:latest
     type: cloud
     createOptions: "{}"
     imagePullPolicy: on-create
