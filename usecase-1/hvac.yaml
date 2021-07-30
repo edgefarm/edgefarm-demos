@@ -4,6 +4,7 @@ application: hvac
 modules:
   - name: push-temperature
     image: harbor.ci4rail.com/edgefarm-dev/push-temperature:latest
+    type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
     restartPolicy: always
