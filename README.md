@@ -1,6 +1,6 @@
 # train-simulation
 
-![CI](https://github.com/edgefarm/train-simulation/actions/workflows/train-simulation.yml/badge.svg)
+![CI](https://github.com/edgefarm/train-simulation/actions/workflows/train-simulation.yaml/badge.svg)
 
 The Train Simulator was developed to experience the complete data chain from the simulation of realistic train data, the recording in the edge device, the transfer to the cloud and the visualization in dashboards as well as the export to external data systems. The simulated data range from simple diagnostic data and train network messages to high-frequency measurement data. Furthermore the train simulator is able to interact with the device to transmit the current state of the simulation on request.
 
