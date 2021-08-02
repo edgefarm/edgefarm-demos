@@ -1,4 +1,4 @@
-name: edgefarm-service-modules pullrequest
+name: train-simulation pullrequest
 on:
   pull_request:
     branches:

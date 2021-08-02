@@ -3,7 +3,7 @@
 application: seat-info-simulation
 modules:
   - name: seat-info-forwarder
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-forwarder:latest
+    image: ci4rail/seat-info-forwarder:latest
     type: edge
     createOptions: "{}"
     imagePullPolicy: on-create
@@ -11,7 +11,7 @@ modules:
     status: running
     startupOrder: 1
   - name: seat-info-proxy
-    image: harbor.ci4rail.com/edgefarm-dev/seat-info-proxy:latest
+    image: ci4rail/seat-info-proxy:latest
     type: cloud
     createOptions: "{}"
     imagePullPolicy: on-create
