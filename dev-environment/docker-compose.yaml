@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  nats:
+    image: nats
+    hostname: nats
+    container_name: nats
+    expose:
+      - "4222"
+      - "6222"
+      - "8222"
+    ports:
+      - "4222:4222"
+      - "6222:6222"
+      - "8222:8222"
+    networks:
+      - edgefarm-simulator
+
+  mqtt-bridge:
+    image: ci4rail/mqtt-bridge:latest
+    networks:
+      - edgefarm-simulator
+    environment:
+      - MQTT_SERVER=mosquitto:1883
+
+  ads-to-evhub:
+    image: ci4rail/ads-to-evhub:latest
+    networks:
+      - edgefarm-simulator
+    env_file:
+    - .kafka.env
+
+networks:
+  edgefarm-simulator:
+    external: true
+    name: simulator_edgefarm-simulator

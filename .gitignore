@@ -6,3 +6,5 @@ gen/
 
 # sqlite
 **/*.db
+
+.*.env
