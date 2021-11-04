@@ -6,10 +6,9 @@ on:
 
 env:
   ARCHITECTURES: linux/arm64,linux/amd64
-  DOCKER_REGISTRY: harbor.ci4rail.com
-  DOCKER_REPOSITORY: edgefarm-dev
-  DOCKER_USERNAME: ${{ secrets.HARBOR_EDGEFARM_DEV_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.HARBOR_EDGEFARM_DEV_PASSWORD }}
+  DOCKER_REPOSITORY: ci4rail
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   build-push-temperature-docker-image:
@@ -18,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -39,14 +38,14 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/push-temperature:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-push-temperature:${SHORT_SHA} .
   build-push-fleet-seat-info-monitor-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -67,14 +66,14 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/fleet-seat-info-monitor:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-fleet-seat-info-monitor:${SHORT_SHA} .
   build-push-train-seat-info-monitor-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -95,14 +94,14 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/train-seat-info-monitor:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-train-seat-info-monitor:${SHORT_SHA} .
   build-push-seat-info-forwarder-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -123,14 +122,14 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/seat-info-forwarder:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-seat-info-forwarder:${SHORT_SHA} .
   build-push-seat-info-proxy-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -151,14 +150,14 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/seat-info-proxy:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-seat-info-proxy:${SHORT_SHA} .
   build-push-vibration-peak-detector-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
@@ -179,4 +178,4 @@ jobs:
                       --push \
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
-                      --tag ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/vibration-peak-detector:${SHORT_SHA} .
+                      --tag ${DOCKER_REPOSITORY}/dev-vibration-peak-detector:${SHORT_SHA} .
