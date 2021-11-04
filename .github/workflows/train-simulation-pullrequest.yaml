@@ -6,8 +6,7 @@ on:
 
 env:
   ARCHITECTURES: linux/arm64,linux/amd64
-  DOCKER_REGISTRY: harbor.ci4rail.com
-  DOCKER_REPOSITORY: edgefarm-dev
+  DOCKER_REPOSITORY: ci4rail
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -18,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} --password-stdin
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
