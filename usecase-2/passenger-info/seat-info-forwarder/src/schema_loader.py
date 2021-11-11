@@ -13,4 +13,4 @@ def schema_load(code_rel_path, schema_name):
 
 
 def schema_path():
-    return os.getenv("SCHEMA_PATH", os.path.join("..", "..", "schemas"))
+    return os.getenv("SCHEMA_PATH", os.path.join("..", "..", "..", "schemas"))
