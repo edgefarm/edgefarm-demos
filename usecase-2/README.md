@@ -14,6 +14,8 @@ The system consists of passenger information system software and its monitoring:
 
 The data can be viewed in the cloud on a Grafana Dashboard. The idetified events are displayed in a table and the status is shown in a chart. Additional an alarm is set in case an error stays for a dedicated time.
 
+> Note: This setup requires an external database, which is not part of the example. Without this prepared database, this demo won't work.
+
 ## Usage
 
 **Pre-Conditions:**
