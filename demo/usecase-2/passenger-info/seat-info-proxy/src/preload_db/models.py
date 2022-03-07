@@ -1,10 +1,12 @@
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
+
 class SeatReservation(Base):
+
     __tablename__ = 'seat_reservation'
     __table_args__ = {'sqlite_autoincrement': True}
     id = Column(Integer, primary_key=True)

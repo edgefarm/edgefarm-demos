@@ -19,6 +19,7 @@ __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
 
+
 def parse_args(args):
 
     parser = argparse.ArgumentParser(description="Preload DB with seat reservation data")
@@ -92,7 +93,6 @@ def main(args):
     except OperationalError:
         _logger.info("No table to clean up")
 
-
     # Create Table
     _logger.info("(Re-)creating table...")
     models.SeatReservation.__table__.create(engine)
@@ -108,22 +108,21 @@ def main(args):
         _logger.info("Creating Records...")
         for i in data:
             record = models.SeatReservation(**{
-                'trainid' : i["trainid"],
-                'seatid' : i["seatid"],
-                'startstation' : i["startstation"],
-                'endstation' : i["endstation"]
+                'trainid': i["trainid"],
+                'seatid': i["seatid"],
+                'startstation': i["startstation"],
+                'endstation': i["endstation"]
             })
             print(record)
-
-            s.add(record) #Add all the records
+            s.add(record)  # Add all the records
         _logger.info("Attempt to commit all the records...")
         s.commit()
     except Exception as e:
         _logger.error("Errors while adding seatreservation data. Rollback.")
-        _logger.error('Exception: '+ str(e))
+        _logger.error('Exception: ' + str(e))
         s.rollback()
     finally:
-        s.close() #Close the connection
+        s.close()  # Close the connection
 
     _logger.info("Done!")
 
