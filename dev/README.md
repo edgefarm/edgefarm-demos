@@ -1,8 +1,6 @@
-# dev-environment
+# Local development environment
 
-This is the dev environment for edgefarm train simulation.
-
-This is required to start simulator including all EdgeFarm Service Modules on a Devs PC. 
+Local development environment for edgefarm train simulation.
 
 ## How to run
 
@@ -23,7 +21,7 @@ To startup EdgeFarm Service Modules it is required to copy `example.kafka.env` t
 
 Afterwarts, startup the Sevices using docker-compose:
 ```
-cd ../dev-environment
+cd ../dev
 docker-compose up -d
 ```
 
@@ -51,5 +49,3 @@ Start example application:
 cd src
 python3 main.py
 ```
-
-

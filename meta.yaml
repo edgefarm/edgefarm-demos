@@ -6,12 +6,12 @@ meta:
   project: train-simulation
   include:
     - dobi.yaml
-    - usecase-1/push-temperature/dobi.yaml
-    - usecase-2/monitoring/fleet-seat-info-monitor/dobi.yaml
-    - usecase-2/monitoring/train-seat-info-monitor/dobi.yaml
-    - usecase-2/passenger-info/seat-info-forwarder/dobi.yaml
-    - usecase-2/passenger-info/seat-info-proxy/dobi.yaml
-    - usecase-3/vibration_peak_detector/dobi.yaml
+    - demo/usecase-1/push-temperature/dobi.yaml
+    - demo/usecase-2/monitoring/fleet-seat-info-monitor/dobi.yaml
+    - demo/usecase-2/monitoring/train-seat-info-monitor/dobi.yaml
+    - demo/usecase-2/passenger-info/seat-info-forwarder/dobi.yaml
+    - demo/usecase-2/passenger-info/seat-info-proxy/dobi.yaml
+    - demo/usecase-3/vibration_peak_detector/dobi.yaml
     - version.yaml
 
 alias=build:

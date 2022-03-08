@@ -31,7 +31,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-1/push-temperature;
+          cd demo/usecase-1/push-temperature;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
@@ -58,7 +58,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-2/monitoring/fleet-seat-info-monitor;
+          cd demo/usecase-2/monitoring/fleet-seat-info-monitor;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
@@ -85,7 +85,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-2/monitoring/train-seat-info-monitor;
+          cd demo/usecase-2/monitoring/train-seat-info-monitor;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
@@ -112,7 +112,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-2/passenger-info/seat-info-forwarder;
+          cd demo/usecase-2/passenger-info/seat-info-forwarder;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
@@ -139,7 +139,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-2/passenger-info/seat-info-proxy;
+          cd demo/usecase-2/passenger-info/seat-info-proxy;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
@@ -166,7 +166,7 @@ jobs:
           version: v0.6.0
       - name: Build
         run: |
-          cd usecase-3/vibration_peak_detector;
+          cd demo/usecase-3/vibration_peak_detector;
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
