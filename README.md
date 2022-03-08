@@ -15,9 +15,9 @@ The demos cover data acquisition, pre-processing, data transport and transmissio
 * [Get the EdgeFarm CLI](https://github.com/edgefarm/edgefarm-cli/releases)
 * [Deploy the basis manifest](basis/README.md)
 * Select a use case and try it:
-  * [usecase-1](usecase-1/README.md): Read temperature data published by the simulator and foward it to EdgeFarm.data
-  * [usecase-2](usecase-2/README.md): Seat-reservation system simulation with monitoring
-  * [usecase-3](usecase-3/README.md): Detect peaks in the vibration signal, map it to a GPS location and forward it to EdgeFarm.data
+  * [usecase-1](demo/usecase-1/README.md): Read temperature data published by the simulator and foward it to EdgeFarm.data
+  * [usecase-2](demo/usecase-2/README.md): Seat-reservation system simulation with monitoring
+  * [usecase-3](demo/usecase-3/README.md): Detect peaks in the vibration signal, map it to a GPS location and forward it to EdgeFarm.data
 
 ## Building yourself
 

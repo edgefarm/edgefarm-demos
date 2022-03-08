@@ -12,7 +12,7 @@ COPY --from=builder /project/src /app
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 
 ARG VERSION
-ADD https://raw.githubusercontent.com/edgefarm/train-simulation/${VERSION}/usecase-3/schemas/vibration_intensity.avsc \
+ADD https://raw.githubusercontent.com/edgefarm/train-simulation/${VERSION}/demo/usecase-3/schemas/vibration_intensity.avsc \
     /app/schemas/
 
 ENV SCHEMA_PATH=/app/schemas
