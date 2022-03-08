@@ -15,6 +15,7 @@ repos:
         exclude: *excl
       - id: check-yaml
       - id: check-json
+        args: []
       - id: check-added-large-files
       - id: no-commit-to-branch
         args: [--branch, main]
