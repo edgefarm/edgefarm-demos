@@ -1,0 +1,1982 @@
+[
+    {
+        "id": "713cf011c1d16752",
+        "type": "tab",
+        "label": "Board",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "709619849e274dfd",
+        "type": "tab",
+        "label": "Train",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b0cf48e7108d0f19",
+        "type": "tab",
+        "label": "Train Station",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d4bb3e7314e90c9f",
+        "type": "tab",
+        "label": "Site(s)",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "da8591f6ee13ed74",
+        "type": "group",
+        "z": "709619849e274dfd",
+        "name": "Debug",
+        "style": {
+            "stroke": "#ff0000",
+            "label": true,
+            "fill": "#ffff3f"
+        },
+        "nodes": [
+            "cdfe2ae8f53aa919",
+            "e66f4a58553ecfe3",
+            "5863169669557216",
+            "96bc9f979aca395b",
+            "cfdcb6b959caccc8"
+        ],
+        "x": 74,
+        "y": 359,
+        "w": 432,
+        "h": 242
+    },
+    {
+        "id": "c5c4c07b294f31d3",
+        "type": "group",
+        "z": "713cf011c1d16752",
+        "name": "Debug",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ffff00",
+            "label": true
+        },
+        "nodes": [
+            "b17c5b0cd844a676",
+            "7f259d6ab8c8769f",
+            "630f46b012c02dc8",
+            "259fedb525ce8060",
+            "bb29cd6ca5702fe7"
+        ],
+        "x": 14,
+        "y": 739,
+        "w": 342,
+        "h": 202
+    },
+    {
+        "id": "0ded4dc7e0bad8c6",
+        "type": "group",
+        "z": "713cf011c1d16752",
+        "name": "trainstation online",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "dff6a21f1bfd371d",
+            "7672a88838942ce7",
+            "bc0d71df325fb416",
+            "ef619fe49df1f7ab",
+            "f438f47a865817a4",
+            "f1b81dd061ae53d8",
+            "6d55712194850825"
+        ],
+        "x": 14,
+        "y": 519,
+        "w": 702,
+        "h": 162
+    },
+    {
+        "id": "3946bb2aa731ca06",
+        "type": "group",
+        "z": "b0cf48e7108d0f19",
+        "name": "Debug",
+        "style": {
+            "stroke": "#ff0000",
+            "label": true,
+            "fill": "#ffff3f"
+        },
+        "nodes": [
+            "176fcfcbcd69815b",
+            "0e69a9096c7de7d5",
+            "20a7e546304a5619"
+        ],
+        "x": 94,
+        "y": 359,
+        "w": 432,
+        "h": 122
+    },
+    {
+        "id": "b2babc11e8bbd277",
+        "type": "group",
+        "z": "713cf011c1d16752",
+        "name": "train position",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "097e721f372220f4",
+            "ce1bb2cc68055403",
+            "0b29c4963eafe942",
+            "d14b19d893306c0b",
+            "6cfa45da4182363e",
+            "a9fc397f79a11088",
+            "1eae29fd6990ff44",
+            "a0eceb48f871a9bc",
+            "1ae8743ba5696c7a",
+            "5ac6c8cef974e6ef",
+            "e8233577eef63da4",
+            "934d7703bd18c69b",
+            "604e8e9a434b65ae",
+            "74ad7b22269b4655",
+            "6e746161926ab1d9",
+            "318cf26753f2b520",
+            "b5a98e20618ff245"
+        ],
+        "x": 14,
+        "y": 59,
+        "w": 1022,
+        "h": 342
+    },
+    {
+        "id": "16c05c80a31426ee",
+        "type": "group",
+        "z": "713cf011c1d16752",
+        "name": "trainstation register",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "512feaedec1ab024",
+            "55e7ecdb9e809dc6",
+            "4c0dc8a0773c1ccc",
+            "b32a2df7d5bcf61c"
+        ],
+        "x": 14,
+        "y": 419,
+        "w": 692,
+        "h": 82
+    },
+    {
+        "id": "8f2d0f85238db2b6",
+        "type": "group",
+        "z": "713cf011c1d16752",
+        "name": "Worldmap",
+        "style": {
+            "stroke": "#92d04f",
+            "label": true,
+            "fill": "#c8e7a7"
+        },
+        "nodes": [
+            "fd3024226bbdb1d8",
+            "5b27f860dd0d2804",
+            "4f85142130eaa7f7"
+        ],
+        "x": 1144,
+        "y": 239,
+        "w": 282,
+        "h": 142
+    },
+    {
+        "id": "3e883c3af884ef05",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f0fb7e7f15a1a5d1",
+        "type": "ui_tab",
+        "name": "Live View",
+        "icon": "directions_train",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9b4670f33865bac6",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#ff6116",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#ff6116",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#ff6116",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#ff9562",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#ff6116",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "TrainSim - Fleet View",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "icon",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "d4ca628f0969184c",
+        "type": "ui_group",
+        "name": "Worldmap",
+        "tab": "f0fb7e7f15a1a5d1",
+        "order": 1,
+        "disp": true,
+        "width": "24",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fd4a336947732860",
+        "type": "ui_tab",
+        "name": "Tracelet",
+        "icon": "network_check",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a990a673f13bdb9a",
+        "type": "ui_group",
+        "name": "Register",
+        "tab": "fd4a336947732860",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f22c89fea9231f90",
+        "type": "ui_group",
+        "name": "Watch",
+        "tab": "f0fb7e7f15a1a5d1",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fd3024226bbdb1d8",
+        "type": "ui_worldmap",
+        "z": "713cf011c1d16752",
+        "g": "8f2d0f85238db2b6",
+        "group": "d4ca628f0969184c",
+        "order": 0,
+        "width": "20",
+        "height": "14",
+        "name": "",
+        "lat": "49.44519881741359",
+        "lon": "11.082308292388918",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "true",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,BU,RW",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1300,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "097e721f372220f4",
+        "type": "switch",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "",
+        "property": "payload.hres",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "0b29c4963eafe942"
+            ],
+            [
+                "d14b19d893306c0b"
+            ]
+        ]
+    },
+    {
+        "id": "ce1bb2cc68055403",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "set train icon",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "train",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "1eae29fd6990ff44"
+            ]
+        ]
+    },
+    {
+        "id": "0b29c4963eafe942",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "set icon hres",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#006600",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 240,
+        "wires": [
+            [
+                "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "d14b19d893306c0b",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "set icon lres",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#00CC00",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 300,
+        "wires": [
+            [
+                "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "6cfa45da4182363e",
+        "type": "link in",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "live-train-position",
+        "links": [
+            "990cc3d6d8301496"
+        ],
+        "x": 55,
+        "y": 280,
+        "wires": [
+            [
+                "ce1bb2cc68055403",
+                "604e8e9a434b65ae"
+            ]
+        ]
+    },
+    {
+        "id": "b17c5b0cd844a676",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "c5c4c07b294f31d3",
+        "name": "train stations",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"TrainStations\",\"geojson\":{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{\"description\":\"{\\n  \\\"kind\\\": \\\"trainstation\\\",\\n  \\\"name\\\": \\\"unterasbach\\\"\\n}\",\"name\":\"ts-unterasbach\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[10.984493,49.417416],[10.98429,49.416006],[10.98783,49.415901],[10.987948,49.417283],[10.984493,49.417416]]]}},{\"type\":\"Feature\",\"properties\":{\"description\":\"{\\n  \\\"kind\\\": \\\"trainstation\\\",\\n  \\\"name\\\": \\\"oberasbach\\\"\\n}\",\"name\":\"ts-oberasbach\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[10.959892,49.415085],[10.960869,49.414324],[10.964377,49.41602],[10.963454,49.416732],[10.959892,49.415085]]]}},{\"type\":\"Feature\",\"properties\":{\"description\":\"{\\n  \\\"kind\\\": \\\"trainstation\\\",\\n  \\\"name\\\": \\\"Anwanden\\\"\\n}\",\"name\":\"ts-anwanden\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[10.928714,49.412048],[10.928671,49.411085],[10.932255,49.41098],[10.932255,49.411943],[10.928714,49.412048]]]}},{\"type\":\"Feature\",\"properties\":{\"name\":\"ts-roßtal\",\"description\":\"{\\n  \\\"kind\\\": \\\"trainstation\\\",\\n  \\\"name\\\": \\\"Roßtal\\\"\\n}\"},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[10.896195,49.400068],[10.897182,49.3993],[10.899575,49.400515],[10.898877,49.401262],[10.896195,49.400068]]]}}]}}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 780,
+        "wires": [
+            [
+                "bb29cd6ca5702fe7"
+            ]
+        ]
+    },
+    {
+        "id": "7f259d6ab8c8769f",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "c5c4c07b294f31d3",
+        "name": "change color",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"TrainStations\",\"color\":\"#0011FF\"}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 820,
+        "wires": [
+            [
+                "bb29cd6ca5702fe7"
+            ]
+        ]
+    },
+    {
+        "id": "dff6a21f1bfd371d",
+        "type": "link in",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "train-station-online",
+        "links": [
+            "a78116157927de3b"
+        ],
+        "x": 55,
+        "y": 560,
+        "wires": [
+            [
+                "bc0d71df325fb416"
+            ]
+        ]
+    },
+    {
+        "id": "7672a88838942ce7",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "set online",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#00CC00",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 560,
+        "wires": [
+            [
+                "f1b81dd061ae53d8"
+            ]
+        ]
+    },
+    {
+        "id": "bc0d71df325fb416",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "update online state",
+        "func": "online = flow.get('trainstation-online')\nonline.set(msg.payload.name,Math.floor(+new Date() / 1000))\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('trainstation-online', new Map())",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 560,
+        "wires": [
+            [
+                "7672a88838942ce7"
+            ]
+        ]
+    },
+    {
+        "id": "ef619fe49df1f7ab",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "check online state",
+        "func": "online = flow.get('trainstation-online')\n\nunixts = Math.floor(+new Date() / 1000)\n\nfor (const [key, value] of online) {\n    if (value + 5 < unixts) {\n        online.delete(key)\n        msg.payload = {}\n        msg.payload.name = key\n        return msg;\n    }\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('online', new Map())",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "6d55712194850825"
+            ]
+        ]
+    },
+    {
+        "id": "f438f47a865817a4",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "ef619fe49df1f7ab"
+            ]
+        ]
+    },
+    {
+        "id": "630f46b012c02dc8",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "c5c4c07b294f31d3",
+        "name": "arc",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"Camera01\",\"icon\":\"fa-camera\",\"lat\":51.05,\"lon\":-1.35,\"bearing\":235,\"length\":2200,\"arc\":{\"ranges\":[500,1000,2000],\"pan\":228,\"fov\":40,\"color\":\"#aaaa00\",\"weight\":1}}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 860,
+        "wires": [
+            [
+                "bb29cd6ca5702fe7"
+            ]
+        ]
+    },
+    {
+        "id": "259fedb525ce8060",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "c5c4c07b294f31d3",
+        "name": "circle",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"circle\",\"lat\":51.515,\"lon\":-0.1235,\"radius\":1000,\"layer\":\"drawing\",\"iconColor\":\"#464646\",\"stroke\":false,\"fillOpacity\":0.8,\"clickable\":true}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 900,
+        "wires": [
+            [
+                "bb29cd6ca5702fe7"
+            ]
+        ]
+    },
+    {
+        "id": "512feaedec1ab024",
+        "type": "link in",
+        "z": "713cf011c1d16752",
+        "g": "16c05c80a31426ee",
+        "name": "train-station-register",
+        "links": [
+            "4a29c924b7a48995"
+        ],
+        "x": 55,
+        "y": 460,
+        "wires": [
+            [
+                "55e7ecdb9e809dc6"
+            ]
+        ]
+    },
+    {
+        "id": "55e7ecdb9e809dc6",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "16c05c80a31426ee",
+        "name": "set trainstation icon",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "university",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "b32a2df7d5bcf61c"
+            ]
+        ]
+    },
+    {
+        "id": "5b27f860dd0d2804",
+        "type": "link in",
+        "z": "713cf011c1d16752",
+        "g": "8f2d0f85238db2b6",
+        "name": "worldmap-in",
+        "links": [
+            "a9fc397f79a11088",
+            "f1b81dd061ae53d8",
+            "bb29cd6ca5702fe7",
+            "6267e7eded2f86ec",
+            "4c0dc8a0773c1ccc",
+            "d8276eca9b16dd76"
+        ],
+        "x": 1185,
+        "y": 280,
+        "wires": [
+            [
+                "fd3024226bbdb1d8",
+                "4f85142130eaa7f7"
+            ]
+        ]
+    },
+    {
+        "id": "a9fc397f79a11088",
+        "type": "link out",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "to-worldmap",
+        "mode": "link",
+        "links": [
+            "5b27f860dd0d2804"
+        ],
+        "x": 995,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f1b81dd061ae53d8",
+        "type": "link out",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "to-worldmap",
+        "mode": "link",
+        "links": [
+            "5b27f860dd0d2804"
+        ],
+        "x": 675,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "bb29cd6ca5702fe7",
+        "type": "link out",
+        "z": "713cf011c1d16752",
+        "g": "c5c4c07b294f31d3",
+        "name": "to-worldmap",
+        "mode": "link",
+        "links": [
+            "5b27f860dd0d2804"
+        ],
+        "x": 315,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "4c0dc8a0773c1ccc",
+        "type": "link out",
+        "z": "713cf011c1d16752",
+        "g": "16c05c80a31426ee",
+        "name": "to-worldmap",
+        "mode": "link",
+        "links": [
+            "5b27f860dd0d2804"
+        ],
+        "x": 665,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "6d55712194850825",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "0ded4dc7e0bad8c6",
+        "name": "set offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#C0C0C0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 640,
+        "wires": [
+            [
+                "f1b81dd061ae53d8"
+            ]
+        ]
+    },
+    {
+        "id": "b32a2df7d5bcf61c",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "16c05c80a31426ee",
+        "name": "set offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#C0C0C0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "4c0dc8a0773c1ccc"
+            ]
+        ]
+    },
+    {
+        "id": "4f85142130eaa7f7",
+        "type": "debug",
+        "z": "713cf011c1d16752",
+        "g": "8f2d0f85238db2b6",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1eae29fd6990ff44",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "update online state",
+        "func": "online = flow.get('train-online')\nonline.set(msg.payload.name,Math.floor(+new Date() / 1000))\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('online', new Map())",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 280,
+        "wires": [
+            [
+                "097e721f372220f4"
+            ]
+        ]
+    },
+    {
+        "id": "1ae8743ba5696c7a",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "check online state",
+        "func": "online = flow.get('train-online')\n\nunixts = Math.floor(+new Date() / 1000)\n\nfor (const [key, value] of online) {\n    if (value + 5 < unixts) {\n        online.delete(key)\n        msg.payload = {}\n        msg.payload.name = key\n        return msg;\n    }\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('train-online', new Map())",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "a0eceb48f871a9bc"
+            ]
+        ]
+    },
+    {
+        "id": "5ac6c8cef974e6ef",
+        "type": "inject",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "1ae8743ba5696c7a"
+            ]
+        ]
+    },
+    {
+        "id": "a0eceb48f871a9bc",
+        "type": "change",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "set offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#C0C0C0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 360,
+        "wires": [
+            [
+                "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "e8233577eef63da4",
+        "type": "ui_text_input",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "train-to-watch",
+        "label": "Train ID",
+        "tooltip": "",
+        "group": "f22c89fea9231f90",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "6e746161926ab1d9"
+            ]
+        ]
+    },
+    {
+        "id": "934d7703bd18c69b",
+        "type": "ui_switch",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "",
+        "label": "Watch",
+        "tooltip": "",
+        "group": "f22c89fea9231f90",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "318cf26753f2b520"
+            ]
+        ]
+    },
+    {
+        "id": "604e8e9a434b65ae",
+        "type": "switch",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "watch-active",
+        "property": "watch",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "74ad7b22269b4655"
+            ]
+        ]
+    },
+    {
+        "id": "74ad7b22269b4655",
+        "type": "switch",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "matches train id",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "train-id",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 180,
+        "wires": [
+            [
+                "b5a98e20618ff245"
+            ]
+        ]
+    },
+    {
+        "id": "6e746161926ab1d9",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "store-train-id",
+        "func": "flow.set('train-id', msg.payload)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "318cf26753f2b520",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "store-watch",
+        "func": "flow.set('watch', msg.payload)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b5a98e20618ff245",
+        "type": "worldmap-tracks",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "",
+        "depth": "50",
+        "layer": "single",
+        "smooth": false,
+        "x": 870,
+        "y": 180,
+        "wires": [
+            [
+                "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "79e63ae62da15045",
+        "type": "mqtt in",
+        "z": "709619849e274dfd",
+        "name": "mqtt receive position",
+        "topic": "/position/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "3e883c3af884ef05",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "651decb505bede06"
+            ]
+        ]
+    },
+    {
+        "id": "cdfe2ae8f53aa919",
+        "type": "inject",
+        "z": "709619849e274dfd",
+        "g": "da8591f6ee13ed74",
+        "name": "t1 position (lres)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/position/t1",
+        "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44441579764559,\"lon\":11.082783043384554,\"hres\":false}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "e66f4a58553ecfe3"
+            ]
+        ]
+    },
+    {
+        "id": "e66f4a58553ecfe3",
+        "type": "mqtt out",
+        "z": "709619849e274dfd",
+        "g": "da8591f6ee13ed74",
+        "name": "to mqtt",
+        "topic": "",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3e883c3af884ef05",
+        "x": 430,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "651decb505bede06",
+        "type": "json",
+        "z": "709619849e274dfd",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "0b286419cdcd48e1"
+            ]
+        ]
+    },
+    {
+        "id": "5863169669557216",
+        "type": "inject",
+        "z": "709619849e274dfd",
+        "g": "da8591f6ee13ed74",
+        "name": "t1 position (hres)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/position/t1",
+        "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44438440683738,\"lon\":11.077287197113039,\"hres\":true}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 440,
+        "wires": [
+            [
+                "e66f4a58553ecfe3"
+            ]
+        ]
+    },
+    {
+        "id": "96bc9f979aca395b",
+        "type": "inject",
+        "z": "709619849e274dfd",
+        "g": "da8591f6ee13ed74",
+        "name": "t2 position (hres)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/position/t2",
+        "payload": "{\"id\":\"t2\",\"position\":{\"lat\":49.42461118151097,\"lon\":11.015682220458986,\"hres\":false}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 560,
+        "wires": [
+            [
+                "e66f4a58553ecfe3"
+            ]
+        ]
+    },
+    {
+        "id": "8c06bef58dc1cf80",
+        "type": "comment",
+        "z": "709619849e274dfd",
+        "name": "input spec",
+        "info": "\ntopic: /position/\"TRAIN-ID\"\nformat: json\n\nexample:\n{\n    \"train-id\":\n    \"position\":\n        \"lat\": 55\n        \"lon\": -1.05\n        \"hres\": false\n}\n\n",
+        "x": 160,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "990cc3d6d8301496",
+        "type": "link out",
+        "z": "709619849e274dfd",
+        "name": "train-position",
+        "mode": "link",
+        "links": [
+            "6cfa45da4182363e"
+        ],
+        "x": 865,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0b286419cdcd48e1",
+        "type": "change",
+        "z": "709619849e274dfd",
+        "name": "convert to worldmap format",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.position.lat",
+                "pt": "msg",
+                "to": "payload.lat",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.position.lon",
+                "pt": "msg",
+                "to": "payload.lon",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.position.hres",
+                "pt": "msg",
+                "to": "payload.hres",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.position",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "990cc3d6d8301496"
+            ]
+        ]
+    },
+    {
+        "id": "cfdcb6b959caccc8",
+        "type": "inject",
+        "z": "709619849e274dfd",
+        "g": "da8591f6ee13ed74",
+        "name": "t1 position (hres)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/position/t1",
+        "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44247301753884,\"lon\":11.071429252624513,\"hres\":true}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 480,
+        "wires": [
+            [
+                "e66f4a58553ecfe3"
+            ]
+        ]
+    },
+    {
+        "id": "1c6d2edfb2867951",
+        "type": "mqtt in",
+        "z": "b0cf48e7108d0f19",
+        "name": "mqtt receive online state",
+        "topic": "/trainstation/+/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "3e883c3af884ef05",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 220,
+        "wires": [
+            [
+                "2c1ea12f040af537"
+            ]
+        ]
+    },
+    {
+        "id": "2c1ea12f040af537",
+        "type": "json",
+        "z": "b0cf48e7108d0f19",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "6a4bf1038119192f"
+            ]
+        ]
+    },
+    {
+        "id": "e29a2606cf04c660",
+        "type": "comment",
+        "z": "b0cf48e7108d0f19",
+        "name": "input spec",
+        "info": "\ntopic: /trainstation/\"ID\"/online\nformat: json\n\nexample:\n{\n    \"id\": \"t12344\"\n}\n",
+        "x": 160,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a78116157927de3b",
+        "type": "link out",
+        "z": "b0cf48e7108d0f19",
+        "name": "online",
+        "mode": "link",
+        "links": [
+            "dff6a21f1bfd371d",
+            "651aa872793b0c5a"
+        ],
+        "x": 825,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "176fcfcbcd69815b",
+        "type": "mqtt out",
+        "z": "b0cf48e7108d0f19",
+        "g": "3946bb2aa731ca06",
+        "name": "to mqtt",
+        "topic": "",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3e883c3af884ef05",
+        "x": 450,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "0e69a9096c7de7d5",
+        "type": "inject",
+        "z": "b0cf48e7108d0f19",
+        "g": "3946bb2aa731ca06",
+        "name": "ts1 online",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/trainstation/ts1/online",
+        "payload": "{\"id\":\"ts1\"}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 440,
+        "wires": [
+            [
+                "176fcfcbcd69815b"
+            ]
+        ]
+    },
+    {
+        "id": "4438f41158ba5b35",
+        "type": "mqtt in",
+        "z": "b0cf48e7108d0f19",
+        "name": "mqtt receive register",
+        "topic": "/trainstation/+/register",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "3e883c3af884ef05",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 100,
+        "wires": [
+            [
+                "711324c9e13012ea"
+            ]
+        ]
+    },
+    {
+        "id": "711324c9e13012ea",
+        "type": "json",
+        "z": "b0cf48e7108d0f19",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 100,
+        "wires": [
+            [
+                "c46138a3a09f40fe"
+            ]
+        ]
+    },
+    {
+        "id": "6a3a7c536a8513e5",
+        "type": "comment",
+        "z": "b0cf48e7108d0f19",
+        "name": "input spec",
+        "info": "\ntopic: /trainstation/\"ID\"/register\nformat: json\n\nexample:\n{\n    \"id\": \"t12344\",\n    \"position\": {\"lat\": 44,\"lon\": 33}\n}\n",
+        "x": 160,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4a29c924b7a48995",
+        "type": "link out",
+        "z": "b0cf48e7108d0f19",
+        "name": "to-register",
+        "mode": "link",
+        "links": [
+            "512feaedec1ab024"
+        ],
+        "x": 815,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "20a7e546304a5619",
+        "type": "inject",
+        "z": "b0cf48e7108d0f19",
+        "g": "3946bb2aa731ca06",
+        "name": "ts1 register",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/trainstation/ts1/register",
+        "payload": "{\"id\":\"ts1\",\"position\":{\"lat\":49.44519881741359,\"lon\":11.082308292388918}}",
+        "payloadType": "json",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "176fcfcbcd69815b"
+            ]
+        ]
+    },
+    {
+        "id": "c46138a3a09f40fe",
+        "type": "change",
+        "z": "b0cf48e7108d0f19",
+        "name": "convert to worldmap format",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.position.lat",
+                "pt": "msg",
+                "to": "payload.lat",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.position.lon",
+                "pt": "msg",
+                "to": "payload.lon",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.position",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 100,
+        "wires": [
+            [
+                "4a29c924b7a48995"
+            ]
+        ]
+    },
+    {
+        "id": "6a4bf1038119192f",
+        "type": "change",
+        "z": "b0cf48e7108d0f19",
+        "name": "convert to worldmap format",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "a78116157927de3b"
+            ]
+        ]
+    },
+    {
+        "id": "4b58a8c23563cf11",
+        "type": "ui_button",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "group": "a990a673f13bdb9a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Register",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "register",
+        "payloadType": "flow",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "635379c668e040d0",
+                "d0183e76f43ae826",
+                "749eb7f01ec5fe71"
+            ]
+        ]
+    },
+    {
+        "id": "04919c313741923b",
+        "type": "ui_worldmap",
+        "z": "d4bb3e7314e90c9f",
+        "group": "a990a673f13bdb9a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "lat": "49.44519881741359",
+        "lon": "11.082308292388918",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "deg",
+        "showgrid": "true",
+        "allowFileDrop": "false",
+        "path": "/worldmap-register",
+        "overlist": "DR,RW",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 610,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b35aad28016bfe50",
+        "type": "worldmap in",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "path": "/worldmap-register",
+        "events": "connect,disconnect,point,layer,bounds,files,draw,other",
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "027138d41cb394c4",
+                "4c523475655c26f3"
+            ]
+        ]
+    },
+    {
+        "id": "027138d41cb394c4",
+        "type": "ui_text",
+        "z": "d4bb3e7314e90c9f",
+        "group": "a990a673f13bdb9a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "site-id",
+        "format": "{{msg.payload.name}}",
+        "layout": "row-center",
+        "className": "",
+        "x": 890,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4c523475655c26f3",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "store-infos",
+        "func": "flow.set('register', msg.payload)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "635379c668e040d0",
+        "type": "change",
+        "z": "d4bb3e7314e90c9f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"name\":\"\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "027138d41cb394c4"
+            ]
+        ]
+    },
+    {
+        "id": "d0183e76f43ae826",
+        "type": "change",
+        "z": "d4bb3e7314e90c9f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.deleted",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "04919c313741923b"
+            ]
+        ]
+    },
+    {
+        "id": "749eb7f01ec5fe71",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "convert",
+        "func": "converted = {}\nconverted.id = msg.payload.name\nconverted.area = msg.payload.area\nmsg.payload = converted\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 500,
+        "wires": [
+            [
+                "9c56d873ec2bb328"
+            ]
+        ]
+    },
+    {
+        "id": "c10ee6c4c6977924",
+        "type": "mqtt out",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3e883c3af884ef05",
+        "x": 1150,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "9c56d873ec2bb328",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "add topic",
+        "func": "msg.topic = \"/site/\" + msg.payload.id\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "c10ee6c4c6977924"
+            ]
+        ]
+    },
+    {
+        "id": "ccc8a2c1ec818672",
+        "type": "comment",
+        "z": "d4bb3e7314e90c9f",
+        "name": "output spec",
+        "info": "\ntopic: /site/\"ID\"\nformat: json\n\nexample:\n{\n    \"id\": \"t12344\",\n    \"area\": [\n        {\"lat\": 49.39997689108149, \"lng\": 10.895657332751465 },\n        {\"lat\":49.4000827191041, \"lng\": 10.899039802658868},\n        {\"lat\": 49.40107749136925, \"lng\": 10.898893445787888}\n    ]\n}\n",
+        "x": 1170,
+        "y": 460,
+        "wires": []
+    }
+]
