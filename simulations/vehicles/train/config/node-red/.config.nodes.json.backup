@@ -644,6 +644,25 @@
             }
         }
     },
+    "node-red-contrib-bigcsv": {
+        "name": "node-red-contrib-bigcsv",
+        "version": "1.2.0",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "bigcsv": {
+                "name": "bigcsv",
+                "types": [
+                    "bigcsv"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-bigcsv",
+                "file": "/data/node_modules/node-red-contrib-bigcsv/bigcsv/bigcsv.js"
+            }
+        }
+    },
     "node-red-contrib-web-worldmap": {
         "name": "node-red-contrib-web-worldmap",
         "version": "2.27.3",
@@ -664,44 +683,6 @@
                 "user": false,
                 "module": "node-red-contrib-web-worldmap",
                 "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
-            }
-        }
-    },
-    "node-red-contrib-bigcsv": {
-        "name": "node-red-contrib-bigcsv",
-        "version": "1.2.0",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "bigcsv": {
-                "name": "bigcsv",
-                "types": [
-                    "bigcsv"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-bigcsv",
-                "file": "/data/node_modules/node-red-contrib-bigcsv/bigcsv/bigcsv.js"
-            }
-        }
-    },
-    "node-red-contrib-queue-gate": {
-        "name": "node-red-contrib-queue-gate",
-        "version": "1.5.5",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "q-gate": {
-                "name": "q-gate",
-                "types": [
-                    "q-gate"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-queue-gate",
-                "file": "/data/node_modules/node-red-contrib-queue-gate/q-gate.js"
             }
         }
     }
