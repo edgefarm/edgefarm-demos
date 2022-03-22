@@ -1,0 +1,141 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "description": "{\n  \"kind\": \"trainstation\",\n  \"name\": \"unterasbach\"\n}",
+        "name": "ts-unterasbach"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              10.984493,
+              49.417416
+            ],
+            [
+              10.98429,
+              49.416006
+            ],
+            [
+              10.98783,
+              49.415901
+            ],
+            [
+              10.987948,
+              49.417283
+            ],
+            [
+              10.984493,
+              49.417416
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "description": "{\n  \"kind\": \"trainstation\",\n  \"name\": \"oberasbach\"\n}",
+        "name": "ts-oberasbach"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              10.959892,
+              49.415085
+            ],
+            [
+              10.960869,
+              49.414324
+            ],
+            [
+              10.964377,
+              49.41602
+            ],
+            [
+              10.963454,
+              49.416732
+            ],
+            [
+              10.959892,
+              49.415085
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "description": "{\n  \"kind\": \"trainstation\",\n  \"name\": \"Anwanden\"\n}",
+        "name": "ts-anwanden"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              10.928714,
+              49.412048
+            ],
+            [
+              10.928671,
+              49.411085
+            ],
+            [
+              10.932255,
+              49.41098
+            ],
+            [
+              10.932255,
+              49.411943
+            ],
+            [
+              10.928714,
+              49.412048
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "ts-roßtal",
+        "description": "{\n  \"kind\": \"trainstation\",\n  \"name\": \"Roßtal\"\n}"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              10.896195,
+              49.400068
+            ],
+            [
+              10.897182,
+              49.3993
+            ],
+            [
+              10.899575,
+              49.400515
+            ],
+            [
+              10.898877,
+              49.401262
+            ],
+            [
+              10.896195,
+              49.400068
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
