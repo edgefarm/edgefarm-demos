@@ -49,7 +49,9 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 242
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -69,9 +71,7 @@
             "bb29cd6ca5702fe7"
         ],
         "x": 14,
-        "y": 739,
-        "w": 342,
-        "h": 202
+        "y": 739
     },
     {
         "id": "0ded4dc7e0bad8c6",
@@ -91,9 +91,7 @@
             "6d55712194850825"
         ],
         "x": 14,
-        "y": 519,
-        "w": 702,
-        "h": 162
+        "y": 519
     },
     {
         "id": "3946bb2aa731ca06",
@@ -111,7 +109,9 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 122
     },
     {
         "id": "b2babc11e8bbd277",
@@ -141,9 +141,7 @@
             "b5a98e20618ff245"
         ],
         "x": 14,
-        "y": 59,
-        "w": 1022,
-        "h": 342
+        "y": 59
     },
     {
         "id": "16c05c80a31426ee",
@@ -160,9 +158,7 @@
             "b32a2df7d5bcf61c"
         ],
         "x": 14,
-        "y": 419,
-        "w": 692,
-        "h": 82
+        "y": 419
     },
     {
         "id": "8f2d0f85238db2b6",
@@ -180,20 +176,18 @@
             "4f85142130eaa7f7"
         ],
         "x": 1144,
-        "y": 239,
-        "w": 282,
-        "h": 142
+        "y": 239
     },
     {
         "id": "3e883c3af884ef05",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "mosquitto",
+        "broker": "nats",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
         "usetls": false,
-        "protocolVersion": "5",
+        "protocolVersion": "4",
         "keepalive": "60",
         "cleansession": true,
         "birthTopic": "",
@@ -1220,7 +1214,7 @@
         "type": "mqtt in",
         "z": "709619849e274dfd",
         "name": "mqtt receive position",
-        "topic": "/position/#",
+        "topic": "position/#",
         "qos": "2",
         "datatype": "auto",
         "broker": "3e883c3af884ef05",
@@ -1255,7 +1249,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "/position/t1",
+        "topic": "position/t1",
         "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44441579764559,\"lon\":11.082783043384554,\"hres\":false}}",
         "payloadType": "json",
         "x": 200,
@@ -1273,7 +1267,7 @@
         "g": "da8591f6ee13ed74",
         "name": "to mqtt",
         "topic": "",
-        "qos": "2",
+        "qos": "1",
         "retain": "",
         "respTopic": "",
         "contentType": "",
@@ -1320,7 +1314,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "/position/t1",
+        "topic": "position/t1",
         "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44438440683738,\"lon\":11.077287197113039,\"hres\":true}}",
         "payloadType": "json",
         "x": 200,
@@ -1350,7 +1344,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "/position/t2",
+        "topic": "position/t2",
         "payload": "{\"id\":\"t2\",\"position\":{\"lat\":49.42461118151097,\"lon\":11.015682220458986,\"hres\":false}}",
         "payloadType": "json",
         "x": 200,
@@ -1456,7 +1450,7 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "/position/t1",
+        "topic": "position/t1",
         "payload": "{\"id\":\"t1\",\"position\":{\"lat\":49.44247301753884,\"lon\":11.071429252624513,\"hres\":true}}",
         "payloadType": "json",
         "x": 200,
@@ -1535,7 +1529,7 @@
         "g": "3946bb2aa731ca06",
         "name": "to mqtt",
         "topic": "",
-        "qos": "2",
+        "qos": "1",
         "retain": "",
         "respTopic": "",
         "contentType": "",

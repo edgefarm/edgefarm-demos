@@ -610,9 +610,7 @@
             "4d25a3c1.9f679c"
         ],
         "x": 254,
-        "y": 299,
-        "w": 442,
-        "h": 122
+        "y": 299
     },
     {
         "id": "670e93e4a2018239",
@@ -1931,6 +1929,7 @@
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "train_id",
         "payloadType": "global",
@@ -2532,7 +2531,8 @@
         "y": 1740,
         "wires": [
             [
-                "9abd850e033df297"
+                "9abd850e033df297",
+                "37a4f68ebe7922c3"
             ]
         ]
     },
@@ -2547,9 +2547,8 @@
                 "t": "set",
                 "p": "payload.id",
                 "pt": "msg",
-                "to": "playload.name",
-                "tot": "msg",
-                "dc": true
+                "to": "train_id",
+                "tot": "global"
             },
             {
                 "t": "delete",
@@ -2587,7 +2586,8 @@
         "wires": [
             [
                 "2e0172ea85537af7",
-                "8ddefa664a6ee89d"
+                "8ddefa664a6ee89d",
+                "37a4f68ebe7922c3"
             ]
         ]
     },
@@ -3481,6 +3481,22 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "37a4f68ebe7922c3",
+        "type": "debug",
+        "z": "e96654f5.3653d8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2290,
+        "y": 1720,
+        "wires": []
     },
     {
         "id": "ea46ffdd.d863f",

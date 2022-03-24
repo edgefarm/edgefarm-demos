@@ -179,3 +179,32 @@ jobs:
                       --platform ${ARCHITECTURES} \
                       --build-arg VERSION=${SHORT_SHA} \
                       --tag ${DOCKER_REPOSITORY}/dev-vibration-peak-detector:${SHORT_SHA} .
+
+  build-push-receive-position-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Build
+        run: |
+          cd demo/usecase-4/receive-position;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${SHORT_SHA} \
+                      --tag ${DOCKER_REPOSITORY}/dev-receive-position:${SHORT_SHA} .

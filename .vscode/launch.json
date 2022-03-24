@@ -5,7 +5,7 @@
             "name": "usecase-1: push-temperature",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/usecase-1/push-temperature/src/main.py",
+            "program": "${workspaceFolder}/demo/usecase-1/push-temperature/src/main.py",
             "console": "integratedTerminal",
             "env": {
                 "NATS_SERVER": "127.0.0.1:4222"
@@ -15,10 +15,21 @@
             "name": "usecase-3: vibration_peak_detector",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/usecase-3/vibration_peak_detector/src/main.py",
+            "program": "${workspaceFolder}/demo/usecase-3/vibration_peak_detector/src/main.py",
             "console": "integratedTerminal",
             "env": {
                 "NATS_SERVER": "127.0.0.1:4222"
+            }
+        },
+        {
+            "name": "usecase-4: receive-position",
+            "type": "go",
+            "request": "launch",
+            "program": "${workspaceFolder}/demo/usecase-4/receive-position/main.go",
+            "console": "integratedTerminal",
+            "env": {
+                "NATS_SERVER": "127.0.0.1:4222",
+                "MQTT_SERVER": "127.0.0.1:1883"
             }
         }
     ]

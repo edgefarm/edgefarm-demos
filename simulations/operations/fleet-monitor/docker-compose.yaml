@@ -6,27 +6,26 @@ services:
     environment:
       - TZ=Europe/Berlin
     ports:
-      - "1880:1880"
+      - "1881:1880"
     networks:
       - edgefarm-simulator
     volumes:
       - ./config/node-red:/data
     user: "${UID}:${GID}"
 
-  mosquitto:
-    image: eclipse-mosquitto:2.0.10
-    hostname: mosquitto
-    container_name: mosquitto
+  nats:
+    image: nats:2.6.5-alpine3.14
+    hostname: nats
     expose:
-      - "1883"
-      - "9001"
+      - 1883
     ports:
-      - "1883:1883"
-      - "9001:9001"
+      - 1884:1883
+    volumes:
+      - ./config/nats:/config
+      - ../../../creds/:/creds/
     networks:
       - edgefarm-simulator
-    volumes:
-      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    command: [ "-js", "-c", "/config/nats.conf" ]
 
 networks:
   edgefarm-simulator:

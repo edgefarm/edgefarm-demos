@@ -1,0 +1,31 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: train-location
+  namespace: train-location
+spec:
+  components:
+    - name: receive-position
+      type: edge-worker
+      properties:
+        image: ci4rail/dev-receive-position
+        name: receive-position
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: 172.17.0.1
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - type: application-network
+      name: train-location-network
+      properties:
+        streams:
+          - name: train-location
+            subjects:
+              - position.>
+            storage: file
