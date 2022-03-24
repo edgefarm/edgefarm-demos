@@ -1756,7 +1756,7 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "register",
+        "payload": "coordinates",
         "payloadType": "flow",
         "topic": "topic",
         "topicType": "msg",
