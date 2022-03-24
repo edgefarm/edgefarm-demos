@@ -150,9 +150,7 @@
             "d97061cb.1c24"
         ],
         "x": 234,
-        "y": 39,
-        "w": 372,
-        "h": 82
+        "y": 39
     },
     {
         "id": "485cad5f.e923a4",
@@ -173,9 +171,7 @@
             "e86a44f7.375238"
         ],
         "x": 194,
-        "y": 139,
-        "w": 632,
-        "h": 142
+        "y": 139
     },
     {
         "id": "95af3c99.a60e6",
@@ -195,9 +191,7 @@
             "d9e9c534.68fd98"
         ],
         "x": 914,
-        "y": 119,
-        "w": 412,
-        "h": 162
+        "y": 119
     },
     {
         "id": "8be3a407.414ed8",
@@ -216,9 +210,7 @@
             "f0eeef4d.247f1"
         ],
         "x": 74,
-        "y": 439,
-        "w": 592,
-        "h": 82
+        "y": 439
     },
     {
         "id": "22887d63.39b782",
@@ -437,9 +429,7 @@
             "19a9760c.969952"
         ],
         "x": 314,
-        "y": 539,
-        "w": 1312,
-        "h": 142
+        "y": 539
     },
     {
         "id": "5c352b29.891384",
@@ -457,9 +447,7 @@
             "77f35e26.f96cf"
         ],
         "x": 1054,
-        "y": 259,
-        "w": 532,
-        "h": 142
+        "y": 259
     },
     {
         "id": "9acc28c1.69123",
@@ -480,9 +468,7 @@
             "63137d3e.21952c"
         ],
         "x": 314,
-        "y": 699,
-        "w": 1312,
-        "h": 142
+        "y": 699
     },
     {
         "id": "412fd13f.40d1d",
@@ -500,9 +486,7 @@
             "44348f30.dbdee8"
         ],
         "x": 14,
-        "y": 19,
-        "w": 802,
-        "h": 82
+        "y": 19
     },
     {
         "id": "af8a1384.858f6",
@@ -527,9 +511,7 @@
             "df6c7c7b.7f5468"
         ],
         "x": 24,
-        "y": 199,
-        "w": 822,
-        "h": 242
+        "y": 199
     },
     {
         "id": "79e9064.dda8578",
@@ -551,9 +533,7 @@
             "a3d0ca67.8bcad"
         ],
         "x": 314,
-        "y": 859,
-        "w": 1292,
-        "h": 222
+        "y": 859
     },
     {
         "id": "9ba31a68.891f48",
@@ -635,36 +615,6 @@
         "h": 122
     },
     {
-        "id": "af0ac6dccf12a96b",
-        "type": "group",
-        "z": "e96654f5.3653d8",
-        "name": "Play Track",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "ab9589ea128d8405",
-            "c2572d359561c4c8",
-            "6fc99be51bc28e8b",
-            "86f7f173d3cf64bd",
-            "2e0172ea85537af7",
-            "2eb0482f85ee22ba",
-            "ee465241a6868363",
-            "f3218a6d18f677bd",
-            "4a913092ef3496ee",
-            "9abd850e033df297",
-            "f1243fee1077de03",
-            "f987487191ccd337",
-            "d4428b6b1f2ced5f",
-            "1174b5dd0ee5ea98",
-            "8ddefa664a6ee89d"
-        ],
-        "x": 834,
-        "y": 1499,
-        "w": 1242,
-        "h": 262
-    },
-    {
         "id": "670e93e4a2018239",
         "type": "group",
         "z": "e96654f5.3653d8",
@@ -673,20 +623,19 @@
             "label": true
         },
         "nodes": [
-            "36cfad1a078e4def",
-            "8a701fee3ea270d5",
             "edc39d723d3f4d0c",
-            "e582351ceecfc39e",
             "8eb4c45cd1d874d5",
-            "a42c1ee28c458e16",
             "39c8c2293f3b5a54",
             "e46a220ff70307b9",
-            "f82c65988d51b10c"
+            "f82c65988d51b10c",
+            "52f9f915aa00a81f",
+            "28df6d6551aac571",
+            "d7cf85f6c1300807"
         ],
-        "x": 844,
-        "y": 1219,
-        "w": 1062,
-        "h": 222
+        "x": 864,
+        "y": 1239,
+        "w": 1162,
+        "h": 202
     },
     {
         "id": "ba17d3e8638a393a",
@@ -750,6 +699,70 @@
         "y": 1039,
         "w": 492,
         "h": 122
+    },
+    {
+        "id": "af0ac6dccf12a96b",
+        "type": "group",
+        "z": "e96654f5.3653d8",
+        "name": "Play Track",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "c2572d359561c4c8",
+            "86f7f173d3cf64bd",
+            "2e0172ea85537af7",
+            "2eb0482f85ee22ba",
+            "ee465241a6868363",
+            "4a913092ef3496ee",
+            "9abd850e033df297",
+            "f987487191ccd337",
+            "d4428b6b1f2ced5f",
+            "1174b5dd0ee5ea98",
+            "8ddefa664a6ee89d",
+            "d00a7ca3b135b20a",
+            "a08de1820d554f51",
+            "9b074b3c32aa4e71",
+            "976be2a5338aa22d",
+            "8c0e6302d24bd264",
+            "b88b0eb2194990d4",
+            "100a3777da59ef38",
+            "32a3ed838ec30a6c",
+            "dd64742406901b81",
+            "e97fe5b1691c7f90",
+            "9171e36febccb2c2",
+            "6706ad315002c589",
+            "9636e27190297fe8",
+            "9ce2f167ab2baf16",
+            "bbb5de70871058d6",
+            "c79a0c8978559dd1",
+            "3f249171c927b7bc"
+        ],
+        "x": 714,
+        "y": 1479,
+        "w": 1372,
+        "h": 462
+    },
+    {
+        "id": "c7c40ee274ebd36e",
+        "type": "group",
+        "z": "e96654f5.3653d8",
+        "name": "Init UI",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "4c31360a9429a06b",
+            "48913f90673f26fb",
+            "08e684ff1fc55558",
+            "bb2b185995e5c826",
+            "c29ae327bb17f275",
+            "46b9898bb5fc2597"
+        ],
+        "x": 874,
+        "y": 1999,
+        "w": 392,
+        "h": 162
     },
     {
         "id": "5e273132.c8aa3",
@@ -1263,9 +1276,9 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "Unknown",
+        "payload": "train1",
         "payloadType": "str",
-        "x": 140,
+        "x": 130,
         "y": 340,
         "wires": [
             [
@@ -2040,40 +2053,6 @@
         ]
     },
     {
-        "id": "36cfad1a078e4def",
-        "type": "ui_dropdown",
-        "z": "e96654f5.3653d8",
-        "g": "670e93e4a2018239",
-        "name": "",
-        "label": "Select Track",
-        "tooltip": "",
-        "place": "Select option",
-        "group": "7fe4ba457a8054b7",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "",
-                "value": "",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 1230,
-        "y": 1260,
-        "wires": [
-            [
-                "edc39d723d3f4d0c"
-            ]
-        ]
-    },
-    {
         "id": "7c8f31a830673b5d",
         "type": "ui_worldmap",
         "z": "e96654f5.3653d8",
@@ -2145,64 +2124,6 @@
         ]
     },
     {
-        "id": "8a701fee3ea270d5",
-        "type": "ui_button",
-        "z": "e96654f5.3653d8",
-        "g": "670e93e4a2018239",
-        "name": "",
-        "group": "7fe4ba457a8054b7",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Start",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 1230,
-        "y": 1340,
-        "wires": [
-            [
-                "e582351ceecfc39e"
-            ]
-        ]
-    },
-    {
-        "id": "a42c1ee28c458e16",
-        "type": "join",
-        "z": "e96654f5.3653d8",
-        "g": "670e93e4a2018239",
-        "name": "",
-        "mode": "custom",
-        "build": "merged",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1610,
-        "y": 1400,
-        "wires": [
-            [
-                "39c8c2293f3b5a54"
-            ]
-        ]
-    },
-    {
         "id": "edc39d723d3f4d0c",
         "type": "change",
         "z": "e96654f5.3653d8",
@@ -2222,44 +2143,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1410,
-        "y": 1260,
+        "x": 1490,
+        "y": 1280,
         "wires": [
             [
-                "a42c1ee28c458e16"
-            ]
-        ]
-    },
-    {
-        "id": "e582351ceecfc39e",
-        "type": "change",
-        "z": "e96654f5.3653d8",
-        "g": "670e93e4a2018239",
-        "name": "send-complete",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "payload",
-                "pt": "msg"
-            },
-            {
-                "t": "set",
-                "p": "complete",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1420,
-        "y": 1340,
-        "wires": [
-            [
-                "a42c1ee28c458e16"
+                "39c8c2293f3b5a54"
             ]
         ]
     },
@@ -2340,11 +2228,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1050,
-        "y": 1260,
+        "x": 1070,
+        "y": 1360,
         "wires": [
             [
-                "36cfad1a078e4def"
+                "5b9faf96ee3ce4c8"
             ]
         ]
     },
@@ -2354,17 +2242,18 @@
         "z": "e96654f5.3653d8",
         "g": "670e93e4a2018239",
         "name": "filter-track",
-        "func": "msgTrack = {\"payload\": {\"type\": \"FeatureCollection\", \"features\":[]}}\n\nfeatures = msg.payload.features\nfeatures.forEach(function(feature) {\n    if(feature.properties.name == msg.payload.track) {\n        node.log(feature.properties.name)\n        node.log(msg.payload.track)\n        \n        msgTrack.payload.features.push(feature)\n    }\n});\nreturn msgTrack;\n",
+        "func": "msgTrack = {\"payload\": {\"type\": \"FeatureCollection\", \"features\":[]}}\nfeatures = flow.get(\"tracks\").features\nfeatures.forEach(function(feature) {\n    if(feature.properties.name == msg.payload.track) {\n        msgTrack.payload.features.push(feature)\n    }\n});\nreturn msgTrack;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1760,
-        "y": 1400,
+        "x": 1700,
+        "y": 1280,
         "wires": [
             [
-                "f82c65988d51b10c"
+                "f82c65988d51b10c",
+                "52f9f915aa00a81f"
             ]
         ]
     },
@@ -2446,252 +2335,6 @@
         ]
     },
     {
-        "id": "ab9589ea128d8405",
-        "type": "q-gate",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "queue points",
-        "controlTopic": "control",
-        "defaultState": "queueing",
-        "openCmd": "open",
-        "closeCmd": "close",
-        "toggleCmd": "toggle",
-        "queueCmd": "queue",
-        "defaultCmd": "default",
-        "triggerCmd": "trigger",
-        "flushCmd": "flush",
-        "resetCmd": "reset",
-        "peekCmd": "peek",
-        "dropCmd": "drop",
-        "statusCmd": "status",
-        "maxQueueLength": "1000",
-        "keepNewest": false,
-        "qToggle": false,
-        "persist": false,
-        "storeName": "memory",
-        "x": 1550,
-        "y": 1600,
-        "wires": [
-            [
-                "6fc99be51bc28e8b",
-                "2e0172ea85537af7",
-                "8ddefa664a6ee89d"
-            ]
-        ]
-    },
-    {
-        "id": "c2572d359561c4c8",
-        "type": "inject",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "every second",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "control",
-        "payload": "peek",
-        "payloadType": "str",
-        "x": 1360,
-        "y": 1560,
-        "wires": [
-            [
-                "ab9589ea128d8405"
-            ]
-        ]
-    },
-    {
-        "id": "6fc99be51bc28e8b",
-        "type": "change",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "drop",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "drop",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "control",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1720,
-        "wires": [
-            [
-                "ab9589ea128d8405"
-            ]
-        ]
-    },
-    {
-        "id": "9abd850e033df297",
-        "type": "link out",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "to-mqtt",
-        "links": [
-            "5cd9f3e9.c32a7c"
-        ],
-        "x": 2035,
-        "y": 1600,
-        "wires": []
-    },
-    {
-        "id": "86f7f173d3cf64bd",
-        "type": "function",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "unix time",
-        "func": "d = new Date()\nmsg.payload.time = d.getTime()\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1920,
-        "y": 1600,
-        "wires": [
-            [
-                "9abd850e033df297"
-            ]
-        ]
-    },
-    {
-        "id": "2e0172ea85537af7",
-        "type": "change",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "format for mqtt",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.id",
-                "pt": "msg",
-                "to": "playload.name",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "delete",
-                "p": "payload.name",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1740,
-        "y": 1600,
-        "wires": [
-            [
-                "86f7f173d3cf64bd"
-            ]
-        ]
-    },
-    {
-        "id": "f3218a6d18f677bd",
-        "type": "function",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "calculate-points",
-        "func": "\nvar options = {units: 'kilometers'};\nvar line = turf.lineString(msg.payload.features[0].geometry.coordinates); // track\nvar length = turf.length(line, options); // length of track\n\nvar defaultSpeed = 200\nvar km = 0\nvar along = turf.along(line, km, options);\n\ndo {\n    // is train in an area?\n    speed = defaultSpeed\n    areas = flow.get(\"areas\").features\n\n    areas.forEach(function(area) {\n        var poly = turf.polygon(area.geometry.coordinates);\n        if(turf.booleanPointInPolygon(along, poly)) {\n            speed = 50\n        }\n    });\n    \n    // calculate next position\n    km = km + (speed / 3600)\n    along = turf.along(line, km, options);\n    \n    // send position\n    node.send({\"payload\": along})\n} while(km < length)\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [
-            {
-                "var": "turf",
-                "module": "@turf/turf"
-            }
-        ],
-        "x": 1000,
-        "y": 1600,
-        "wires": [
-            [
-                "ee465241a6868363"
-            ]
-        ]
-    },
-    {
-        "id": "ee465241a6868363",
-        "type": "change",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "prepare-prefill",
-        "rules": [
-            {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload.geojson",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.name",
-                "pt": "msg",
-                "to": "track",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1180,
-        "y": 1600,
-        "wires": [
-            [
-                "2eb0482f85ee22ba"
-            ]
-        ]
-    },
-    {
-        "id": "2eb0482f85ee22ba",
-        "type": "function",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "randomize",
-        "func": "var max = 1000\nvar min = -1000\nrandom = Math.random() * (max - min) + min\nrandom = random * 0.0000001\nmsg.payload.geojson.geometry.coordinates[0] = msg.payload.geojson.geometry.coordinates[0] + random\nmsg.payload.geojson.geometry.coordinates[1] = msg.payload.geojson.geometry.coordinates[1] + random\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1350,
-        "y": 1600,
-        "wires": [
-            [
-                "ab9589ea128d8405"
-            ]
-        ]
-    },
-    {
         "id": "ac521077d73749bf",
         "type": "link in",
         "z": "e96654f5.3653d8",
@@ -2708,20 +2351,6 @@
                 "7c8f31a830673b5d"
             ]
         ]
-    },
-    {
-        "id": "4a913092ef3496ee",
-        "type": "link out",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "",
-        "mode": "link",
-        "links": [
-            "ac521077d73749bf"
-        ],
-        "x": 2005,
-        "y": 1540,
-        "wires": []
     },
     {
         "id": "233914874548d0d6",
@@ -2760,12 +2389,12 @@
         "links": [
             "c13690df77903dc1"
         ],
-        "x": 885,
-        "y": 1400,
+        "x": 905,
+        "y": 1380,
         "wires": [
             [
                 "8eb4c45cd1d874d5",
-                "a42c1ee28c458e16"
+                "28df6d6551aac571"
             ]
         ]
     },
@@ -2812,26 +2441,9 @@
             "f1243fee1077de03",
             "45eb0541fab63443"
         ],
-        "x": 1865,
-        "y": 1400,
+        "x": 1985,
+        "y": 1280,
         "wires": []
-    },
-    {
-        "id": "f1243fee1077de03",
-        "type": "link in",
-        "z": "e96654f5.3653d8",
-        "g": "af0ac6dccf12a96b",
-        "name": "track-in",
-        "links": [
-            "f82c65988d51b10c"
-        ],
-        "x": 875,
-        "y": 1600,
-        "wires": [
-            [
-                "f3218a6d18f677bd"
-            ]
-        ]
     },
     {
         "id": "45eb0541fab63443",
@@ -2851,6 +2463,199 @@
         ]
     },
     {
+        "id": "d00a7ca3b135b20a",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "calculate-next-point",
+        "func": "\nvar options = flow.get(\"turfOptions\")\nvar line = flow.get(\"turfLine\")\nvar length = flow.get(\"turfLength\")\nvar speed = flow.get(\"speed\")\nvar km = flow.get(\"km\")\nvar along = flow.get(\"turfAlong\")\n\n\nif (km < length) {\n    \n    areas = flow.get(\"areas\").features\n    areas.forEach(function(area) {\n        var poly = turf.polygon(area.geometry.coordinates);\n        if(turf.booleanPointInPolygon(along, poly)) {\n            speed = 50\n        }\n    });\n    \n    // calculate next position\n    km = km + (speed / 3600)\n    flow.set(\"km\",km)\n    along = turf.along(line, km, options);\n    flow.set(\"turfAlong\", along)\n    \n    // create message\n    var position = {\"payload\": along}\n    return position\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "turf",
+                "module": "@turf/turf"
+            }
+        ],
+        "x": 1190,
+        "y": 1680,
+        "wires": [
+            [
+                "ee465241a6868363",
+                "3f249171c927b7bc"
+            ]
+        ]
+    },
+    {
+        "id": "c2572d359561c4c8",
+        "type": "inject",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "every second",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "control",
+        "payload": "peek",
+        "payloadType": "str",
+        "x": 840,
+        "y": 1680,
+        "wires": [
+            [
+                "c79a0c8978559dd1"
+            ]
+        ]
+    },
+    {
+        "id": "86f7f173d3cf64bd",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "unix time",
+        "func": "d = new Date()\nmsg.payload.time = d.getTime()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 1740,
+        "wires": [
+            [
+                "9abd850e033df297"
+            ]
+        ]
+    },
+    {
+        "id": "2e0172ea85537af7",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "format for mqtt",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "playload.name",
+                "tot": "msg",
+                "dc": true
+            },
+            {
+                "t": "delete",
+                "p": "payload.name",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1780,
+        "y": 1740,
+        "wires": [
+            [
+                "86f7f173d3cf64bd"
+            ]
+        ]
+    },
+    {
+        "id": "2eb0482f85ee22ba",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "randomize",
+        "func": "var max = 1000\nvar min = -1000\nrandom = Math.random() * (max - min) + min\nrandom = random * 0.0000001\nmsg.payload.geojson.geometry.coordinates[0] = msg.payload.geojson.geometry.coordinates[0] + random\nmsg.payload.geojson.geometry.coordinates[1] = msg.payload.geojson.geometry.coordinates[1] + random\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1590,
+        "y": 1680,
+        "wires": [
+            [
+                "2e0172ea85537af7",
+                "8ddefa664a6ee89d"
+            ]
+        ]
+    },
+    {
+        "id": "ee465241a6868363",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "prepare-prefill",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.geojson",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "track",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 1680,
+        "wires": [
+            [
+                "2eb0482f85ee22ba"
+            ]
+        ]
+    },
+    {
+        "id": "4a913092ef3496ee",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "ac521077d73749bf"
+        ],
+        "x": 2045,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "9abd850e033df297",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "to-mqtt",
+        "links": [
+            "5cd9f3e9.c32a7c"
+        ],
+        "x": 2045,
+        "y": 1740,
+        "wires": []
+    },
+    {
         "id": "f987487191ccd337",
         "type": "link in",
         "z": "e96654f5.3653d8",
@@ -2859,8 +2664,8 @@
         "links": [
             "b6965eed22449f23"
         ],
-        "x": 875,
-        "y": 1700,
+        "x": 905,
+        "y": 1740,
         "wires": [
             [
                 "d4428b6b1f2ced5f"
@@ -2887,8 +2692,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 990,
-        "y": 1700,
+        "x": 1010,
+        "y": 1740,
         "wires": [
             []
         ]
@@ -2921,7 +2726,7 @@
         "to": "",
         "reg": false,
         "x": 1900,
-        "y": 1540,
+        "y": 1620,
         "wires": [
             [
                 "4a913092ef3496ee"
@@ -2960,12 +2765,824 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1720,
-        "y": 1540,
+        "x": 1760,
+        "y": 1620,
         "wires": [
             [
                 "1174b5dd0ee5ea98"
             ]
+        ]
+    },
+    {
+        "id": "52f9f915aa00a81f",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "g": "670e93e4a2018239",
+        "name": "store track",
+        "func": "var options = {units: 'kilometers'};\nvar line = turf.lineString(msg.payload.features[0].geometry.coordinates)\nvar length = turf.length(line, options)\nvar km = 0\nvar along = turf.along(line, km, options);\n\n\nflow.set(\"turfOptions\", options)\nflow.set(\"turfLine\", line) // track\nflow.set(\"turfLength\", length)\nflow.set(\"turfAlong\", along)\nflow.set(\"km\", km)\nflow.set(\"speed\", 200)",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "turf",
+                "module": "@turf/turf"
+            }
+        ],
+        "x": 1930,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "037e17020d1a9687",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "name": "calculate-points",
+        "func": "\nvar options = {units: 'kilometers'};\nvar line = turf.lineString(msg.payload.features[0].geometry.coordinates); // track\nvar length = turf.length(line, options); // length of track\n\nvar defaultSpeed = 200\nvar km = 0\nvar along = turf.along(line, km, options);\n\ndo {\n    // is train in an area?\n    speed = defaultSpeed\n    areas = flow.get(\"areas\").features\n\n    areas.forEach(function(area) {\n        var poly = turf.polygon(area.geometry.coordinates);\n        if(turf.booleanPointInPolygon(along, poly)) {\n            speed = 50\n        }\n    });\n    \n    // calculate next position\n    km = km + (speed / 3600)\n    along = turf.along(line, km, options);\n    \n    // create message\n    var postion = {\"payload\": along}\n\n    // send positions\n    node.send(postion)\n} while(km < length)\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "turf",
+                "module": "@turf/turf"
+            }
+        ],
+        "x": 1460,
+        "y": 2240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8dd59060c40f6091",
+        "type": "q-gate",
+        "z": "e96654f5.3653d8",
+        "name": "queue points",
+        "controlTopic": "control",
+        "defaultState": "queueing",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "queueCmd": "queue",
+        "defaultCmd": "default",
+        "triggerCmd": "trigger",
+        "flushCmd": "flush",
+        "resetCmd": "reset",
+        "peekCmd": "peek",
+        "dropCmd": "drop",
+        "statusCmd": "status",
+        "maxQueueLength": "1000",
+        "keepNewest": false,
+        "qToggle": false,
+        "persist": false,
+        "storeName": "memory",
+        "x": 1630,
+        "y": 2420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c456ef56f8881840",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "name": "drop",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "drop",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "control",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1690,
+        "y": 2280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28df6d6551aac571",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "670e93e4a2018239",
+        "name": "store tracks",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tracks",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "32a3ed838ec30a6c",
+        "type": "ui_button",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "Play",
+        "group": "7fe4ba457a8054b7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Start",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1190,
+        "y": 1560,
+        "wires": [
+            [
+                "976be2a5338aa22d",
+                "b88b0eb2194990d4",
+                "9b074b3c32aa4e71"
+            ]
+        ]
+    },
+    {
+        "id": "9ce2f167ab2baf16",
+        "type": "ui_button",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "Stop",
+        "group": "7fe4ba457a8054b7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1210,
+        "y": 1860,
+        "wires": [
+            [
+                "e97fe5b1691c7f90",
+                "6706ad315002c589",
+                "dd64742406901b81"
+            ]
+        ]
+    },
+    {
+        "id": "4c31360a9429a06b",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "disable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1140,
+        "y": 2080,
+        "wires": [
+            [
+                "c29ae327bb17f275"
+            ]
+        ]
+    },
+    {
+        "id": "48913f90673f26fb",
+        "type": "inject",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "init",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 970,
+        "y": 2040,
+        "wires": [
+            [
+                "4c31360a9429a06b",
+                "bb2b185995e5c826",
+                "46b9898bb5fc2597"
+            ]
+        ]
+    },
+    {
+        "id": "08e684ff1fc55558",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "ui-journeys-init-enable-out",
+        "mode": "link",
+        "links": [
+            "5dbe8d4d9275eb26",
+            "d7cf85f6c1300807"
+        ],
+        "x": 1225,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "bb2b185995e5c826",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "enable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 2040,
+        "wires": [
+            [
+                "08e684ff1fc55558"
+            ]
+        ]
+    },
+    {
+        "id": "c29ae327bb17f275",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "ui-journeys-init-disable-out",
+        "mode": "link",
+        "links": [
+            "a08de1820d554f51",
+            "bbb5de70871058d6"
+        ],
+        "x": 1225,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "a08de1820d554f51",
+        "type": "link in",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-play-in",
+        "links": [
+            "c29ae327bb17f275",
+            "2224dd67c00698f6",
+            "100a3777da59ef38",
+            "9171e36febccb2c2",
+            "2ec16ff6540a3c5e"
+        ],
+        "x": 1005,
+        "y": 1560,
+        "wires": [
+            [
+                "32a3ed838ec30a6c"
+            ]
+        ]
+    },
+    {
+        "id": "bbb5de70871058d6",
+        "type": "link in",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-stop-in",
+        "links": [
+            "c29ae327bb17f275",
+            "a29ab61abee0c120",
+            "8c0e6302d24bd264",
+            "9636e27190297fe8",
+            "f5d713db7e8695a9"
+        ],
+        "x": 1005,
+        "y": 1860,
+        "wires": [
+            [
+                "9ce2f167ab2baf16"
+            ]
+        ]
+    },
+    {
+        "id": "b88b0eb2194990d4",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "disable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1600,
+        "wires": [
+            [
+                "100a3777da59ef38"
+            ]
+        ]
+    },
+    {
+        "id": "8c0e6302d24bd264",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-play-enabled-out",
+        "mode": "link",
+        "links": [
+            "bbb5de70871058d6"
+        ],
+        "x": 1495,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "976be2a5338aa22d",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "enable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1560,
+        "wires": [
+            [
+                "8c0e6302d24bd264"
+            ]
+        ]
+    },
+    {
+        "id": "100a3777da59ef38",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-play-disabled-out",
+        "mode": "link",
+        "links": [
+            "5dbe8d4d9275eb26",
+            "a08de1820d554f51",
+            "d7cf85f6c1300807"
+        ],
+        "x": 1495,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "6706ad315002c589",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "disable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1900,
+        "wires": [
+            [
+                "9636e27190297fe8"
+            ]
+        ]
+    },
+    {
+        "id": "9171e36febccb2c2",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-stop-enabled-out",
+        "mode": "link",
+        "links": [
+            "5dbe8d4d9275eb26",
+            "a08de1820d554f51",
+            "d7cf85f6c1300807"
+        ],
+        "x": 1485,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "e97fe5b1691c7f90",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "enable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1860,
+        "wires": [
+            [
+                "9171e36febccb2c2"
+            ]
+        ]
+    },
+    {
+        "id": "9636e27190297fe8",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "ui-journeys-stop-disabled-out",
+        "mode": "link",
+        "links": [
+            "bbb5de70871058d6"
+        ],
+        "x": 1485,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "5b9faf96ee3ce4c8",
+        "type": "ui_dropdown",
+        "z": "e96654f5.3653d8",
+        "name": "",
+        "label": "Select Track",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "7fe4ba457a8054b7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 1290,
+        "y": 1320,
+        "wires": [
+            [
+                "fc3099ec9bf4a941",
+                "bbea3df8c0da5b37",
+                "edc39d723d3f4d0c"
+            ]
+        ]
+    },
+    {
+        "id": "d7cf85f6c1300807",
+        "type": "link in",
+        "z": "e96654f5.3653d8",
+        "g": "670e93e4a2018239",
+        "name": "ui-journeys-select-track-in",
+        "links": [
+            "08e684ff1fc55558",
+            "2ec16ff6540a3c5e",
+            "100a3777da59ef38",
+            "9171e36febccb2c2"
+        ],
+        "x": 905,
+        "y": 1320,
+        "wires": [
+            [
+                "5b9faf96ee3ce4c8"
+            ]
+        ]
+    },
+    {
+        "id": "bbea3df8c0da5b37",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "name": "disable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 1360,
+        "wires": [
+            [
+                "f5d713db7e8695a9"
+            ]
+        ]
+    },
+    {
+        "id": "2ec16ff6540a3c5e",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "name": "ui-journeys-select-track-enabled-out",
+        "mode": "link",
+        "links": [
+            "d7cf85f6c1300807",
+            "a08de1820d554f51"
+        ],
+        "x": 1575,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "fc3099ec9bf4a941",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "name": "enable ui",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 1320,
+        "wires": [
+            [
+                "2ec16ff6540a3c5e"
+            ]
+        ]
+    },
+    {
+        "id": "f5d713db7e8695a9",
+        "type": "link out",
+        "z": "e96654f5.3653d8",
+        "name": "ui-journeys-select-track-disabled-out",
+        "mode": "link",
+        "links": [
+            "bbb5de70871058d6"
+        ],
+        "x": 1575,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "9b074b3c32aa4e71",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "set play active",
+        "rules": [
+            {
+                "t": "set",
+                "p": "play",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 1520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd64742406901b81",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "set play inactive",
+        "rules": [
+            {
+                "t": "set",
+                "p": "play",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c79a0c8978559dd1",
+        "type": "switch",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "play active?",
+        "property": "play",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 1680,
+        "wires": [
+            [
+                "d00a7ca3b135b20a"
+            ]
+        ]
+    },
+    {
+        "id": "3f249171c927b7bc",
+        "type": "debug",
+        "z": "e96654f5.3653d8",
+        "g": "af0ac6dccf12a96b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "46b9898bb5fc2597",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "c7c40ee274ebd36e",
+        "name": "set play inactive",
+        "rules": [
+            {
+                "t": "set",
+                "p": "play",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1160,
+        "y": 2120,
+        "wires": [
+            []
         ]
     },
     {
@@ -5828,8 +6445,8 @@
         "z": "6315e2b5.b96fdc",
         "name": "mqtt-environment-location-gps",
         "links": [
-            "ed0947fb.974f48",
-            "9abd850e033df297"
+            "9abd850e033df297",
+            "ed0947fb.974f48"
         ],
         "x": 495,
         "y": 280,
