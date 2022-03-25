@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"strings"
@@ -13,7 +14,13 @@ import (
 )
 
 func handler(msg *nats.Msg) {
-	fmt.Printf("Received a message on subject %s: %s\n", msg.Subject, string(msg.Data))
+	event, err := eventlistener.Unmarshal(msg.Data)
+	if err != nil {
+		fmt.Printf("Unmarshal failed: %s\n", err)
+		return
+	}
+	log.Printf("Train %s, Site %s, Event %s\n", event.Train, event.Site, event.Event)
+
 }
 
 func main() {
