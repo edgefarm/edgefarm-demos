@@ -1,0 +1,3 @@
+test: ## run go tests
+	go test ./...
+

@@ -10,9 +10,11 @@ import (
 	"github.com/eclipse/paho.golang/paho"
 )
 
-// Implements EdgefarmNetworkIf for mqtt connections
+// MqttConnection represents the MQTT connection
 type MqttConnection struct {
 	client *paho.Client
+	server string
+	port   string
 }
 
 const (
@@ -23,11 +25,6 @@ const (
 
 // NewMqttConnection creates new MQTT client
 func NewMqttConnection() *MqttConnection {
-	return &MqttConnection{}
-}
-
-// Connect to MQTT server. Server URL can be provided via MQTT_SERVER environment variable.
-func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
 	mqttServer := defaultMQTTServer
 	if env := os.Getenv("MQTT_SERVER"); len(env) > 0 {
 		mqttServer = env
@@ -37,9 +34,19 @@ func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
 		mqttPort = env
 	}
 
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", mqttServer, mqttPort))
+	return &MqttConnection{
+		client: &paho.Client{},
+		server: mqttServer,
+		port:   mqttPort,
+	}
+}
+
+// Connect to MQTT server. Server URL can be provided via MQTT_SERVER environment variable.
+func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
+
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", m.server, m.port))
 	if err != nil {
-		return fmt.Errorf("Failed to connect to %s:%s: %s", mqttServer, mqttPort, err)
+		return fmt.Errorf("Failed to connect to %s:%s: %s", m.server, m.port, err)
 	}
 
 	// From https://github.com/eclipse/paho.golang/blob/336f2adf08b8233199ac8132b8dd12cbb8c69eca/paho/client.go
@@ -53,7 +60,7 @@ func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
 		// Connect Client to MQTT Broker
 		res, err := m.client.Connect(context.Background(), &paho.Connect{})
 		if err != nil {
-			fmt.Printf("Failed to connect to %s: %s", mqttServer, err.Error())
+			fmt.Printf("Failed to connect to %s: %s", m.server, err.Error())
 		} else if res.ReasonCode != 0 {
 			fmt.Printf("Failed to connect with reason: %d - %s", res.ReasonCode, res.Properties.ReasonString)
 		} else {
