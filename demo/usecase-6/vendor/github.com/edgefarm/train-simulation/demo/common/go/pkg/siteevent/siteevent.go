@@ -1,6 +1,12 @@
-package eventlistener
+package siteevent
 
 import "encoding/json"
+
+var (
+	// NatsSubject is the base subject on which site events are published. The sub subjects contain the site id.
+	// example: 'site-event.my-site'
+	NatsSubject = "sites-event"
+)
 
 type Event struct {
 	Train string `json:"train"`
