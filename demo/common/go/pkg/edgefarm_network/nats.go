@@ -9,7 +9,7 @@ import (
 	nats "github.com/nats-io/nats.go"
 )
 
-// Implements EdgefarmNetworkIf for nats connections
+// NatsConnection represents nats connection
 type NatsConnection struct {
 	client       *nats.Conn
 	server       string
