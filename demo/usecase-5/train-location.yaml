@@ -1,0 +1,66 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: train-location
+  labels:
+    name: train-location
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sites
+  namespace: tain-location
+data:
+  site1: '{"id": "abc","zero": {"lat": 23.3434,"lon": 24.323}}'
+  site2: '{"id": "abc","zero": {"lat": 23.3434,"lon": 24.323}}'
+---
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: train-location
+  namespace: train-location
+spec:
+  components:
+    - name: receive-highres-position
+      type: edge-worker
+      properties:
+        image: ci4rail/receive-highres-position
+        name: receive-highres-position
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: <IP>
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: position-service
+      type: cloud-worker
+      properties:
+        image: ci4rail/position-service
+        name: position-service
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+
+      traits:
+        - type: cloud-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - type: application-network
+      name: train-location-network
+      properties:
+        streams:
+          - name: train-location
+            subjects:
+              - position.>
+            storage: file
+          - name: train-data
+            subjects:
+              - train.>
+            storage: file

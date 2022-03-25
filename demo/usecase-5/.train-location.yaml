@@ -1,10 +1,3 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: train-location
-  labels:
-    name: train-location
----
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
@@ -12,18 +5,29 @@ metadata:
   namespace: train-location
 spec:
   components:
-    - name: receive-position
+    - name: receive-highres-position
       type: edge-worker
       properties:
-        image: ci4rail/receive-position
-        name: receive-position
+        image: ci4rail/receive-highres-position
+        name: receive-highres-position
         env:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: <IP>
+            value: 172.17.0.1
       traits:
         - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: position-service
+      type: cloud-worker
+      properties:
+        image: ci4rail/position-service
+        name: position-service
+      traits:
+        - type: cloud-network-participant
           properties:
             networks:
               - train-location-network
