@@ -27,7 +27,7 @@ func handler(msg *nats.Msg) {
 		fmt.Printf("Unmarshal failed: %s\n", err)
 		return
 	}
-	m.Add([]string{time.Now().Format("2006-01-02 15:04:05"), event.Site, event.Train, event.Event})
+	m.Add([]string{time.Now().Format("01-02-2006 15:04:05"), event.Site, event.Train, event.Event})
 	log.Printf("Train %s, Site %s, Event %s\n", event.Train, event.Site, event.Event)
 
 	err = m.Print()
@@ -44,6 +44,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("err: %s", err)
 	}
+	m.Print()
 
 	exit := make(chan bool)
 	network := edgefarm_network.NewNatsConnection()

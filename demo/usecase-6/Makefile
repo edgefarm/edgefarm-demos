@@ -22,9 +22,9 @@ clean: ## cleanup
 	rm -rf ${BIN_DIR}/${BINARY}
 
 docker-amd64: tidy test ## creates docker images for amd64 (prefix dev-)
-	docker build -f Dockerfile -t ci4rail/dev-${BINARY}:${VERSION} -t ci4rail/dev-${BINARY}:latest . 
-	docker push ci4rail/dev-${BINARY}:${VERSION}
-	docker push ci4rail/dev-${BINARY}:latest
+	docker build -f build/Dockerfile -t ci4rail/dev-${BINARY}:${VERSION} -t ci4rail/dev-${BINARY}:latest ../
+	# docker push ci4rail/dev-${BINARY}:${VERSION}
+	# docker push ci4rail/dev-${BINARY}:latest
 
 .PHONY: test clean build all tidy docker-amd64
 

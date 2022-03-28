@@ -9,7 +9,9 @@ WORKDIR /code/usecase-6
 RUN make
 
 FROM alpine:3.14
+RUN apk add bash
 COPY --from=builder /code/usecase-6/web /web
 COPY --from=builder /code/usecase-6/bin/maintenance-hall /maintenance-hall
 COPY --from=builder /go/bin/lanyon /usr/local/bin/lanyon
-CMD ["/maintenance-hall"]
+COPY usecase-6/build/entrypoint.sh /entrypoint.sh
+CMD ["/entrypoint.sh"]
