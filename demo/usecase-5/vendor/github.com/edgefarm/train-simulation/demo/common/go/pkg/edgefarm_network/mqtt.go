@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"net"
-	"os"
 	"time"
 
 	"github.com/eclipse/paho.golang/paho"
+	env "github.com/edgefarm/train-simulation/demo/common/go/pkg/env"
 )
 
 // MqttConnection represents the MQTT connection
@@ -25,14 +25,9 @@ const (
 
 // NewMqttConnection creates new MQTT client
 func NewMqttConnection() *MqttConnection {
-	mqttServer := defaultMQTTServer
-	if env := os.Getenv("MQTT_SERVER"); len(env) > 0 {
-		mqttServer = env
-	}
-	mqttPort := defaultMQTTPort
-	if env := os.Getenv("MQTT_PORT"); len(env) > 0 {
-		mqttPort = env
-	}
+
+	mqttServer := env.GetEnvVar("MQTT_SERVER", defaultMQTTServer)
+	mqttPort := env.GetEnvVar("MQTT_PORT", defaultMQTTPort)
 
 	return &MqttConnection{
 		client: &paho.Client{},

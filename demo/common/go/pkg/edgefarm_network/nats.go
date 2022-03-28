@@ -3,9 +3,9 @@ package edgefarm_network
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
+	env "github.com/edgefarm/train-simulation/demo/common/go/pkg/env"
 	nats "github.com/nats-io/nats.go"
 )
 
@@ -23,14 +23,8 @@ const (
 
 // NewNatsConnection creates new nats client
 func NewNatsConnection() *NatsConnection {
-	natsServer := defaultNATSServer
-	if env := os.Getenv("NATS_SERVER"); len(env) > 0 {
-		natsServer = env
-	}
-	creds := ""
-	if env := os.Getenv("NATS_CREDS_PATH"); len(env) > 0 {
-		creds = env
-	}
+	natsServer := env.GetEnvVar("NATS_SERVER", defaultNATSServer)
+	creds := env.GetEnvVar("NATS_CREDS", "")
 	return &NatsConnection{
 		client:       &nats.Conn{},
 		server:       natsServer,
