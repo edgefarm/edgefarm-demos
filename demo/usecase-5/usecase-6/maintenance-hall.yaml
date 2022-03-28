@@ -1,0 +1,31 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: maintenance-hall
+  namespace: maintenance-hall
+spec:
+  components:
+    - name: maintenance-hall
+      type: edge-worker
+      properties:
+        image: ci4rail/receive-position
+        name: receive-position
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/maintenance-hall-network.creds
+          - name: MQTT_SERVER
+            value: <IP>
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - maintenance-hall-network
+
+    - type: application-network
+      name: maintenance-hall-network
+      properties:
+        streams:
+          - name: maintenance-hall
+            subjects:
+              - position.>
+            storage: file

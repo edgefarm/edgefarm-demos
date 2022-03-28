@@ -1,4 +1,4 @@
-module github.com/edgefarm/train-simulation/demo/usecase-6
+module github.com/edgefarm/train-simulation/demo/usecase-5
 
 go 1.18
 

@@ -11,8 +11,8 @@ import (
 
 	edgefarm_network "github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
 	siteevent "github.com/edgefarm/train-simulation/demo/common/go/pkg/siteevent"
-	eventlistener "github.com/edgefarm/train-simulation/demo/usecase-6/pkg/eventlistener"
-	markdown "github.com/edgefarm/train-simulation/demo/usecase-6/pkg/markdown"
+	eventlistener "github.com/edgefarm/train-simulation/demo/usecase-5/pkg/eventlistener"
+	markdown "github.com/edgefarm/train-simulation/demo/usecase-5/pkg/markdown"
 	nats "github.com/nats-io/nats.go"
 )
 
