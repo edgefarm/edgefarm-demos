@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maintenance-hall
+---
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
@@ -8,13 +13,16 @@ spec:
     - name: maintenance-hall
       type: edge-worker
       properties:
-        image: ci4rail/receive-position
-        name: receive-position
+        image: ci4rail/maintenance-hall
+        name: maintenance-hall
         env:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/maintenance-hall-network.creds
-          - name: MQTT_SERVER
-            value: <IP>
+          - name: SITES
+            value: "sites.mySite1,sites.mySite2,sites.mySite3"
+        ports:
+          - hostPort: 9999
+            containerPort: 9999
       traits:
         - type: edge-network-participant
           properties:
@@ -27,5 +35,5 @@ spec:
         streams:
           - name: maintenance-hall
             subjects:
-              - position.>
+              - sites.>
             storage: file
