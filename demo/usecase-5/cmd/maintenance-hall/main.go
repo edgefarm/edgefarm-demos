@@ -10,9 +10,9 @@ import (
 	"time"
 
 	edgefarm_network "github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
-	siteevent "github.com/edgefarm/train-simulation/demo/common/go/pkg/siteevent"
 	eventlistener "github.com/edgefarm/train-simulation/demo/usecase-5/pkg/eventlistener"
 	markdown "github.com/edgefarm/train-simulation/demo/usecase-5/pkg/markdown"
+	siteevent "github.com/edgefarm/train-simulation/demo/usecase-5/pkg/siteevent"
 	nats "github.com/nats-io/nats.go"
 )
 
