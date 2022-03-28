@@ -6,8 +6,8 @@ replace github.com/edgefarm/train-simulation/demo/common/go => ../common/go
 
 require (
 	github.com/edgefarm/train-simulation/demo/common/go v0.0.0-00010101000000-000000000000
+	github.com/fbiville/markdown-table-formatter v0.3.0
 	github.com/nats-io/nats.go v1.13.1-0.20220308171302-2f2f6968e98d
-	github.com/olekukonko/tablewriter v0.0.5
 	github.com/stretchr/testify v1.7.0
 )
 
@@ -15,7 +15,6 @@ require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/eclipse/paho.golang v0.10.0 // indirect
 	github.com/klauspost/compress v1.14.4 // indirect
-	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/minio/highwayhash v1.0.2 // indirect
 	github.com/nats-io/jwt/v2 v2.2.1-0.20220113022732-58e87895b296 // indirect
 	github.com/nats-io/nkeys v0.3.0 // indirect

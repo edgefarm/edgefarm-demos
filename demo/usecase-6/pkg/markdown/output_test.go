@@ -23,20 +23,26 @@ func TestMarkdown(t *testing.T) {
 
 	m, err := NewMarkdown(file.Name())
 	assert.Nil(err)
-	assert.Nil(m.Add(row))
+	m.Add(row)
 	row = []string{"hello", "foo", "bar", "mytes"}
-	assert.Nil(m.Add(row))
-	m.Print()
+	m.Add(row)
+	assert.Nil(m.Print())
 	fmt.Println(file.Name())
 
 	data, err := ioutil.ReadFile(file.Name())
 	assert.Nil(err)
+	fmt.Println(string(data))
 	assert.Equal(string(data),
-		`+-------+------+-------+-------+
-| DATE  | SITE | TRAIN | EVENT |
-+-------+------+-------+-------+
-| a     | b    | c     | d     |
-| hello | foo  | bar   | mytes |
-+-------+------+-------+-------+
+		`---
+title: Home
+layout: home
+---
+
+# Incoming and leaving trains log
+
+| DATE | SITE | TRAIN | EVENT |
+| ---- | ---- | ----- | ----- |
+| hello | foo | bar | mytes |
+| a | b | c | d |
 `)
 }

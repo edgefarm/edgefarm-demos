@@ -27,15 +27,20 @@ func handler(msg *nats.Msg) {
 		fmt.Printf("Unmarshal failed: %s\n", err)
 		return
 	}
-	m.Add([]string{time.Now().String(), event.Site, event.Train, event.Event})
+	m.Add([]string{time.Now().Format("2006-01-02 15:04:05"), event.Site, event.Train, event.Event})
 	log.Printf("Train %s, Site %s, Event %s\n", event.Train, event.Site, event.Event)
-	m.Print()
+
+	err = m.Print()
+	if err != nil {
+		fmt.Printf("Print failed: %s\n", err)
+		return
+	}
 }
 
 func main() {
 
 	var err error
-	m, err = markdown.NewMarkdown("/tmp/events.md")
+	m, err = markdown.NewMarkdown("web/public/index.md")
 	if err != nil {
 		log.Fatalf("err: %s", err)
 	}
