@@ -17,8 +17,7 @@ import (
 )
 
 var (
-	events [][]string
-	m      *markdown.Markdown
+	m *markdown.Markdown
 )
 
 func handler(msg *nats.Msg) {

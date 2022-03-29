@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Log into Docker
-        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+        run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
