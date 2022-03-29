@@ -71,7 +71,7 @@ func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
 	return fmt.Errorf("Cannot connect to MQTT broker.")
 }
 
-// Subscribe subscribe to topic, required handler function for message receive.
+// Subscribe to topic, required handler function for message receive.
 func (m *MqttConnection) Subscribe(topic string, handlerFunc interface{}) error {
 	// Check if passed function is of correct type
 	if f, ok := handlerFunc.(func(*paho.Publish)); ok {
@@ -94,12 +94,20 @@ func (m *MqttConnection) Subscribe(topic string, handlerFunc interface{}) error 
 	return fmt.Errorf("Provided handlerFunc not of correct type")
 }
 
-// Publish publish message to topic provided
+// Publish message to topic provided
 func (m *MqttConnection) Publish(topic string, message []byte) error {
-	return fmt.Errorf("Publish not implemented")
+	_, err := m.client.Publish(context.Background(), &paho.Publish{
+		QoS:     1,
+		Topic:   topic,
+		Payload: message,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
-// Close close mqtt connection
+// Close mqtt connection
 func (m *MqttConnection) Close() {
 	if m.client != nil {
 		d := &paho.Disconnect{ReasonCode: 0}
