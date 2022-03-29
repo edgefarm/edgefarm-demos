@@ -5,15 +5,6 @@ metadata:
   labels:
     name: train-location
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: sites
-  namespace: tain-location
-data:
-  site1: '{"id": "abc","zero": {"lat": 23.3434,"lon": 24.323}}'
-  site2: '{"id": "abc","zero": {"lat": 23.3434,"lon": 24.323}}'
----
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
@@ -42,16 +33,27 @@ spec:
       properties:
         image: ci4rail/position-service
         name: position-service
+        labelSelector:
+          - position-service
         env:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
-
+          - name: SITES_STATE_FILE
+            value: /data/site-manager-state.json
       traits:
         - type: cloud-network-participant
           properties:
             networks:
               - train-location-network
-
+        - type: volumes
+          properties:
+            volumes:
+              - name: sites-state
+                type: hostPath
+                path: /data/site-manager-state.json
+                mountPath: /data/site-manager-state.json
+                mountType: FileOrCreate
+                readOnly: false
     - type: application-network
       name: train-location-network
       properties:
