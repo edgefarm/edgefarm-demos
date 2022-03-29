@@ -1,4 +1,4 @@
-name: maintenance-hall pullrequest
+name: usecase-5 pullrequest
 on:
   pull_request:
     branches:
