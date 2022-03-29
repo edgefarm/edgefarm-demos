@@ -6,6 +6,8 @@ on:
     paths:
       - "demo/usecase-5/**"
       - "demo/common/go/**"
+      - ".github/workflows/usecase-5-pr.yaml"
+      - ".github/workflows/usecase-5-main.yaml"
 
 env:
   ARCHITECTURES: linux/arm64,linux/amd64
