@@ -4,8 +4,8 @@ on:
     branches:
       - main
     paths:
-      - "demo/usecase-5/**"
-      - "demo/common/go/**"
+      - "demo/usecase-5/**/*"
+      - "demo/common/go/**/*"
       - ".github/workflows/usecase-5-pr.yaml"
       - ".github/workflows/usecase-5-main.yaml"
 
@@ -42,7 +42,7 @@ jobs:
           docker buildx build \
                       --push \
                       --platform ${ARCHITECTURES} \
-                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      --build-arg VERSION=${SHORT_SHA::8} \
                       -f build/maintenance-hall/Dockerfile \
                       --tag ${DOCKER_REPOSITORY}/dev-maintenance-hall:latest \
                       --tag ${DOCKER_REPOSITORY}/dev-maintenance-hall:${SHORT_SHA} ../

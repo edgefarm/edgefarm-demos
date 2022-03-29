@@ -4,8 +4,8 @@ on:
     branches:
       - main
     paths:
-      - "demo/usecase-5/**"
-      - "demo/common/go/**"
+      - "demo/usecase-5/**/*"
+      - "demo/common/go/**/*"
       - ".github/workflows/usecase-5-pr.yaml"
       - ".github/workflows/usecase-5-main.yaml"
 
