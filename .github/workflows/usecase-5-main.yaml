@@ -4,8 +4,8 @@ on:
     branches:
       - main
     paths:
-      - demo/usecase-5/**
-      - demo/common/go/**
+      - "demo/usecase-5/**"
+      - "demo/common/go/**"
 
 env:
   ARCHITECTURES: linux/arm64,linux/amd64
