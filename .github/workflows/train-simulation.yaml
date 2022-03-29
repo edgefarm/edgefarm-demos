@@ -3,11 +3,10 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "demo/usecase-5/**/*"
-      - "demo/common/go/**/*"
-      - ".github/workflows/usecase-5-pr.yaml"
-      - ".github/workflows/usecase-5-main.yaml"
+    paths:
+      - "demo/usecase-1/**/*"
+      - "demo/usecase-2/**/*"
+      - "demo/usecase-3/**/*"
 
 env:
   ARCHITECTURES: linux/arm64,linux/amd64

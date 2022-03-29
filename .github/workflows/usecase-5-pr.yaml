@@ -3,7 +3,7 @@ on:
   pull_request:
     branches:
       - main
-      - test
+      - usecase-6
     paths:
       - "demo/usecase-5/**/*"
       - "demo/common/go/**/*"
