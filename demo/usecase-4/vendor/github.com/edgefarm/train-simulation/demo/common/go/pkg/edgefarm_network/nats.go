@@ -64,14 +64,18 @@ func (n *NatsConnection) Connect(connectTimeoutSeconds int) error {
 }
 
 // Subscribes to subject, required handler function for message receive.
-func (n *NatsConnection) Subscribe(subject string, handlerFunc nats.MsgHandler) error {
-	// Subscribe to nats subject
-	sub, err := n.client.Subscribe(subject, handlerFunc)
-	if err != nil {
-		return err
+func (n *NatsConnection) Subscribe(subject string, handlerFunc interface{}) error {
+	// Check if passed function is of correct type
+	if f, ok := handlerFunc.(func(*nats.Msg)); ok {
+		// Subscribe to nats subject
+		sub, err := n.client.Subscribe(subject, f)
+		if err != nil {
+			return err
+		}
+		n.subsciptions[subject] = sub
+		return nil
 	}
-	n.subsciptions[subject] = sub
-	return nil
+	return fmt.Errorf("Provided handlerFunc not of correct type")
 }
 
 // Publish publish message to topic provided

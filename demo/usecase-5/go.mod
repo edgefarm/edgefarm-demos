@@ -5,6 +5,7 @@ go 1.18
 replace github.com/edgefarm/train-simulation/demo/common/go => ../common/go
 
 require (
+	github.com/eclipse/paho.golang v0.10.0
 	github.com/edgefarm/train-simulation/demo/common/go v0.0.0-00010101000000-000000000000
 	github.com/fbiville/markdown-table-formatter v0.3.0
 	github.com/nats-io/nats.go v1.13.1-0.20220308171302-2f2f6968e98d
