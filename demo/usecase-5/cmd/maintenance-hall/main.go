@@ -38,7 +38,6 @@ func handler(msg *nats.Msg) {
 }
 
 func main() {
-
 	var err error
 	m, err = markdown.NewMarkdown("web/public/index.md")
 	if err != nil {
