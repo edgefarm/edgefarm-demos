@@ -71,7 +71,9 @@
             "bb29cd6ca5702fe7"
         ],
         "x": 14,
-        "y": 739
+        "y": 739,
+        "w": 342,
+        "h": 202
     },
     {
         "id": "0ded4dc7e0bad8c6",
@@ -91,7 +93,9 @@
             "6d55712194850825"
         ],
         "x": 14,
-        "y": 519
+        "y": 519,
+        "w": 702,
+        "h": 162
     },
     {
         "id": "3946bb2aa731ca06",
@@ -141,7 +145,9 @@
             "b5a98e20618ff245"
         ],
         "x": 14,
-        "y": 59
+        "y": 59,
+        "w": 1022,
+        "h": 342
     },
     {
         "id": "16c05c80a31426ee",
@@ -158,7 +164,9 @@
             "b32a2df7d5bcf61c"
         ],
         "x": 14,
-        "y": 419
+        "y": 419,
+        "w": 692,
+        "h": 82
     },
     {
         "id": "8f2d0f85238db2b6",
@@ -176,7 +184,9 @@
             "4f85142130eaa7f7"
         ],
         "x": 1144,
-        "y": 239
+        "y": 239,
+        "w": 282,
+        "h": 142
     },
     {
         "id": "3e883c3af884ef05",
@@ -1947,13 +1957,13 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "add topic",
-        "func": "msg.topic = \"/site/\" + msg.payload.id\nreturn msg;",
+        "func": "msg.topic = \"site/register/\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 520,
+        "x": 600,
         "y": 500,
         "wires": [
             [

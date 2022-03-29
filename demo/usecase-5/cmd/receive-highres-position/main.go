@@ -9,14 +9,13 @@ import (
 	"syscall"
 
 	"github.com/eclipse/paho.golang/paho"
-	"github.com/edgefarm/train-simulation/demo/usecase-4/receive-position/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/usecase-5/pkg/position"
 )
 
 const (
 	gpsMqttTopic      = "environment/location/gps"
-	gpsNatsTopic      = "train.gps"
 	traceletMqttTopic = "environment/location/tracelet"
-	traceletNatsTopic = "train.tracelet"
 )
 
 var (
@@ -46,23 +45,6 @@ type RecvTraceletMessage struct {
 	TrainID string `json:"train-id"`
 }
 
-type Coordinates struct {
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
-}
-
-type SendGpsMessage struct {
-	ID          string      `json:"id"`
-	Coordinates Coordinates `json:"coordinates"`
-}
-
-type SendTraceletMessage struct {
-	X       int    `json:"x"`
-	Y       int    `json:"y"`
-	SiteID  string `json:"site_id"`
-	TrainID string `json:"train-id"`
-}
-
 func gpsHandler(m *paho.Publish) {
 	fmt.Println("Received gps message:", string(m.Payload))
 
@@ -74,9 +56,9 @@ func gpsHandler(m *paho.Publish) {
 	}
 
 	// Fill forwarding struct with content
-	sendMsg := SendGpsMessage{
+	sendMsg := position.GpsMessage{
 		ID: recMsg.ID,
-		Coordinates: Coordinates{
+		Coordinates: position.Coordinates{
 			Lat: recMsg.Geojson.Geometry.Coordinates[1],
 			Lon: recMsg.Geojson.Geometry.Coordinates[0],
 		},
@@ -89,12 +71,12 @@ func gpsHandler(m *paho.Publish) {
 	}
 
 	// Forward data into the cloud
-	err = natsConn.Publish(gpsNatsTopic, stringMessage)
+	err = natsConn.Publish(position.GpsNatsSubject, stringMessage)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println("Successfully send to topic", gpsNatsTopic, ", message:", string(stringMessage))
+	fmt.Println("Successfully send to topic", position.GpsNatsSubject, ", message:", string(stringMessage))
 }
 
 func traceletHandler(m *paho.Publish) {
@@ -108,7 +90,7 @@ func traceletHandler(m *paho.Publish) {
 	}
 
 	// Fill forwarding struct with content
-	sendMsg := SendTraceletMessage{
+	sendMsg := position.TraceletMessage{
 		X:       recMsg.X,
 		Y:       recMsg.Y,
 		SiteID:  recMsg.SiteID,
@@ -122,12 +104,12 @@ func traceletHandler(m *paho.Publish) {
 	}
 
 	// Forward data into the cloud
-	err = natsConn.Publish(traceletNatsTopic, stringMessage)
+	err = natsConn.Publish(position.TraceletNatsSubject, stringMessage)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println("Successfully send to topic", traceletNatsTopic, ", message:", string(stringMessage))
+	fmt.Println("Successfully send to topic", position.TraceletNatsSubject, ", message:", string(stringMessage))
 }
 
 func main() {

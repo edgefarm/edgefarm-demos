@@ -14,7 +14,7 @@ build: test
 
 
 test: tidy ## run go tests
-	go test .
+	go test ./...
 
 clean: ## cleanup
 	rm -rf ${BIN_DIR}/position-service
@@ -22,12 +22,12 @@ clean: ## cleanup
 docker-amd64: position-service-docker-amd64 receive-highres-position-docker-amd64 ## creates docker images for amd64 (prefix dev-)
 
 position-service-docker-amd64: tidy test ## creates docker image of position-service for amd64 (prefix dev-)
-	docker build -f build/position-service/Dockerfile -t ci4rail/dev-position-service:${VERSION} -t ci4rail/dev-position-service:latest . 
+	docker build -f build/position-service/Dockerfile -t ci4rail/dev-position-service:${VERSION} -t ci4rail/dev-position-service:latest .. 
 	docker push ci4rail/dev-position-service:${VERSION}
 	docker push ci4rail/dev-position-service:latest
 
 receive-highres-position-docker-amd64: tidy test ## creates docker image of receive-highres-position for amd64 (prefix dev-)
-	docker build -f build/receive-highres-position/Dockerfile -t ci4rail/dev-receive-highres-position:${VERSION} -t ci4rail/dev-receive-highres-position:latest . 
+	docker build -f build/receive-highres-position/Dockerfile -t ci4rail/dev-receive-highres-position:${VERSION} -t ci4rail/dev-receive-highres-position:latest ..
 	docker push ci4rail/dev-receive-highres-position:${VERSION}
 	docker push ci4rail/dev-receive-highres-position:latest
 

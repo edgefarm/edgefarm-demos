@@ -4,113 +4,133 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
 	"github.com/eclipse/paho.golang/paho"
-	"github.com/edgefarm/train-simulation/demo/usecase-4/receive-position/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/usecase-5/pkg/position"
 )
 
 const (
-	recvTraceletTopic = "train.tracelet"
-	recvGpsTopic      = "train.gps"
 	// this is followed by the train id
 	sendTopicStart = "position."
-	// radius of the earth in kilometer required to calculate meter to coordinatess
-	earth = 6378.137
 )
 
 var (
-	natsConn              *edgefarm_network.NatsConnection
-	connectTimeoutSeconds int = 30
-	newGpsMessage         chan GpsMessage
-	newTraceletMessage    chan TraceletMessage
+	natsConn                 *edgefarm_network.NatsConnection
+	siteManager              *position.SiteManager
+	connectTimeoutSeconds    int = 30
+	newGpsMessage            chan position.GpsMessage
+	newTraceletMessage       chan position.TraceletMessage
+	trainIdMessageChannelMap map[string](chan position.TrainPosition)
 )
 
-type Coordinates struct {
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
-}
-
-type GpsMessage struct {
-	ID          string      `json:"id"`
-	Coordinates Coordinates `json:"coordinates"`
-}
-
-type TraceletMessage struct {
-	X       int    `json:"x"`
-	Y       int    `json:"y"`
-	SiteID  string `json:"site_id"`
-	TrainID string `json:"train-id"`
-}
-
-type Position struct {
-	Lat  float64 `json:"lat"`
-	Lon  float64 `json:"lon"`
-	Hres bool    `json:"hres"`
-}
-
-type TrainPosition struct {
-	ID       string   `json:"id"`
-	Position Position `json:"position"`
-}
-
-type SiteConfig struct {
-	ID   string      `json:"id"`
-	Zero Coordinates `json:"zero"`
-}
-
 func positionMessageHandler(m *paho.Publish) {
+	tp := position.TrainPosition{}
 	// Check which type of message is received
 	switch m.Topic {
-	case recvGpsTopic:
+	case position.GpsNatsSubject:
 		fmt.Println("Received gps message:", string(m.Payload))
 		// convert message to GpsMessage
-		var gpsMsg GpsMessage
+		var gpsMsg position.GpsMessage
 		err := json.Unmarshal([]byte(m.Payload), &gpsMsg)
 		if err != nil {
 			fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
+			return
 		}
-	case recvTraceletTopic:
+		// Convert GpsMessage to TrainPosition
+		tp = position.GpsToTrainPositon(gpsMsg)
+	case position.TraceletNatsSubject:
 		fmt.Println("Received tracelet message:", string(m.Payload))
 		// convert message to TraceletMessage
-		var traceletMsg TraceletMessage
+		var traceletMsg position.TraceletMessage
 		err := json.Unmarshal([]byte(m.Payload), &traceletMsg)
 		if err != nil {
 			fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
+			return
+		}
+		// Convert TraceletMessage to TrainPosition
+		tp, err = position.TraceletToTrainPosition(traceletMsg, siteManager)
+		if err != nil {
+			fmt.Printf("Error occured during converting. Error: %s", err.Error())
+			return
 		}
 	default:
 		fmt.Printf("Unknown message received: %s", m.Topic)
+		return
 	}
+
+	// Check if message channel exists for this train id
+	if _, ok := trainIdMessageChannelMap[tp.ID]; !ok {
+		// Create new channel for this train id
+		tpChan := make(chan position.TrainPosition)
+		trainIdMessageChannelMap[tp.ID] = tpChan
+		// Start a new goroutine to handle this train id
+		go trainMessageHandler(tpChan)
+	}
+
+	// Send message to channel in a goroutine
+	go func() {
+		trainIdMessageChannelMap[tp.ID] <- tp
+	}()
 }
 
-// convert GpsMessage to Position struct
-func gpsToPositon(gpsData GpsMessage) Position {
-	return Position{
-		Lat:  gpsData.Coordinates.Lat,
-		Lon:  gpsData.Coordinates.Lon,
-		Hres: false,
+func publishTrainPosition(msg position.TrainPosition) {
+	// create message
+	msgBytes, err := json.Marshal(msg)
+	if err != nil {
+		fmt.Printf("Error occured during marshaling. Error: %s", err.Error())
 	}
+	// publish message
+	natsConn.Publish(sendTopicStart+msg.ID, msgBytes)
 }
 
-// convert TraceletMessage to Position struct
-func tracetletToPosition(traceletData TraceletMessage) Position {
-	// get zero point of tracelet id from database
-	zero := getZeroPoint(traceletData.SiteID)
-	// calculate position
-	return Position{
-		Lat:  zero.Lat + (float64(traceletData.Y)/earth)*(180/math.Pi),
-		Lon:  zero.Lon + (float64(traceletData.Y)/earth)*(180/math.Pi)/math.Cos(zero.Lat*math.Pi/180),
-		Hres: true,
-	}
-}
+func trainMessageHandler(msgChan chan position.TrainPosition) {
+	lastMsg := position.TrainPosition{}
+	for {
+		select {
+		case msg := <-msgChan:
 
-func getZeroPoint(siteId string) Coordinates {
-	// currently return 0,0
-	return Coordinates{0, 0}
+			// Check if last message is empty
+			if lastMsg != (position.TrainPosition{}) {
+
+				// If both messages are from the same message type, send the last message and update lastMsg
+				if lastMsg.Position.Hres == msg.Position.Hres {
+					publishTrainPosition(lastMsg)
+					lastMsg = msg
+
+				} else {
+					// Entering this block means that both messages differ in message type
+					// lastMessage = tracelet message && msg = gps message
+					// lastMessage = gps message && msg = tracelet message
+					// In case the types differ, send the tracelet message and clear lastMsg
+					switch {
+					case lastMsg.Position.Hres == true:
+						// lastMsg was tracelet message
+						publishTrainPosition(lastMsg)
+					case msg.Position.Hres == true:
+						// msg is tracelet message
+						publishTrainPosition(msg)
+					}
+					lastMsg = position.TrainPosition{}
+				}
+
+			} else {
+				// store this message in lastMsg
+				lastMsg = msg
+			}
+
+		case <-time.After(time.Second * 2):
+			fmt.Println("Send out remaining message")
+			// if lastMessage is not empty, send it out
+			if lastMsg != (position.TrainPosition{}) {
+				publishTrainPosition(lastMsg)
+			}
+		}
+	}
 }
 
 func main() {
@@ -125,42 +145,37 @@ func main() {
 	// Ensure connection closed on exit
 	defer natsConn.Close()
 
-	// Create channel for received messages
-	newGpsMessage = make(chan GpsMessage, 100)
-	newTraceletMessage = make(chan TraceletMessage, 100)
+	// Create a site manager
+	siteManager, err := position.NewSiteManager()
+	if err != nil {
+		log.Fatalf("Exiting: %v", err)
+	}
+
+	// Register handler for register messages
+	err = natsConn.Subscribe(position.RegisterSiteNatsTopic, siteManager.RegisterHandler)
+	if err != nil {
+		log.Fatalf("Exiting: %v", err)
+	}
+	fmt.Printf("Subscribed to %s", position.RegisterSiteNatsTopic)
 
 	// Subscribe to correct MQTT topics to get qps and tracelet data from simulations
 	// Provide handler function `mqttHandler` which is entered on message receive
-	err = natsConn.Subscribe(recvGpsTopic, positionMessageHandler)
+	err = natsConn.Subscribe(position.GpsNatsSubject, positionMessageHandler)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
-	fmt.Printf("Subscribed to %s", recvGpsTopic)
+	fmt.Printf("Subscribed to %s", position.GpsNatsSubject)
 
-	err = natsConn.Subscribe(recvTraceletTopic, positionMessageHandler)
+	err = natsConn.Subscribe(position.TraceletNatsSubject, positionMessageHandler)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
-	fmt.Printf("Subscribed to %s", recvGpsTopic)
+	fmt.Printf("Subscribed to %s", position.TraceletNatsSubject)
 
 	// Listen on signal for termination
 	ic := make(chan os.Signal, 1)
 	signal.Notify(ic, os.Interrupt, syscall.SIGTERM)
-	go func() {
-		<-ic
-		fmt.Println("signal received, exiting")
-		os.Exit(0)
-	}()
-
-	for {
-		// do a switch case on message channels with timeout
-		select {
-		case <-newGpsMessage:
-			fmt.Println("Received gps message on channel")
-		case <-newTraceletMessage:
-			fmt.Println("Received tracelet message on channel")
-		case <-time.After(time.Second * 2):
-			fmt.Println("Timeout")
-		}
-	}
+	<-ic
+	fmt.Println("signal received, exiting")
+	os.Exit(0)
 }
