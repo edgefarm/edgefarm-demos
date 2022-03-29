@@ -22,6 +22,7 @@ var (
 )
 
 func handler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
+	fmt.Println("event")
 	event, err := siteevent.Unmarshal(e.RawData)
 	if err != nil {
 		fmt.Printf("Unmarshal failed: %s\n", err)
