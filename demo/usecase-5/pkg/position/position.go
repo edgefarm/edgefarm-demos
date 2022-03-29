@@ -23,10 +23,10 @@ type GpsMessage struct {
 }
 
 type TraceletMessage struct {
-	X       int    `json:"x"`
-	Y       int    `json:"y"`
-	SiteID  string `json:"site_id"`
-	TrainID string `json:"train-id"`
+	X       float64 `json:"x"`
+	Y       float64 `json:"y"`
+	SiteID  string  `json:"site_id"`
+	TrainID string  `json:"train-id"`
 }
 
 type Position struct {
