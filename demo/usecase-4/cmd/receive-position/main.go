@@ -9,7 +9,7 @@ import (
 	"syscall"
 
 	"github.com/eclipse/paho.golang/paho"
-	"github.com/edgefarm/train-simulation/demo/usecase-4/receive-position/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
 )
 
 const (
@@ -85,7 +85,7 @@ func mqttHandler(m *paho.Publish) {
 func main() {
 
 	// Connect to local NATS server
-	natsConn = &edgefarm_network.NatsConnection{}
+	natsConn = edgefarm_network.NewNatsConnection()
 	err := natsConn.Connect(connectTimeoutSeconds)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
@@ -95,7 +95,7 @@ func main() {
 	defer natsConn.Close()
 
 	// Connect to train simulation MQTT server
-	mqttConn := &edgefarm_network.MqttConnection{}
+	mqttConn := edgefarm_network.NewMqttConnection()
 	err = mqttConn.Connect(connectTimeoutSeconds)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)

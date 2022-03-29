@@ -9,17 +9,17 @@ tidy: ## ensures go dependencies are up to date
 	go mod vendor
 
 build: test
-	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/receive-position main.go
+	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/receive-position cmd/receive-position/main.go
 
 
 test: tidy ## run go tests
-	go test .
+	go test ./...
 
 clean: ## cleanup
 	rm -rf ${BIN_DIR}/receive-position
 
 docker-amd64: tidy test ## creates docker images for amd64 (prefix dev-)
-	docker build -f Dockerfile -t ci4rail/dev-receive-position:${VERSION} -t ci4rail/dev-receive-position:latest . 
+	docker build -f build/receive-position/Dockerfile -t ci4rail/dev-receive-position:${VERSION} -t ci4rail/dev-receive-position:latest ..
 	docker push ci4rail/dev-receive-position:${VERSION}
 	docker push ci4rail/dev-receive-position:latest
 

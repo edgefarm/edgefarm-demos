@@ -1,3 +1,10 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: train-location
+  labels:
+    name: train-location
+---
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
