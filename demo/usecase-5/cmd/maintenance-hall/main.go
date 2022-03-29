@@ -17,8 +17,7 @@ import (
 )
 
 var (
-	events [][]string
-	m      *markdown.Markdown
+	m *markdown.Markdown
 )
 
 func handler(msg *nats.Msg) {
@@ -38,7 +37,6 @@ func handler(msg *nats.Msg) {
 }
 
 func main() {
-
 	var err error
 	m, err = markdown.NewMarkdown("web/public/index.md")
 	if err != nil {
