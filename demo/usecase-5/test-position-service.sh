@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# # Just post some gps coordiantes to the service
+# Just post some gps coordiantes to the service
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'

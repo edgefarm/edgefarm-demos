@@ -92,24 +92,27 @@ func publishTrainPosition(msg position.TrainPosition, lastSiteId string) string 
 	if msg.SiteID != lastSiteId {
 		// Send site event "leave" to last site only if this is not ""
 		if lastSiteId != "" {
+			fmt.Printf("Train %s left site %s.\n", msg.ID, lastSiteId)
 			siteEvent := siteevent.Event{
-				Train: mgs.ID,
-				Event: "leave",
+				Train: msg.ID,
+				Event: "left",
 				Site:  lastSiteId,
 			}
 			publishSiteEvent(siteEvent)
-			// Send site event "enter" to current site only if this is not ""
-			if msg.SiteID != "" {
-				siteEvent := siteevent.Event{
-					Train: msg.ID,
-					Event: "enter",
-					Site:  msg.SiteID,
-				}
-				publishSiteEvent(siteEvent)
-			}
-
-			return msg.SiteID
 		}
+		// Send site event "enter" to current site only if this is not ""
+		if msg.SiteID != "" {
+			fmt.Printf("Train %s entered site %s.\n", msg.ID, msg.SiteID)
+			siteEvent := siteevent.Event{
+				Train: msg.ID,
+				Event: "entered",
+				Site:  msg.SiteID,
+			}
+			publishSiteEvent(siteEvent)
+		}
+
+		return msg.SiteID
+
 	}
 	return lastSiteId
 }
@@ -185,7 +188,7 @@ func main() {
 	log.Println("Connected to NATS server successfully")
 
 	// Create a site manager
-	siteManager, err := position.NewSiteManager()
+	siteManager, err = position.NewSiteManager()
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
