@@ -21,7 +21,27 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: "172.17.0.1"
+            value: 172.17.0.1
+        runtime:
+          - highres-position
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: nats-mqtt-proxy
+      type: edge-worker
+      properties:
+        image: ci4rail/dev-nats-mqtt-proxy
+        name: nats-mqtt-proxy
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: 172.17.0.1
+        runtime:
+          - highres-position
       traits:
         - type: edge-network-participant
           properties:
@@ -54,7 +74,6 @@ spec:
                 mountPath: /data/site-manager-state.json
                 mountType: FileOrCreate
                 readOnly: false
-
     - type: application-network
       name: train-location-network
       properties:
@@ -66,4 +85,9 @@ spec:
           - name: train-data
             subjects:
               - train.>
+            storage: file
+          - name: sites-events
+            subjects:
+              - sites-event.>
+              - site.register
             storage: file

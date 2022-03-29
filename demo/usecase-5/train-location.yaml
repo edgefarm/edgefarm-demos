@@ -1,5 +1,10 @@
-define: &MQTT_SERVER_IP 172.17.0.1
-
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: train-location
+  labels:
+    name: train-location
+---
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
@@ -16,7 +21,7 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: *MQTT_SERVER_IP
+            value: <<IP ADDRESS OF MQTT SERVER>>
         runtime:
           - highres-position
       traits:
@@ -34,7 +39,7 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: *MQTT_SERVER_IP
+            value: <<IP ADDRESS OF MQTT SERVER>>
         runtime:
           - highres-position
       traits:
@@ -86,10 +91,3 @@ spec:
               - sites-event.>
               - site.register
             storage: file
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: train-location
-  labels:
-    name: train-location

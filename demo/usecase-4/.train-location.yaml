@@ -22,6 +22,8 @@ spec:
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
             value: 172.17.0.1
+      runtime:
+        - position
       traits:
         - type: edge-network-participant
           properties:

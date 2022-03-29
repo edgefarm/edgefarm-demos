@@ -21,7 +21,9 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: <IP>
+            value: <<ENTER YOUR IP ADDRESS>>
+        runtime:
+          - position
       traits:
         - type: edge-network-participant
           properties:
