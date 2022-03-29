@@ -1957,7 +1957,7 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "add topic",
-        "func": "msg.topic = \"site/register/\"\nreturn msg;",
+        "func": "msg.topic = \"site/register\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",

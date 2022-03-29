@@ -93,9 +93,7 @@
             "59fec0a4.32a3"
         ],
         "x": 234,
-        "y": 199,
-        "w": 952,
-        "h": 142
+        "y": 199
     },
     {
         "id": "4b697798.39f1a8",
@@ -113,9 +111,7 @@
             "5152eeac.0575"
         ],
         "x": 234,
-        "y": 59,
-        "w": 372,
-        "h": 82
+        "y": 59
     },
     {
         "id": "f86605a0.b3f8c8",
@@ -136,9 +132,7 @@
             "28febc4a.975ce4"
         ],
         "x": 1274,
-        "y": 19,
-        "w": 872,
-        "h": 150
+        "y": 19
     },
     {
         "id": "3e2e5792.3241f8",
@@ -156,9 +150,7 @@
             "d97061cb.1c24"
         ],
         "x": 234,
-        "y": 39,
-        "w": 372,
-        "h": 82
+        "y": 39
     },
     {
         "id": "485cad5f.e923a4",
@@ -179,9 +171,7 @@
             "e86a44f7.375238"
         ],
         "x": 194,
-        "y": 139,
-        "w": 632,
-        "h": 142
+        "y": 139
     },
     {
         "id": "95af3c99.a60e6",
@@ -201,9 +191,7 @@
             "d9e9c534.68fd98"
         ],
         "x": 914,
-        "y": 119,
-        "w": 412,
-        "h": 162
+        "y": 119
     },
     {
         "id": "8be3a407.414ed8",
@@ -222,9 +210,7 @@
             "f0eeef4d.247f1"
         ],
         "x": 74,
-        "y": 439,
-        "w": 592,
-        "h": 82
+        "y": 439
     },
     {
         "id": "22887d63.39b782",
@@ -244,9 +230,7 @@
             "c50a61ec.54323"
         ],
         "x": 244,
-        "y": 399,
-        "w": 922,
-        "h": 122
+        "y": 399
     },
     {
         "id": "dca9c46d.fe8ba8",
@@ -265,9 +249,7 @@
             "168c95dd.0e5bda"
         ],
         "x": 234,
-        "y": 559,
-        "w": 752,
-        "h": 82
+        "y": 559
     },
     {
         "id": "aadc5cc7.97755",
@@ -286,9 +268,7 @@
             "718f0dd3.5936a4"
         ],
         "x": 234,
-        "y": 679,
-        "w": 752,
-        "h": 142
+        "y": 679
     },
     {
         "id": "e4086077.6921c",
@@ -306,9 +286,7 @@
             "9b3f07ff.079568"
         ],
         "x": 494,
-        "y": 879,
-        "w": 492,
-        "h": 90
+        "y": 879
     },
     {
         "id": "528fd667.b0427",
@@ -328,9 +306,7 @@
             "26395ae3.802066"
         ],
         "x": 774,
-        "y": 1339,
-        "w": 972,
-        "h": 82
+        "y": 1339
     },
     {
         "id": "5e0763f0.421284",
@@ -348,9 +324,7 @@
             "24525d00.42b164"
         ],
         "x": 774,
-        "y": 1239,
-        "w": 452,
-        "h": 82
+        "y": 1239
     },
     {
         "id": "c4556864.cf471",
@@ -370,9 +344,7 @@
             "a39b3c45.260c4"
         ],
         "x": 234,
-        "y": 1719,
-        "w": 1042,
-        "h": 82
+        "y": 1719
     },
     {
         "id": "228e047e.ad7b1c",
@@ -399,9 +371,7 @@
             "e54fe3d.f6923a"
         ],
         "x": 1074,
-        "y": 739,
-        "w": 772,
-        "h": 342
+        "y": 739
     },
     {
         "id": "8e5d8492.81be48",
@@ -421,9 +391,7 @@
             "3025da27.87988e"
         ],
         "x": 234,
-        "y": 1579,
-        "w": 952,
-        "h": 82
+        "y": 1579
     },
     {
         "id": "1480954d.edc84b",
@@ -442,9 +410,7 @@
             "abdffc.c6d21808"
         ],
         "x": 234,
-        "y": 1439,
-        "w": 382,
-        "h": 122
+        "y": 1439
     },
     {
         "id": "2bad92b.5677aee",
@@ -827,12 +793,34 @@
             "0d152da76a28cb0b",
             "83958ebac12cb6e1",
             "7e90fbe0167ee00e",
-            "3048eb874ee44200"
+            "3048eb874ee44200",
+            "aa8d6583e20788a9"
         ],
-        "x": 1594,
+        "x": 1474,
         "y": 2039,
-        "w": 332,
+        "w": 432,
         "h": 122
+    },
+    {
+        "id": "0524317d80a4399f",
+        "type": "group",
+        "z": "e96654f5.3653d8",
+        "name": "site registration",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "7fe0a86e2f48d3c8",
+            "ba2f15e46ce027e7",
+            "8b9d033c4bb4eeb1",
+            "ce89a01c41dbb661",
+            "d0cee5d643b78282",
+            "37d0880f315d9ef7"
+        ],
+        "x": 2024,
+        "y": 2019,
+        "w": 642,
+        "h": 162
     },
     {
         "id": "1f3eecb0f19864f5",
@@ -854,25 +842,6 @@
         "y": 2019,
         "w": 212,
         "h": 162
-    },
-    {
-        "id": "0524317d80a4399f",
-        "type": "group",
-        "z": "e96654f5.3653d8",
-        "name": "site registration",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "97a15cc65cc13614",
-            "7fe0a86e2f48d3c8",
-            "ba2f15e46ce027e7",
-            "8b9d033c4bb4eeb1"
-        ],
-        "x": 2024,
-        "y": 2019,
-        "w": 432,
-        "h": 142
     },
     {
         "id": "5e273132.c8aa3",
@@ -3600,11 +3569,11 @@
         "topic": "",
         "payload": "{\"sites\":[{\"id\":\"site1\",\"area\":[{\"lat\":49.400657392169656,\"lng\":10.891699635389152},{\"lat\":49.39657270812594,\"lng\":10.899918830351304},{\"lat\":49.40843680289053,\"lng\":10.94818792076537},{\"lat\":49.414367775359025,\"lng\":10.941313684978848},{\"lat\":49.41378443279343,\"lng\":10.911575143206717}],\"zero\":{\"lat\":49.400657392169656,\"lng\":10.891699635389152}},{\"id\":\"site2\",\"area\":[{\"lat\":49.41971475916552,\"lng\":10.9650746304149},{\"lat\":49.414173328607475,\"lng\":10.972397185926605},{\"lat\":49.41796490131955,\"lng\":11.003779566691183},{\"lat\":49.422145013778,\"lng\":11.002434607515593}],\"zero\":{\"lat\":49.41971475916552,\"lng\":10.9650746304149}},{\"id\":\"site3\",\"area\":[{\"lat\":49.432350768887346,\"lng\":11.027092192402012},{\"lat\":49.42651916878578,\"lng\":11.033368668554944},{\"lat\":49.43643247649779,\"lng\":11.058624013074994},{\"lat\":49.43905625202589,\"lng\":11.053094736464104}],\"zero\":{\"lat\":49.432350768887346,\"lng\":11.027092192402012}},{\"id\":\"site4\",\"area\":[{\"lat\":49.44328229806014,\"lng\":11.065790187659053},{\"lat\":49.44107310888046,\"lng\":11.067262493200657},{\"lat\":49.44258273225522,\"lng\":11.074737275181153},{\"lat\":49.444423673473075,\"lng\":11.073491478184431}],\"zero\":{\"lat\":49.44328229806014,\"lng\":11.065790187659053}}]}",
         "payloadType": "json",
-        "x": 1700,
+        "x": 1580,
         "y": 2080,
         "wires": [
             [
-                "3048eb874ee44200"
+                "aa8d6583e20788a9"
             ]
         ]
     },
@@ -3749,7 +3718,7 @@
         "z": "e96654f5.3653d8",
         "g": "c7c40ee274ebd36e",
         "name": "reset vars",
-        "func": "flow.set(\"sites\", null)",
+        "func": "flow.set(\"sites\", [])",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3783,7 +3752,7 @@
         "topic": "",
         "payload": "{\"along\":{\"type\":\"Feature\",\"properties\":{},\"geometry\":{\"type\":\"Point\",\"coordinates\":[11.070381262294248,49.44235793786912]}},\"km\":1.0277777777777781}",
         "payloadType": "json",
-        "x": 1720,
+        "x": 1600,
         "y": 2120,
         "wires": [
             [
@@ -3801,7 +3770,7 @@
         "links": [
             "fd9e8c2ba0f88132"
         ],
-        "x": 1885,
+        "x": 1865,
         "y": 2120,
         "wires": []
     },
@@ -3823,47 +3792,19 @@
         ]
     },
     {
-        "id": "97a15cc65cc13614",
-        "type": "change",
-        "z": "e96654f5.3653d8",
-        "g": "0524317d80a4399f",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "sites",
-                "pt": "flow",
-                "to": "payload.sites",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2310,
-        "y": 2120,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "7fe0a86e2f48d3c8",
         "type": "link in",
         "z": "e96654f5.3653d8",
         "g": "0524317d80a4399f",
         "name": "sites-in",
         "links": [
-            "3048eb874ee44200",
             "a056a743aa371f78"
         ],
         "x": 2065,
-        "y": 2120,
+        "y": 2060,
         "wires": [
             [
-                "97a15cc65cc13614",
-                "ba2f15e46ce027e7"
+                "37d0880f315d9ef7"
             ]
         ]
     },
@@ -3875,9 +3816,9 @@
         "name": "mqtt-sites",
         "mode": "link",
         "links": [
-            "7fe0a86e2f48d3c8"
+            "ce89a01c41dbb661"
         ],
-        "x": 1885,
+        "x": 1865,
         "y": 2080,
         "wires": []
     },
@@ -3887,13 +3828,13 @@
         "z": "e96654f5.3653d8",
         "g": "0524317d80a4399f",
         "name": "draw-sites",
-        "func": "// is along in a site?\nvar along = flow.get(\"turfAlong\")\nvar sites = flow.get(\"sites\")\nvar options = flow.get(\"turfOptions\")\n\n// node.log(JSON.stringify(along, null, 2))\n\nsites.forEach(function(site) {\n\n    var level1 = []\n    var level2 = []\n    site.area.forEach(function(point) {\n        level2.push([point.lat,point.lng])\n    });\n    // need to push the first point to the last\n    // level2.push(level2[0])\n    level1.push(level2)\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id, \n            \"area\": level2,\n            \"color\":\"#fdd0fd\"\n        }\n    });\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id + \"-zero\",\n            \"lat\": site.zero.lat,\n            \"lon\": site.zero.lng \n        }\n    })\n\n    // node.log(flow.get(\"areas\"))\n    // console.table(level1);\n    // node.log(JSON.stringify(level2, null, 2))\n});",
+        "func": "// is along in a site?\nvar along = flow.get(\"turfAlong\")\nvar sites = flow.get(\"sites\")\nvar options = flow.get(\"turfOptions\")\n\nnode.log(JSON.stringify(sites, null, 2))\n\nsites.forEach(function(site) {\n\n    var level1 = []\n    var level2 = []\n    node.log(JSON.stringify(site.area, null, 2))\n    site.area.forEach(function(point) {\n        level2.push([point.lat,point.lng])\n    });\n    level1.push(level2)\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id, \n            \"area\": level2,\n            \"color\":\"#fdd0fd\"\n        }\n    });\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id + \"-zero\",\n            \"lat\": site.zero.lat,\n            \"lon\": site.zero.lng \n        }\n    })\n});",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2310,
+        "x": 2510,
         "y": 2060,
         "wires": [
             [
@@ -3911,7 +3852,7 @@
         "links": [
             "ac521077d73749bf"
         ],
-        "x": 2415,
+        "x": 2625,
         "y": 2060,
         "wires": []
     },
@@ -3946,6 +3887,88 @@
         "wires": [
             [
                 "995c8db1a687e248"
+            ]
+        ]
+    },
+    {
+        "id": "aa8d6583e20788a9",
+        "type": "change",
+        "z": "e96654f5.3653d8",
+        "g": "b814dae2b86f491d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sites",
+                "pt": "flow",
+                "to": "payload.sites",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1730,
+        "y": 2080,
+        "wires": [
+            [
+                "3048eb874ee44200"
+            ]
+        ]
+    },
+    {
+        "id": "ce89a01c41dbb661",
+        "type": "link in",
+        "z": "e96654f5.3653d8",
+        "g": "0524317d80a4399f",
+        "name": "debug-sites-in",
+        "links": [
+            "3048eb874ee44200"
+        ],
+        "x": 2065,
+        "y": 2140,
+        "wires": [
+            [
+                "ba2f15e46ce027e7"
+            ]
+        ]
+    },
+    {
+        "id": "d0cee5d643b78282",
+        "type": "function",
+        "z": "e96654f5.3653d8",
+        "g": "0524317d80a4399f",
+        "name": "add site to sites",
+        "func": "var sites = flow.get(\"sites\")\nsites.push(msg.payload)\nflow.set(\"sites\", sites)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"sites\", [])",
+        "finalize": "",
+        "libs": [],
+        "x": 2320,
+        "y": 2060,
+        "wires": [
+            [
+                "ba2f15e46ce027e7"
+            ]
+        ]
+    },
+    {
+        "id": "37d0880f315d9ef7",
+        "type": "json",
+        "z": "e96654f5.3653d8",
+        "g": "0524317d80a4399f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2150,
+        "y": 2060,
+        "wires": [
+            [
+                "d0cee5d643b78282"
             ]
         ]
     },
@@ -6880,7 +6903,7 @@
         "type": "debug",
         "z": "6315e2b5.b96fdc",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -6929,7 +6952,8 @@
         "y": 500,
         "wires": [
             [
-                "a056a743aa371f78"
+                "a056a743aa371f78",
+                "12dc85d783f80bef"
             ]
         ]
     },
@@ -6954,6 +6978,22 @@
         "info": "topic: site/register\nformat: json\n\nexample: \n\n{\n    \"sites\": [\n        {\n            \"id\": \"site1\",\n            \"area\": [\n                {\n                    \"lat\": 49.400657392169656,\n                    \"lng\": 10.891699635389152\n                },\n                {\n                    \"lat\": 49.39657270812594,\n                    \"lng\": 10.899918830351304\n                },\n                {\n                    \"lat\": 49.40843680289053,\n                    \"lng\": 10.94818792076537\n                },\n                {\n                    \"lat\": 49.414367775359025,\n                    \"lng\": 10.941313684978848\n                },\n                {\n                    \"lat\": 49.41378443279343,\n                    \"lng\": 10.911575143206717\n                }\n            ],\n            \"zero\": {\n                \"lat\": 49.400657392169656,\n                \"lng\": 10.891699635389152\n            }\n        },\n        {\n            \"id\": \"site2\",\n            \"area\": [\n                {\n                    \"lat\": 49.41971475916552,\n                    \"lng\": 10.9650746304149\n                },\n                {\n                    \"lat\": 49.414173328607475,\n                    \"lng\": 10.972397185926605\n                },\n                {\n                    \"lat\": 49.41796490131955,\n                    \"lng\": 11.003779566691183\n                },\n                {\n                    \"lat\": 49.422145013778,\n                    \"lng\": 11.002434607515593\n                }\n            ],\n            \"zero\": {\n                \"lat\": 49.41971475916552,\n                \"lng\": 10.9650746304149\n            }\n        }}]\n    }\n        ",
         "x": 540,
         "y": 460,
+        "wires": []
+    },
+    {
+        "id": "12dc85d783f80bef",
+        "type": "debug",
+        "z": "6315e2b5.b96fdc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 560,
         "wires": []
     }
 ]

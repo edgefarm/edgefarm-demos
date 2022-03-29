@@ -40,7 +40,7 @@ type RecvGpsMessage struct {
 type RecvTraceletMessage struct {
 	X       float64 `json:"x"`
 	Y       float64 `json:"y"`
-	SiteID  string  `json:"site_id"`
+	SiteID  string  `json:"site-id"`
 	Time    int64   `json:"time"`
 	TrainID string  `json:"train-id"`
 }

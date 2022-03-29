@@ -17,7 +17,7 @@ nats pub -s nats://localhost:4222 site.register '{"id":"site2","area":[{"lat":49
 
 
 # # Just post some gps coordiantes to the service
-# nats pub -s nats://localhost:4222 test test_leaf2 
+# nats pub -s nats://localhost:4222 test test_leaf2
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
@@ -29,19 +29,19 @@ sleep 1
 
 # now enter a site
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
-nats pub -s nats://localhost:4222 train.tracelet '{"site_id":"site2","y":34,"x":34,"train-id":"train1"}'
+nats pub -s nats://localhost:4222 train.tracelet '{"site-id":"site2","y":34,"x":34,"train-id":"train1"}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
-nats pub -s nats://localhost:4222 train.tracelet '{"site_id":"site2","y":34,"x":34,"train-id":"train1"}'
+nats pub -s nats://localhost:4222 train.tracelet '{"site-id":"site2","y":34,"x":34,"train-id":"train1"}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
-nats pub -s nats://localhost:4222 train.tracelet '{"site_id":"site2","y":34,"x":34,"train-id":"train1"}'
+nats pub -s nats://localhost:4222 train.tracelet '{"site-id":"site2","y":34,"x":34,"train-id":"train1"}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
-nats pub -s nats://localhost:4222 train.tracelet '{"site_id":"site2","y":34,"x":34,"train-id":"train1"}'
+nats pub -s nats://localhost:4222 train.tracelet '{"site-id":"site2","y":34,"x":34,"train-id":"train1"}'
 sleep 1
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
-nats pub -s nats://localhost:4222 train.tracelet '{"site_id":"site2","y":34,"x":34,"train-id":"train1"}'
+nats pub -s nats://localhost:4222 train.tracelet '{"site-id":"site2","y":34,"x":34,"train-id":"train1"}'
 
 # leave the site
 nats pub -s nats://localhost:4222 train.gps '{"id":"train1","coordinates":{"lat":11.082579671225771,"lng":49.444529778349235}}'
