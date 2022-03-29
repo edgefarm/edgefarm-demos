@@ -56,6 +56,8 @@ spec:
         labelSelector:
           - position-service
         env:
+          - name: NATS_SERVER
+            value: nats://connect.ngs.global
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: SITES_STATE_FILE
@@ -70,9 +72,9 @@ spec:
             volumes:
               - name: sites-state
                 type: hostPath
-                path: /data/site-manager-state.json
-                mountPath: /data/site-manager-state.json
-                mountType: FileOrCreate
+                path: /data/sites-state
+                mountPath: /sites-state
+                mountType: DirectoryOrCreate
                 readOnly: false
     - type: application-network
       name: train-location-network

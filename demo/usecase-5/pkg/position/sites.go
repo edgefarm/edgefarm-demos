@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/nats-io/nats.go"
 )
@@ -24,20 +25,38 @@ var (
 	RegisterSiteNatsTopic = "site.register"
 )
 
+func createEmptyStatesFile(path string) error {
+	if err := ioutil.WriteFile(path, []byte("{}"), 0644); err != nil {
+		return fmt.Errorf("Cannot create file %v", err)
+	}
+	return nil
+}
+
 // NewSiteManager will return an new SiteManager object. The state file can be passed by env variable SITES_STATE_FILE.
 // If no state file is passed, a temporary file will be created.
 func NewSiteManager() (*SiteManager, error) {
 	// if env variable SITES_STATE_FILE is set, then use this
 	if env := os.Getenv("SITES_STATE_FILE"); len(env) > 0 {
+		if _, err := os.Stat(env); os.IsNotExist(err) {
+			basepath := filepath.Dir(env)
+			err := os.MkdirAll(basepath, 0755)
+			if err != nil {
+				return nil, fmt.Errorf("Cannot create directory %v", err)
+			}
+			err = createEmptyStatesFile(env)
+			if err != nil {
+				return nil, fmt.Errorf("Cannot create file %v", err)
+			}
+		}
 		// prepare file if empty
 		fileContent, err := os.ReadFile(env)
 		if err != nil {
-			return nil, fmt.Errorf("Cannot read passed file %s %v", env, err)
+			return nil, fmt.Errorf("Cannot read file %v", err)
 		}
 		if string(fileContent) == "" {
-			// write empty state to file
-			if err := os.WriteFile(env, []byte("{}"), 0644); err != nil {
-				return nil, fmt.Errorf("Failed to write to passed state file %s %v", env, err)
+			err = createEmptyStatesFile(env)
+			if err != nil {
+				return nil, fmt.Errorf("Cannot create file %v", err)
 			}
 		}
 		return &SiteManager{
