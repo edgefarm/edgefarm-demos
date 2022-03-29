@@ -38,11 +38,11 @@ type RecvGpsMessage struct {
 }
 
 type RecvTraceletMessage struct {
-	X       int    `json:"x"`
-	Y       int    `json:"y"`
-	SiteID  string `json:"site_id"`
-	Time    int64  `json:"time"`
-	TrainID string `json:"train-id"`
+	X       float64 `json:"x"`
+	Y       float64 `json:"y"`
+	SiteID  string  `json:"site_id"`
+	Time    int64   `json:"time"`
+	TrainID string  `json:"train-id"`
 }
 
 func gpsHandler(m *paho.Publish) {
