@@ -31,6 +31,17 @@
                 "NATS_SERVER": "127.0.0.1:4222",
                 "MQTT_SERVER": "127.0.0.1:1883"
             }
+        },
+        {
+            "name": "usecase-5: position-service",
+            "type": "go",
+            "request": "launch",
+            "program": "${workspaceFolder}/demo/usecase-5/cmd/position-service/main.go",
+            "console": "integratedTerminal",
+            "env": {
+                "NATS_SERVER": "127.0.0.1:4222",
+                "SITES_STATE_FILE": "/tmp/stateFile.json"
+            }
         }
     ]
 }

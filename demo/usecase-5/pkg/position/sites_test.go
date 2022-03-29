@@ -1,6 +1,8 @@
 package position
 
 import (
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -68,7 +70,7 @@ func TestRegisterSiteUpdate(t *testing.T) {
 	sm := SiteManager{siteStateFile: file.Name()}
 
 	// update existing site
-	sm.RegisterSite(SiteInfo{
+	siteInfo := SiteInfo{
 		SiteId: "site1",
 		Zero:   Coordinates{Lat: 49.55552758496568, Lon: 11.079950588826692},
 		Area: []Coordinates{
@@ -77,7 +79,11 @@ func TestRegisterSiteUpdate(t *testing.T) {
 			{Lat: 49.55664326546803, Lon: 11.083815851373487},
 			{Lat: 49.55552758496568, Lon: 11.083815851373487},
 		},
-	})
+	}
+	sm.RegisterSite(siteInfo)
+
+	info, err := json.Marshal(siteInfo)
+	fmt.Println(info)
 
 	expectedFileContent := `{"site1":{"id":"site1","zero":{"lat":49.55552758496568,"lng":11.079950588826692},"area":[{"lat":49.55552758496568,"lng":11.079950588826692},{"lat":49.55664326546803,"lng":11.079950588826692},{"lat":49.55664326546803,"lng":11.083815851373487},{"lat":49.55552758496568,"lng":11.083815851373487}]}}`
 

@@ -37,18 +37,16 @@ type Position struct {
 
 type TrainPosition struct {
 	ID       string   `json:"id"`
+	SiteID   string   `json:"site_id"`
 	Position Position `json:"position"`
 }
 
 // GpsToTrainPositon convert GpsMessage to Position struct
 func GpsToTrainPositon(gpsData GpsMessage) TrainPosition {
 	return TrainPosition{
-		ID: gpsData.ID,
-		Position: Position{
-			Lat:  gpsData.Coordinates.Lat,
-			Lon:  gpsData.Coordinates.Lon,
-			Hres: false,
-		},
+		ID:       gpsData.ID,
+		SiteID:   "",
+		Position: Position{Lat: gpsData.Coordinates.Lat, Lon: gpsData.Coordinates.Lon, Hres: false},
 	}
 }
 
@@ -61,11 +59,8 @@ func TraceletToTrainPosition(traceletData TraceletMessage, siteManager *SiteMana
 	}
 	// calculate position
 	return TrainPosition{
-		ID: traceletData.TrainID,
-		Position: Position{
-			Lat:  zero.Lat + (float64(traceletData.Y)/earth/1000)*(180/math.Pi),
-			Lon:  zero.Lon + (float64(traceletData.X)/earth/1000)*(180/math.Pi)/math.Cos(zero.Lat*math.Pi/180),
-			Hres: true,
-		},
+		ID:       traceletData.TrainID,
+		SiteID:   traceletData.SiteID,
+		Position: Position{Lat: zero.Lat + (float64(traceletData.Y)/earth/1000)*(180/math.Pi), Lon: zero.Lon + (float64(traceletData.X)/earth/1000)*(180/math.Pi)/math.Cos(zero.Lat*math.Pi/180), Hres: true},
 	}, nil
 }

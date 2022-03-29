@@ -9,14 +9,15 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/eclipse/paho.golang/paho"
 	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
+	"github.com/edgefarm/train-simulation/demo/common/go/pkg/siteevent"
 	"github.com/edgefarm/train-simulation/demo/usecase-5/pkg/position"
+	"github.com/nats-io/nats.go"
 )
 
 const (
 	// this is followed by the train id
-	sendTopicStart = "position."
+	sendSubjectStart = "position."
 )
 
 var (
@@ -28,38 +29,38 @@ var (
 	trainIdMessageChannelMap map[string](chan position.TrainPosition)
 )
 
-func positionMessageHandler(m *paho.Publish) {
+func positionMessageHandler(msg *nats.Msg) {
 	tp := position.TrainPosition{}
 	// Check which type of message is received
-	switch m.Topic {
+	switch msg.Subject {
 	case position.GpsNatsSubject:
-		fmt.Println("Received gps message:", string(m.Payload))
+		fmt.Println("Received gps message:", string(msg.Data))
 		// convert message to GpsMessage
 		var gpsMsg position.GpsMessage
-		err := json.Unmarshal([]byte(m.Payload), &gpsMsg)
+		err := json.Unmarshal(msg.Data, &gpsMsg)
 		if err != nil {
-			fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
+			fmt.Printf("Error occured during unmarshaling. Error: %s\n", err.Error())
 			return
 		}
 		// Convert GpsMessage to TrainPosition
 		tp = position.GpsToTrainPositon(gpsMsg)
 	case position.TraceletNatsSubject:
-		fmt.Println("Received tracelet message:", string(m.Payload))
+		fmt.Println("Received tracelet message:", string(msg.Data))
 		// convert message to TraceletMessage
 		var traceletMsg position.TraceletMessage
-		err := json.Unmarshal([]byte(m.Payload), &traceletMsg)
+		err := json.Unmarshal(msg.Data, &traceletMsg)
 		if err != nil {
-			fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
+			fmt.Printf("Error occured during unmarshaling. Error: %s\n", err.Error())
 			return
 		}
 		// Convert TraceletMessage to TrainPosition
 		tp, err = position.TraceletToTrainPosition(traceletMsg, siteManager)
 		if err != nil {
-			fmt.Printf("Error occured during converting. Error: %s", err.Error())
+			fmt.Printf("Error occured during converting. Error: %s\n", err.Error())
 			return
 		}
 	default:
-		fmt.Printf("Unknown message received: %s", m.Topic)
+		fmt.Printf("Unknown message received: %s\n", msg.Subject)
 		return
 	}
 
@@ -78,18 +79,54 @@ func positionMessageHandler(m *paho.Publish) {
 	}()
 }
 
-func publishTrainPosition(msg position.TrainPosition) {
+func publishTrainPosition(msg position.TrainPosition, lastSiteId string) string {
 	// create message
 	msgBytes, err := json.Marshal(msg)
 	if err != nil {
-		fmt.Printf("Error occured during marshaling. Error: %s", err.Error())
+		fmt.Printf("Error occured during marshaling. Error: %s\n", err.Error())
 	}
 	// publish message
-	natsConn.Publish(sendTopicStart+msg.ID, msgBytes)
+	natsConn.Publish(sendSubjectStart+msg.ID, msgBytes)
+
+	// Check if there is a site state change
+	if msg.SiteID != lastSiteId {
+		// Send site event "leave" to last site only if this is not ""
+		if lastSiteId != "" {
+			siteEvent := siteevent.Event{
+				Train: mgs.ID,
+				Event: "leave",
+				Site:  lastSiteId,
+			}
+			publishSiteEvent(siteEvent)
+			// Send site event "enter" to current site only if this is not ""
+			if msg.SiteID != "" {
+				siteEvent := siteevent.Event{
+					Train: msg.ID,
+					Event: "enter",
+					Site:  msg.SiteID,
+				}
+				publishSiteEvent(siteEvent)
+			}
+
+			return msg.SiteID
+		}
+	}
+	return lastSiteId
+}
+
+func publishSiteEvent(msg siteevent.Event) {
+	// create message
+	msgBytes, err := json.Marshal(msg)
+	if err != nil {
+		fmt.Printf("Error occured during marshaling. Error: %s\n", err.Error())
+	}
+	// publish message
+	natsConn.Publish(siteevent.NatsSubject+"."+msg.Site, msgBytes)
 }
 
 func trainMessageHandler(msgChan chan position.TrainPosition) {
 	lastMsg := position.TrainPosition{}
+	lastSiteId := ""
 	for {
 		select {
 		case msg := <-msgChan:
@@ -99,7 +136,8 @@ func trainMessageHandler(msgChan chan position.TrainPosition) {
 
 				// If both messages are from the same message type, send the last message and update lastMsg
 				if lastMsg.Position.Hres == msg.Position.Hres {
-					publishTrainPosition(lastMsg)
+					fmt.Println("Sending last message:", lastMsg)
+					lastSiteId = publishTrainPosition(lastMsg, lastSiteId)
 					lastMsg = msg
 
 				} else {
@@ -109,11 +147,13 @@ func trainMessageHandler(msgChan chan position.TrainPosition) {
 					// In case the types differ, send the tracelet message and clear lastMsg
 					switch {
 					case lastMsg.Position.Hres == true:
+						fmt.Println("Sending tracelet message:", lastMsg)
 						// lastMsg was tracelet message
-						publishTrainPosition(lastMsg)
+						lastSiteId = publishTrainPosition(lastMsg, lastSiteId)
 					case msg.Position.Hres == true:
+						fmt.Println("Sending tracelet message:", msg)
 						// msg is tracelet message
-						publishTrainPosition(msg)
+						lastSiteId = publishTrainPosition(msg, lastSiteId)
 					}
 					lastMsg = position.TrainPosition{}
 				}
@@ -124,10 +164,11 @@ func trainMessageHandler(msgChan chan position.TrainPosition) {
 			}
 
 		case <-time.After(time.Second * 2):
-			fmt.Println("Send out remaining message")
 			// if lastMessage is not empty, send it out
 			if lastMsg != (position.TrainPosition{}) {
-				publishTrainPosition(lastMsg)
+				fmt.Println("Send out remaining message")
+				lastSiteId = publishTrainPosition(lastMsg, lastSiteId)
+				lastMsg = position.TrainPosition{}
 			}
 		}
 	}
@@ -136,14 +177,12 @@ func trainMessageHandler(msgChan chan position.TrainPosition) {
 func main() {
 
 	// Connect to NATS server
-	natsConn = &edgefarm_network.NatsConnection{}
+	natsConn = edgefarm_network.NewNatsConnection()
 	err := natsConn.Connect(connectTimeoutSeconds)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
 	log.Println("Connected to NATS server successfully")
-	// Ensure connection closed on exit
-	defer natsConn.Close()
 
 	// Create a site manager
 	siteManager, err := position.NewSiteManager()
@@ -156,26 +195,29 @@ func main() {
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
-	fmt.Printf("Subscribed to %s", position.RegisterSiteNatsTopic)
+	fmt.Printf("Subscribed to %s\n", position.RegisterSiteNatsTopic)
 
 	// Subscribe to correct MQTT topics to get qps and tracelet data from simulations
 	// Provide handler function `mqttHandler` which is entered on message receive
+	trainIdMessageChannelMap = make(map[string](chan position.TrainPosition))
 	err = natsConn.Subscribe(position.GpsNatsSubject, positionMessageHandler)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
-	fmt.Printf("Subscribed to %s", position.GpsNatsSubject)
+	fmt.Printf("Subscribed to %s\n", position.GpsNatsSubject)
 
 	err = natsConn.Subscribe(position.TraceletNatsSubject, positionMessageHandler)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
-	fmt.Printf("Subscribed to %s", position.TraceletNatsSubject)
+	fmt.Printf("Subscribed to %s\n", position.TraceletNatsSubject)
 
 	// Listen on signal for termination
 	ic := make(chan os.Signal, 1)
 	signal.Notify(ic, os.Interrupt, syscall.SIGTERM)
 	<-ic
 	fmt.Println("signal received, exiting")
+	// Close nats connection
+	natsConn.Close()
 	os.Exit(0)
 }
