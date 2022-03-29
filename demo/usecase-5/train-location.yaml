@@ -1,10 +1,5 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: train-location
-  labels:
-    name: train-location
----
+define: &MQTT_SERVER_IP 172.17.0.1
+
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
@@ -21,7 +16,27 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: MQTT_SERVER
-            value: <IP>
+            value: *MQTT_SERVER_IP
+        runtime:
+          - highres-position
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: nats-mqtt-proxy
+      type: edge-worker
+      properties:
+        image: ci4rail/nats-mqtt-proxy
+        name: nats-mqtt-proxy
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: *MQTT_SERVER_IP
+        runtime:
+          - highres-position
       traits:
         - type: edge-network-participant
           properties:
@@ -66,3 +81,15 @@ spec:
             subjects:
               - train.>
             storage: file
+          - name: sites-events
+            subjects:
+              - sites-event.>
+              - site.register
+            storage: file
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: train-location
+  labels:
+    name: train-location

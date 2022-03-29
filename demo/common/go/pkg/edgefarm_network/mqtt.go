@@ -60,9 +60,9 @@ func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
 		// Connect Client to MQTT Broker
 		res, err := m.client.Connect(context.Background(), &paho.Connect{})
 		if err != nil {
-			fmt.Printf("Failed to connect to %s: %s", m.server, err.Error())
+			fmt.Printf("Failed to connect to %s: %s\n", m.server, err.Error())
 		} else if res.ReasonCode != 0 {
-			fmt.Printf("Failed to connect with reason: %d - %s", res.ReasonCode, res.Properties.ReasonString)
+			fmt.Printf("Failed to connect with reason: %d - %s\n", res.ReasonCode, res.Properties.ReasonString)
 		} else {
 			return nil
 		}

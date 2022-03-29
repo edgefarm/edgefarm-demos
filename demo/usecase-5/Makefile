@@ -12,7 +12,7 @@ build: test
 	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/position-service cmd/position-service/main.go
 	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/receive-highres-position cmd/receive-highres-position/main.go
 	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/maintenance-hall cmd/maintenance-hall/main.go
-
+	GOOS=linux go build $(GO_LDFLAGS) -o ${BIN_DIR}/nats-mqtt-proxy cmd/nats-mqtt-proxy/main.go
 
 test: tidy ## run go tests
 	go test ./...
@@ -37,7 +37,13 @@ maintenance-hall-docker-amd64: tidy test ## creates docker images for amd64 (pre
 	docker push ci4rail/dev-maintenance-hall:${VERSION}
 	docker push ci4rail/dev-maintenance-hall:latest
 
-.PHONY: test clean build all tidy docker-amd64 position-service-docker-amd64 receive-highres-position-docker-amd64 maintenance-hall-docker-amd64
+nats-mqtt-proxy-docker-amd64: tidy test ## creates docker images for amd64 (prefix dev-)
+	docker build -f build/nats-mqtt-proxy/Dockerfile -t ci4rail/dev-nats-mqtt-proxy:${VERSION} -t ci4rail/dev-nats-mqtt-proxy:latest ../
+	docker push ci4rail/dev-nats-mqtt-proxy:${VERSION}
+	docker push ci4rail/dev-nats-mqtt-proxy:latest
+
+
+.PHONY: test clean build all tidy docker-amd64 position-service-docker-amd64 receive-highres-position-docker-amd64 maintenance-hall-docker-amd64 nats-mqtt-proxy-docker-amd64
 
 help: ## show help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make [target]\033[36m\033[0m\n"} /^[$$()% 0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m\t %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)

@@ -44,3 +44,90 @@ jobs:
                       -f build/maintenance-hall/Dockerfile \
                       --tag ${DOCKER_REPOSITORY}/maintenance-hall:latest \
                       --tag ${DOCKER_REPOSITORY}/maintenance-hall:${GITHUB_SHA::8} ../
+
+  build-push-position-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      -f build/position-service/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/position-service:latest \
+                      --tag ${DOCKER_REPOSITORY}/position-service:${GITHUB_SHA::8} ../
+
+  build-push-nats-mqtt-proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      -f build/nats-mqtt-proxy/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/nats-mqtt-proxy:latest \
+                      --tag ${DOCKER_REPOSITORY}/nats-mqtt-proxy:${GITHUB_SHA::8} ../
+
+  build-push-receive-highres-position:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      -f build/receive-highres-position/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/receive-highres-position:latest \
+                      --tag ${DOCKER_REPOSITORY}/receive-highres-position:${GITHUB_SHA::8} ../

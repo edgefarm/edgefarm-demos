@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	edgefarm_network "github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
@@ -18,10 +19,15 @@ var (
 )
 
 func handler(msg *nats.Msg) {
-	err := mqttConn.Publish(msg.Subject, msg.Data)
+	err := mqttConn.Publish(natsToMqtt(msg.Subject), msg.Data)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+// natsToMqtt takes a string and replaces all occurances of '.' with '/'
+func natsToMqtt(subject string) string {
+	return strings.ReplaceAll(subject, ".", "/")
 }
 
 func main() {
