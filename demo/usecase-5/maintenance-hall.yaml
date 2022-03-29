@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maintenance-hall
+---
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: maintenance-hall
+  namespace: maintenance-hall
+spec:
+  components:
+    - name: maintenance-hall
+      type: edge-worker
+      properties:
+        image: ci4rail/dev-maintenance-hall
+        name: maintenance-hall
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/maintenance-hall-network.creds
+          - name: SITES
+            value: "sites.mySite1,sites.mySite2,sites.mySite3"
+        ports:
+          - hostPort: 9999
+            containerPort: 9999
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - maintenance-hall-network
+
+    - type: application-network
+      name: maintenance-hall-network
+      properties:
+        streams:
+          - name: maintenance-hall
+            subjects:
+              - sites.>
+            storage: file

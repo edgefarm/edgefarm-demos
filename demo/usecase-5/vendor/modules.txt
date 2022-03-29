@@ -8,6 +8,10 @@ github.com/eclipse/paho.golang/paho
 # github.com/edgefarm/train-simulation/demo/common/go v0.0.0-00010101000000-000000000000 => ../common/go
 ## explicit; go 1.17
 github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network
+github.com/edgefarm/train-simulation/demo/common/go/pkg/siteevent
+# github.com/fbiville/markdown-table-formatter v0.3.0
+## explicit; go 1.17
+github.com/fbiville/markdown-table-formatter/pkg/markdown
 # github.com/klauspost/compress v1.14.4
 ## explicit; go 1.15
 # github.com/minio/highwayhash v1.0.2
