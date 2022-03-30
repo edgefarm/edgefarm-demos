@@ -49,9 +49,7 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359,
-        "w": 432,
-        "h": 242
+        "y": 359
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -113,9 +111,7 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359,
-        "w": 432,
-        "h": 122
+        "y": 359
     },
     {
         "id": "b2babc11e8bbd277",
@@ -1190,7 +1186,7 @@
         "z": "713cf011c1d16752",
         "g": "b2babc11e8bbd277",
         "name": "store-watch",
-        "func": "flow.set('watch', msg.payload)\n",
+        "func": "var train_id = flow.get('train-id')\n\nflow.set('watch', msg.payload)\nif(msg.payload == false) {\n    var del = {\n        \"payload\": {\n            \"name\": train_id,\n            \"deleted\": true\n        }\n    }\n    node.send(del)\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1199,7 +1195,9 @@
         "x": 350,
         "y": 140,
         "wires": [
-            []
+            [
+                "b5a98e20618ff245"
+            ]
         ]
     },
     {
@@ -1212,7 +1210,7 @@
         "layer": "single",
         "smooth": false,
         "x": 870,
-        "y": 180,
+        "y": 140,
         "wires": [
             [
                 "a9fc397f79a11088"
