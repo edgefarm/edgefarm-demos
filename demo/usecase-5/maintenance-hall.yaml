@@ -14,7 +14,7 @@ spec:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
           - name: SITES
-            value: "sites-event.mySite1,sites-event.mySite2,sites-event.mySite3"
+            value: "sites-event.Anmeldung,sites-event.Reperatur,sites-event.Waschanlage,sites-event.Lackiererei"
         ports:
           - hostPort: 9999
             containerPort: 9999
