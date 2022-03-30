@@ -49,7 +49,9 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 242
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -111,7 +113,9 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 122
     },
     {
         "id": "b2babc11e8bbd277",
@@ -232,7 +236,7 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#ff6116",
+                "baseColor": "#54579c",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "edited": true,
                 "reset": false
@@ -246,11 +250,11 @@
             "themeState": {
                 "base-color": {
                     "default": "#097479",
-                    "value": "#ff6116",
+                    "value": "#54579c",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#ff6116",
+                    "value": "#54579c",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -258,11 +262,11 @@
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#ff9562",
+                    "value": "#8184bb",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -278,7 +282,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#ff6116",
+                    "value": "#54579c",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -469,7 +473,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#006600",
+                "to": "#000088",
                 "tot": "str"
             }
         ],
@@ -812,7 +816,8 @@
             "bb29cd6ca5702fe7",
             "6267e7eded2f86ec",
             "4c0dc8a0773c1ccc",
-            "d8276eca9b16dd76"
+            "d8276eca9b16dd76",
+            "c99e7268a64ce397"
         ],
         "x": 1185,
         "y": 280,
@@ -1928,7 +1933,7 @@
         "wires": [
             [
                 "9c56d873ec2bb328",
-                "0ae7d49409bc96b4"
+                "e87894eae3db0673"
             ]
         ]
     },
@@ -1980,22 +1985,6 @@
         "wires": []
     },
     {
-        "id": "0ae7d49409bc96b4",
-        "type": "debug",
-        "z": "d4bb3e7314e90c9f",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 550,
-        "y": 560,
-        "wires": []
-    },
-    {
         "id": "d90e84222a9e4203",
         "type": "debug",
         "z": "d4bb3e7314e90c9f",
@@ -2010,5 +1999,102 @@
         "x": 910,
         "y": 380,
         "wires": []
+    },
+    {
+        "id": "e87894eae3db0673",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "add to global",
+        "func": "var sites = flow.get(\"sites\")\nsites.push(msg.payload)\nflow.set(\"sites\", sites)\nreturn msg\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "5780f7b748098aea"
+            ]
+        ]
+    },
+    {
+        "id": "5780f7b748098aea",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "draw all sites",
+        "func": "// is along in a site?\nvar along = flow.get(\"turfAlong\")\nvar sites = flow.get(\"sites\")\nvar options = flow.get(\"turfOptions\")\n\nnode.log(JSON.stringify(sites, null, 2))\n\nsites.forEach(function(site) {\n\n    var level1 = []\n    var level2 = []\n    node.log(JSON.stringify(site.area, null, 2))\n    site.area.forEach(function(point) {\n        level2.push([point.lat,point.lng])\n    });\n    level1.push(level2)\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id, \n            \"area\": level2,\n            \"color\":\"#fdd0fd\"\n        }\n    })\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 560,
+        "wires": [
+            [
+                "c99e7268a64ce397"
+            ]
+        ]
+    },
+    {
+        "id": "c99e7268a64ce397",
+        "type": "link out",
+        "z": "d4bb3e7314e90c9f",
+        "name": "draw sites",
+        "mode": "link",
+        "links": [
+            "5b27f860dd0d2804"
+        ],
+        "x": 905,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7cef34b47a9380d8",
+        "type": "inject",
+        "z": "d4bb3e7314e90c9f",
+        "name": "init",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "390b5f3d936b8e69"
+            ]
+        ]
+    },
+    {
+        "id": "390b5f3d936b8e69",
+        "type": "function",
+        "z": "d4bb3e7314e90c9f",
+        "name": "reset vars",
+        "func": "flow.set(\"sites\", [])",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 660,
+        "wires": [
+            []
+        ]
     }
 ]
