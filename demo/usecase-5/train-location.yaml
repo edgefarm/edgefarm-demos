@@ -1,0 +1,93 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: train-location
+  labels:
+    name: train-location
+---
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: train-location
+  namespace: train-location
+spec:
+  components:
+    - name: receive-highres-position
+      type: edge-worker
+      properties:
+        image: ci4rail/receive-highres-position
+        name: receive-highres-position
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: <<IP ADDRESS OF MQTT SERVER>>
+        runtime:
+          - highres-position
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: nats-mqtt-proxy
+      type: edge-worker
+      properties:
+        image: ci4rail/nats-mqtt-proxy
+        name: nats-mqtt-proxy
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: MQTT_SERVER
+            value: <<IP ADDRESS OF MQTT SERVER>>
+        runtime:
+          - highres-position
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network
+
+    - name: position-service
+      type: cloud-worker
+      properties:
+        image: ci4rail/position-service
+        name: position-service
+        labelSelector:
+          - position-service
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: SITES_STATE_FILE
+            value: /data/site-manager-state.json
+      traits:
+        - type: cloud-network-participant
+          properties:
+            networks:
+              - train-location-network
+        - type: volumes
+          properties:
+            volumes:
+              - name: sites-state
+                type: hostPath
+                path: /data/site-manager-state.json
+                mountPath: /data/site-manager-state.json
+                mountType: FileOrCreate
+                readOnly: false
+    - type: application-network
+      name: train-location-network
+      properties:
+        streams:
+          - name: train-location
+            subjects:
+              - position.>
+            storage: file
+          - name: train-data
+            subjects:
+              - train.>
+            storage: file
+          - name: sites-events
+            subjects:
+              - sites-event.>
+              - site.register
+            storage: file

@@ -18,6 +18,7 @@ The demos cover data acquisition, pre-processing, data transport and transmissio
   * [usecase-1](demo/usecase-1/README.md): Read temperature data published by the simulator and foward it to EdgeFarm.data
   * [usecase-2](demo/usecase-2/README.md): Seat-reservation system simulation with monitoring
   * [usecase-3](demo/usecase-3/README.md): Detect peaks in the vibration signal, map it to a GPS location and forward it to EdgeFarm.data
+  * [usecase-4](demo/usecase-4/README.md): Train transmitts GPS coordinates to cloud to enable train position observation from Backoffice
 
 ## Building yourself
 

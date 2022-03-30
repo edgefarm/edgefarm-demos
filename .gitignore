@@ -1,3 +1,4 @@
+.env
 *.pyc
 venv*/
 .dobi/
@@ -14,5 +15,12 @@ gen/
 # node
 node_modules
 package-lock.json
-package.json
+*.backup
+# package.json is required for node red to install required modules
 .npm
+
+# ignore bin folder for go binaries
+bin
+
+# ignore credentials file
+*.creds

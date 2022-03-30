@@ -1,6 +1,6 @@
 # usecase-3
 
-This use case is located in the journey section in the simulator. This one generates vibration data in Z direction with irregular peaks every now and then. GPS positions linked to the vibratin data are also generated. The data is transmitted separately to the MQTT broker.
+This use case is located in the Records section in the simulator. This one generates vibration data in Z direction with irregular peaks every now and then. GPS positions linked to the vibratin data are also generated. The data is transmitted separately to the MQTT broker.
 
 The Edge application subscribes to the respective topics and identifies the peaks, correlates peaks with GPS and time Information and sends these informations into the cloud.
 

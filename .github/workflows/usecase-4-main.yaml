@@ -1,0 +1,46 @@
+name: usecase-4
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "demo/usecase-4/**/*"
+      - "demo/common/go/**/*"
+      - ".github/workflows/usecase-4-pr.yaml"
+      - ".github/workflows/usecase-4-main.yaml"
+
+env:
+  ARCHITECTURES: linux/arm64,linux/amd64
+  DOCKER_REPOSITORY: ci4rail
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build-push-receive-position:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Build
+        run: |
+          cd demo/usecase-4/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${GITHUB_SHA::8} \
+                      -f build/receive-position/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/receive-position:latest \
+                      --tag ${DOCKER_REPOSITORY}/receive-position:${GITHUB_SHA::8} ../
