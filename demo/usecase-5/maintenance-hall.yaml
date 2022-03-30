@@ -2,7 +2,7 @@ apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
   name: maintenance-hall
-  namespace: maintenance-hall
+  namespace: train-location
 spec:
   components:
     - name: maintenance-hall
@@ -12,7 +12,7 @@ spec:
         name: maintenance-hall
         env:
           - name: NATS_CREDS_PATH
-            value: /nats-credentials/maintenance-hall-network.creds
+            value: /nats-credentials/train-location-network.creds
           - name: SITES
             value: "sites-event.mySite1,sites-event.mySite2,sites-event.mySite3"
         ports:
@@ -24,18 +24,4 @@ spec:
         - type: edge-network-participant
           properties:
             networks:
-              - maintenance-hall-network
-
-    - type: application-network
-      name: maintenance-hall-network
-      properties:
-        streams:
-          - name: maintenance-hall
-            subjects:
-              - sites-event.>
-            storage: file
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: maintenance-hall
+              - train-location-network
