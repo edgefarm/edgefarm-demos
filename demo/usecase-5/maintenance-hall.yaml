@@ -1,0 +1,27 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: maintenance-hall
+  namespace: train-location
+spec:
+  components:
+    - name: maintenance-hall
+      type: edge-worker
+      properties:
+        image: ci4rail/maintenance-hall
+        name: maintenance-hall
+        env:
+          - name: NATS_CREDS_PATH
+            value: /nats-credentials/train-location-network.creds
+          - name: SITES
+            value: "sites-event.mySite1,sites-event.mySite2,sites-event.mySite3"
+        ports:
+          - hostPort: 9999
+            containerPort: 9999
+        runtime:
+          - maintenance-hall
+      traits:
+        - type: edge-network-participant
+          properties:
+            networks:
+              - train-location-network

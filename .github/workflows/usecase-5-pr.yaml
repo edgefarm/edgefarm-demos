@@ -1,0 +1,141 @@
+name: usecase-5-pullrequest
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "demo/usecase-5/**/*"
+      - "demo/common/go/**/*"
+      - ".github/workflows/usecase-5-pr.yaml"
+      - ".github/workflows/usecase-5-main.yaml"
+
+env:
+  ARCHITECTURES: linux/arm64,linux/amd64
+  DOCKER_REPOSITORY: ci4rail
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build-push-dev-maintenance-hall:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${SHORT_SHA::8} \
+                      -f build/maintenance-hall/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/dev-maintenance-hall:latest \
+                      --tag ${DOCKER_REPOSITORY}/dev-maintenance-hall:${SHORT_SHA} ../
+
+  build-push-dev-position-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${SHORT_SHA::8} \
+                      -f build/position-service/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/dev-position-service:latest \
+                      --tag ${DOCKER_REPOSITORY}/dev-position-service:${SHORT_SHA} ../
+
+  build-push-dev-nats-mqtt-proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${SHORT_SHA::8} \
+                      -f build/nats-mqtt-proxy/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/dev-nats-mqtt-proxy:latest \
+                      --tag ${DOCKER_REPOSITORY}/dev-nats-mqtt-proxy:${SHORT_SHA} ../
+
+  build-push-dev-receive-highres-position:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Log into Docker
+        run: echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: ${{ env.ARCHITECTURES }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.6.0
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Build
+        run: |
+          cd demo/usecase-5/;
+          docker buildx build \
+                      --push \
+                      --platform ${ARCHITECTURES} \
+                      --build-arg VERSION=${SHORT_SHA::8} \
+                      -f build/receive-highres-position/Dockerfile \
+                      --tag ${DOCKER_REPOSITORY}/dev-receive-highres-position:latest \
+                      --tag ${DOCKER_REPOSITORY}/dev-receive-highres-position:${SHORT_SHA} ../
