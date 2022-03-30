@@ -30,11 +30,11 @@ spec:
             networks:
               - train-location-network
 
-    - name: nats-mqtt-proxy
+    - name: helper-for-simulation
       type: edge-worker
       properties:
         image: ci4rail/dev-nats-mqtt-proxy
-        name: nats-mqtt-proxy
+        name: helper-for-simulation
         env:
           - name: NATS_CREDS_PATH
             value: /nats-credentials/train-location-network.creds
