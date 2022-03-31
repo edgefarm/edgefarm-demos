@@ -429,7 +429,9 @@
             "19a9760c.969952"
         ],
         "x": 314,
-        "y": 539
+        "y": 539,
+        "w": 1312,
+        "h": 142
     },
     {
         "id": "5c352b29.891384",
@@ -447,7 +449,9 @@
             "77f35e26.f96cf"
         ],
         "x": 1054,
-        "y": 259
+        "y": 259,
+        "w": 532,
+        "h": 142
     },
     {
         "id": "9acc28c1.69123",
@@ -468,7 +472,9 @@
             "63137d3e.21952c"
         ],
         "x": 314,
-        "y": 699
+        "y": 699,
+        "w": 1312,
+        "h": 142
     },
     {
         "id": "412fd13f.40d1d",
@@ -486,7 +492,9 @@
             "44348f30.dbdee8"
         ],
         "x": 14,
-        "y": 19
+        "y": 19,
+        "w": 802,
+        "h": 82
     },
     {
         "id": "af8a1384.858f6",
@@ -511,7 +519,9 @@
             "df6c7c7b.7f5468"
         ],
         "x": 24,
-        "y": 199
+        "y": 199,
+        "w": 822,
+        "h": 242
     },
     {
         "id": "79e9064.dda8578",
@@ -533,7 +543,9 @@
             "a3d0ca67.8bcad"
         ],
         "x": 314,
-        "y": 859
+        "y": 859,
+        "w": 1292,
+        "h": 222
     },
     {
         "id": "9ba31a68.891f48",
@@ -610,9 +622,7 @@
             "4d25a3c1.9f679c"
         ],
         "x": 254,
-        "y": 299,
-        "w": 442,
-        "h": 122
+        "y": 299
     },
     {
         "id": "670e93e4a2018239",
@@ -3597,7 +3607,7 @@
         "z": "e96654f5.3653d8",
         "g": "af0ac6dccf12a96b",
         "name": "calculate next position",
-        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        speed = 50\n    }\n});\n    \n// calculate next position\nkm = km + (speed / 3600)\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
+        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        var areaName = area.properties.name\n        if (areaName.startsWith(\"ts\")){\n            speed = 50\n        } else if (areaName.startsWith(\"wh\")){\n            speed = 15\n        } else {\n            speed = 0\n        }\n    }\n});\n    \n// calculate next position\nkm = km + (speed / 3600)\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
