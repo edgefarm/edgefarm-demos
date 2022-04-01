@@ -45,7 +45,7 @@ func NewMqttConnection() *MqttConnection {
 
 // Connect to MQTT server. Server URL can be provided via MQTT_SERVER environment variable.
 func (m *MqttConnection) Connect(connectTimeoutSeconds time.Duration) error {
-	fmt.Printf("Connection to mqtt broker\n")
+	fmt.Printf("Connection to mqtt broker. Waiting...\n")
 	opts := mqtt.NewClientOptions().AddBroker(fmt.Sprintf("%s:%s", m.server, m.port))
 	opts.SetConnectTimeout(0)
 	opts.SetConnectRetry(true)
