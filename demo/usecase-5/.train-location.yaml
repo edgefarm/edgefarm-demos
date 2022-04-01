@@ -15,7 +15,7 @@ spec:
     - name: receive-highres-position
       type: edge-worker
       properties:
-        image: ci4rail/receive-highres-position
+        image: ci4rail/dev-receive-highres-position
         name: receive-highres-position
         env:
           - name: NATS_CREDS_PATH
@@ -33,7 +33,7 @@ spec:
     - name: helper-for-simulation
       type: edge-worker
       properties:
-        image: ci4rail/nats-mqtt-proxy
+        image: ci4rail/dev-nats-mqtt-proxy:2c65a63d
         name: helper-for-simulation
         env:
           - name: NATS_CREDS_PATH
@@ -51,7 +51,7 @@ spec:
     - name: position-service
       type: cloud-worker
       properties:
-        image: ci4rail/position-service
+        image: ci4rail/dev-position-service
         name: position-service
         labelSelector:
           - position-service

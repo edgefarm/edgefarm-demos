@@ -8,7 +8,7 @@ spec:
     - name: maintenance-hall
       type: edge-worker
       properties:
-        image: ci4rail/maintenance-hall
+        image: ci4rail/maintenance-hall:dba6a095
         name: maintenance-hall
         env:
           - name: NATS_CREDS_PATH

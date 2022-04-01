@@ -49,9 +49,7 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359,
-        "w": 432,
-        "h": 242
+        "y": 359
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -71,9 +69,7 @@
             "bb29cd6ca5702fe7"
         ],
         "x": 14,
-        "y": 739,
-        "w": 342,
-        "h": 202
+        "y": 739
     },
     {
         "id": "0ded4dc7e0bad8c6",
@@ -93,9 +89,7 @@
             "6d55712194850825"
         ],
         "x": 14,
-        "y": 519,
-        "w": 702,
-        "h": 162
+        "y": 519
     },
     {
         "id": "3946bb2aa731ca06",
@@ -113,9 +107,7 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359,
-        "w": 432,
-        "h": 122
+        "y": 359
     },
     {
         "id": "b2babc11e8bbd277",
@@ -145,9 +137,7 @@
             "b5a98e20618ff245"
         ],
         "x": 14,
-        "y": 59,
-        "w": 1022,
-        "h": 342
+        "y": 59
     },
     {
         "id": "16c05c80a31426ee",
@@ -164,9 +154,7 @@
             "b32a2df7d5bcf61c"
         ],
         "x": 14,
-        "y": 419,
-        "w": 692,
-        "h": 82
+        "y": 419
     },
     {
         "id": "8f2d0f85238db2b6",
@@ -184,9 +172,7 @@
             "4f85142130eaa7f7"
         ],
         "x": 1144,
-        "y": 239,
-        "w": 282,
-        "h": 142
+        "y": 239
     },
     {
         "id": "3e883c3af884ef05",
@@ -1862,7 +1848,7 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "store-infos",
-        "func": "flow.set('coordinates', msg.payload)\nflow.set('zero', msg.payload.area[0])\n",
+        "func": "flow.set('coordinates', msg.payload)\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1933,7 +1919,7 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "convert",
-        "func": "converted = {}\nconverted.id = msg.payload.name\nconverted.area = msg.payload.area\nmsg.payload = converted\nmsg.payload.zero = flow.get(\"zero\")\nreturn msg;",
+        "func": "converted = {}\nconverted.id = msg.payload.name\nconverted.area = msg.payload.area\nmsg.payload = converted\nmsg.payload.zero = msg.payload.area[0]\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2084,8 +2070,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 490,
-        "y": 680,
+        "x": 350,
+        "y": 780,
         "wires": [
             [
                 "390b5f3d936b8e69"
@@ -2103,8 +2089,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 680,
+        "x": 520,
+        "y": 780,
         "wires": [
             []
         ]
@@ -2136,8 +2122,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 650,
-        "y": 600,
+        "x": 510,
+        "y": 700,
         "wires": [
             [
                 "749eb7f01ec5fe71"
@@ -2160,12 +2146,12 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "{\"Anmeldung\":{\"action\":\"draw\",\"name\":\"Anmeldung\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425240991617116,\"lng\":11.018650084733965},{\"lat\":49.425073508278246,\"lng\":11.018768101930618},{\"lat\":49.42523575777142,\"lng\":11.019269675016405},{\"lat\":49.4253997513376,\"lng\":11.019151657819748}]},\"Reperatur\":{\"action\":\"draw\",\"name\":\"Reperatur\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425476514095145,\"lng\":11.01924017071724},{\"lat\":49.42533345613217,\"lng\":11.01933404803276},{\"lat\":49.42552012924479,\"lng\":11.019932180643083},{\"lat\":49.425642251457504,\"lng\":11.019838303327562}]},\"Waschanlage\":{\"action\":\"draw\",\"name\":\"Waschanlage\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42575739497967,\"lng\":11.020251363515854},{\"lat\":49.42566667586359,\"lng\":11.020313054323198},{\"lat\":49.42582892339527,\"lng\":11.020841449499132},{\"lat\":49.42592138680232,\"lng\":11.020782440900804}]},\"Lackiererei\":{\"action\":\"draw\",\"name\":\"Lackiererei\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42614643851776,\"lng\":11.021247804164886},{\"lat\":49.42602431755997,\"lng\":11.021352410316469},{\"lat\":49.42618481932743,\"lng\":11.021730601787567},{\"lat\":49.42628600495444,\"lng\":11.021623313426973}]}}",
+        "payload": "{\"Anmeldung\":{\"action\":\"draw\",\"name\":\"Anmeldung\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425240991617116,\"lng\":11.018650084733965},{\"lat\":49.425073508278246,\"lng\":11.018768101930618},{\"lat\":49.42523575777142,\"lng\":11.019269675016405},{\"lat\":49.4253997513376,\"lng\":11.019151657819748}]},\"Reperatur\":{\"action\":\"draw\",\"name\":\"Reperatur\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425476514095145,\"lng\":11.01924017071724},{\"lat\":49.42533345613217,\"lng\":11.01933404803276},{\"lat\":49.42552012924479,\"lng\":11.019932180643083},{\"lat\":49.425642251457504,\"lng\":11.019838303327562}]},\"Waschanlage\":{\"action\":\"draw\",\"name\":\"Waschanlage\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42575739497967,\"lng\":11.020251363515854},{\"lat\":49.42566667586359,\"lng\":11.020313054323198},{\"lat\":49.42582892339527,\"lng\":11.020841449499132},{\"lat\":49.42592138680232,\"lng\":11.020782440900804}]},\"Lackiererei\":{\"action\":\"draw\",\"name\":\"Lackiererei\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42615041356103,\"lng\":11.021234360797948},{\"lat\":49.42603729067904,\"lng\":11.021337850733929},{\"lat\":49.426185004803436,\"lng\":11.021720188552855},{\"lat\":49.42629906224081,\"lng\":11.021623885417988},{\"lat\":49.42624577314324,\"lng\":11.021493085637859},{\"lat\":49.426270080458096,\"lng\":11.021468650514057},{\"lat\":49.42622801009785,\"lng\":11.021357973777},{\"lat\":49.426199963171,\"lng\":11.021379534180346}]}}",
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 450,
-        "y": 600,
+        "x": 310,
+        "y": 700,
         "wires": [
             [
                 "ea6fb3b45e2e46b3"
@@ -2192,12 +2178,28 @@
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 430,
-        "y": 640,
+        "x": 290,
+        "y": 740,
         "wires": [
             [
                 "ea6fb3b45e2e46b3"
             ]
         ]
+    },
+    {
+        "id": "06bd17ca526ebcee",
+        "type": "debug",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 460,
+        "wires": []
     }
 ]

@@ -15,7 +15,7 @@ spec:
     - name: receive-position
       type: edge-worker
       properties:
-        image: ci4rail/dev-receive-position
+        image: ci4rail/dev-receive-position:2c65a63d
         name: receive-position
         env:
           - name: NATS_CREDS_PATH
