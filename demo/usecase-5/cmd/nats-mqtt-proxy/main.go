@@ -6,6 +6,7 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+	"time"
 
 	edgefarm_network "github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
 	env "github.com/edgefarm/train-simulation/demo/common/go/pkg/env"
@@ -41,7 +42,7 @@ func main() {
 	}
 
 	mqttConn = edgefarm_network.NewMqttConnection()
-	err = mqttConn.Connect(10)
+	err = mqttConn.Connect(time.Second * 10)
 	if err != nil {
 		fmt.Printf("Error connecting to mqtt: %s\n", err)
 		os.Exit(1)

@@ -7,8 +7,9 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
-	"github.com/eclipse/paho.golang/paho"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
 )
 
@@ -46,12 +47,12 @@ type SendMessage struct {
 	Position Position `json:"position"`
 }
 
-func mqttHandler(m *paho.Publish) {
-	fmt.Println("Received message:", string(m.Payload))
+func mqttHandler(m mqtt.Message) {
+	fmt.Println("Received message:", string(m.Payload()))
 
 	// Convert byte string to golang struct
 	var recMsg RecMessage
-	err := json.Unmarshal([]byte(m.Payload), &recMsg)
+	err := json.Unmarshal([]byte(m.Payload()), &recMsg)
 	if err != nil {
 		fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
 	}
@@ -96,7 +97,7 @@ func main() {
 
 	// Connect to train simulation MQTT server
 	mqttConn := edgefarm_network.NewMqttConnection()
-	err = mqttConn.Connect(connectTimeoutSeconds)
+	err = mqttConn.Connect(time.Second * 10)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}

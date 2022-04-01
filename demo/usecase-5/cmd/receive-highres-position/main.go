@@ -7,8 +7,9 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
-	"github.com/eclipse/paho.golang/paho"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/edgefarm/train-simulation/demo/common/go/pkg/edgefarm_network"
 	"github.com/edgefarm/train-simulation/demo/usecase-5/pkg/position"
 )
@@ -45,12 +46,12 @@ type RecvTraceletMessage struct {
 	TrainID string  `json:"train-id"`
 }
 
-func gpsHandler(m *paho.Publish) {
-	fmt.Println("Received gps message:", string(m.Payload))
+func gpsHandler(m mqtt.Message) {
+	fmt.Println("Received gps message:", string(m.Payload()))
 
 	// Convert byte string to golang struct
 	var recMsg RecvGpsMessage
-	err := json.Unmarshal([]byte(m.Payload), &recMsg)
+	err := json.Unmarshal([]byte(m.Payload()), &recMsg)
 	if err != nil {
 		fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
 	}
@@ -79,12 +80,12 @@ func gpsHandler(m *paho.Publish) {
 	fmt.Println("Successfully send to topic", position.GpsNatsSubject, ", message:", string(stringMessage))
 }
 
-func traceletHandler(m *paho.Publish) {
-	fmt.Println("Received tracelet message:", string(m.Payload))
+func traceletHandler(m mqtt.Message) {
+	fmt.Println("Received tracelet message:", string(m.Payload()))
 
 	// Convert byte string to golang struct
 	var recMsg RecvTraceletMessage
-	err := json.Unmarshal([]byte(m.Payload), &recMsg)
+	err := json.Unmarshal([]byte(m.Payload()), &recMsg)
 	if err != nil {
 		fmt.Printf("Error occured during unmarshaling. Error: %s", err.Error())
 	}
@@ -126,7 +127,7 @@ func main() {
 
 	// Connect to train simulation MQTT server
 	mqttConn := edgefarm_network.NewMqttConnection()
-	err = mqttConn.Connect(connectTimeoutSeconds)
+	err = mqttConn.Connect(time.Second * 10)
 	if err != nil {
 		log.Fatalf("Exiting: %v", err)
 	}
