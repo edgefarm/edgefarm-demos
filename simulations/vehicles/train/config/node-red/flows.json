@@ -429,9 +429,7 @@
             "19a9760c.969952"
         ],
         "x": 314,
-        "y": 539,
-        "w": 1312,
-        "h": 142
+        "y": 539
     },
     {
         "id": "5c352b29.891384",
@@ -449,9 +447,7 @@
             "77f35e26.f96cf"
         ],
         "x": 1054,
-        "y": 259,
-        "w": 532,
-        "h": 142
+        "y": 259
     },
     {
         "id": "9acc28c1.69123",
@@ -472,9 +468,7 @@
             "63137d3e.21952c"
         ],
         "x": 314,
-        "y": 699,
-        "w": 1312,
-        "h": 142
+        "y": 699
     },
     {
         "id": "412fd13f.40d1d",
@@ -492,9 +486,7 @@
             "44348f30.dbdee8"
         ],
         "x": 14,
-        "y": 19,
-        "w": 802,
-        "h": 82
+        "y": 19
     },
     {
         "id": "af8a1384.858f6",
@@ -519,9 +511,7 @@
             "df6c7c7b.7f5468"
         ],
         "x": 24,
-        "y": 199,
-        "w": 822,
-        "h": 242
+        "y": 199
     },
     {
         "id": "79e9064.dda8578",
@@ -543,9 +533,7 @@
             "a3d0ca67.8bcad"
         ],
         "x": 314,
-        "y": 859,
-        "w": 1292,
-        "h": 222
+        "y": 859
     },
     {
         "id": "9ba31a68.891f48",
@@ -622,7 +610,9 @@
             "4d25a3c1.9f679c"
         ],
         "x": 254,
-        "y": 299
+        "y": 299,
+        "w": 442,
+        "h": 122
     },
     {
         "id": "670e93e4a2018239",
@@ -754,9 +744,9 @@
             "995c8db1a687e248",
             "300cc4f0ae7f5f67"
         ],
-        "x": 594,
+        "x": 514,
         "y": 1519,
-        "w": 2052,
+        "w": 2132,
         "h": 462
     },
     {
@@ -2547,7 +2537,7 @@
         "type": "inject",
         "z": "e96654f5.3653d8",
         "g": "af0ac6dccf12a96b",
-        "name": "every second",
+        "name": "inject",
         "props": [
             {
                 "p": "payload"
@@ -2557,14 +2547,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "0.5",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "control",
         "payload": "peek",
         "payloadType": "str",
-        "x": 720,
+        "x": 610,
         "y": 1720,
         "wires": [
             [
@@ -2632,7 +2622,7 @@
         "z": "e96654f5.3653d8",
         "g": "af0ac6dccf12a96b",
         "name": "randomize",
-        "func": "var max = 1000\nvar min = -1000\nrandom = Math.random() * (max - min) + min\nrandom = random * 0.0000001\nmsg.payload.geojson.geometry.coordinates[0] = msg.payload.geojson.geometry.coordinates[0] + random\nmsg.payload.geojson.geometry.coordinates[1] = msg.payload.geojson.geometry.coordinates[1] + random\nreturn msg;",
+        "func": "var max = 1000\nvar min = -1000\nrandom = Math.random() * (max - min) + min\nrandom = random * 0.00000005\nmsg.payload.geojson.geometry.coordinates[0] = msg.payload.geojson.geometry.coordinates[0] + random\nmsg.payload.geojson.geometry.coordinates[1] = msg.payload.geojson.geometry.coordinates[1] + random\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3478,7 +3468,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 910,
+        "x": 970,
         "y": 1720,
         "wires": [
             [
@@ -3607,7 +3597,7 @@
         "z": "e96654f5.3653d8",
         "g": "af0ac6dccf12a96b",
         "name": "calculate next position",
-        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        var areaName = area.properties.name\n        if (areaName.startsWith(\"ts\")){\n            speed = 50\n        } else if (areaName.startsWith(\"wh\")){\n            speed = 15\n        } else {\n            speed = 0\n        }\n    }\n});\n    \n// calculate next position\nkm = km + (speed / 3600)\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
+        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\nvar interval = flow.get(\"pointsPerMinute\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        var areaName = area.properties.name\n        if (areaName.startsWith(\"ts\")){\n            speed = 50\n        } else if (areaName.startsWith(\"wh\")){\n            speed = 15\n        } else {\n            speed = 5\n        }\n    }\n});\n    \n// calculate next position\nkm = km + speed / interval / 60\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3716,7 +3706,7 @@
         "z": "e96654f5.3653d8",
         "g": "c7c40ee274ebd36e",
         "name": "reset vars",
-        "func": "flow.set(\"sites\", [])",
+        "func": "flow.set(\"sites\", [])\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
