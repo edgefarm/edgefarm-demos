@@ -6,7 +6,6 @@
     "dependencies": {
         "@turf/turf": "^6.5.0",
         "node-red-contrib-bigcsv": "~1.2.0",
-        "node-red-contrib-looptimer-advanced": "0.0.3",
         "node-red-contrib-queue-gate": "~1.5.5",
         "node-red-contrib-web-worldmap": "~2.27.3",
         "node-red-dashboard": "~3.1.6"

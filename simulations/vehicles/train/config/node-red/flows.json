@@ -744,9 +744,9 @@
             "995c8db1a687e248",
             "300cc4f0ae7f5f67"
         ],
-        "x": 514,
+        "x": 934,
         "y": 1519,
-        "w": 2132,
+        "w": 1712,
         "h": 462
     },
     {
@@ -2554,7 +2554,7 @@
         "topic": "control",
         "payload": "peek",
         "payloadType": "str",
-        "x": 610,
+        "x": 1030,
         "y": 1720,
         "wires": [
             [
@@ -3468,7 +3468,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 970,
+        "x": 1190,
         "y": 1720,
         "wires": [
             [
@@ -3597,7 +3597,7 @@
         "z": "e96654f5.3653d8",
         "g": "af0ac6dccf12a96b",
         "name": "calculate next position",
-        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\nvar interval = flow.get(\"pointsPerMinute\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        var areaName = area.properties.name\n        if (areaName.startsWith(\"ts\")){\n            speed = 50\n        } else if (areaName.startsWith(\"wh\")){\n            speed = 15\n        } else {\n            speed = 5\n        }\n    }\n});\n    \n// calculate next position\nkm = km + speed / interval / 60\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
+        "func": "var along = flow.get(\"turfAlong\")\nvar speed = flow.get(\"speed\")\nvar options = flow.get(\"turfOptions\")\nvar km = flow.get(\"km\")\nvar line = flow.get(\"turfLine\")\n\nvar areas = flow.get(\"areas\").features\nareas.forEach(function(area) {\n    var poly = turf.polygon(area.geometry.coordinates);\n    if(turf.booleanPointInPolygon(along, poly)) {\n        var areaName = area.properties.name\n        if (areaName.startsWith(\"ts\")){\n            speed = 50\n        } else if (areaName.startsWith(\"wh\")){\n            speed = 15\n        } else {\n            speed = 5\n        }\n    }\n});\n    \n// calculate next position\nkm = km + speed * 0.5 / 60 / 60\n\nalong = turf.along(line, km, options);\n\nvar position = {\n    \"payload\": {\n        \"along\": along,\n        \"km\": km\n    }\n}\n\nreturn position\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",

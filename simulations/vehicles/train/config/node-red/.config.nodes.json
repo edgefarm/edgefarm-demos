@@ -704,24 +704,5 @@
                 "file": "/data/node_modules/node-red-contrib-queue-gate/q-gate.js"
             }
         }
-    },
-    "node-red-contrib-looptimer-advanced": {
-        "name": "node-red-contrib-looptimer-advanced",
-        "version": "0.0.3",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "looptimer-advanced": {
-                "name": "looptimer-advanced",
-                "types": [
-                    "looptimer-advanced"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-looptimer-advanced",
-                "file": "/data/node_modules/node-red-contrib-looptimer-advanced/looptimer_advanced.js"
-            }
-        }
     }
 }
