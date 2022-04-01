@@ -49,9 +49,7 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359,
-        "w": 432,
-        "h": 242
+        "y": 359
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -71,9 +69,7 @@
             "bb29cd6ca5702fe7"
         ],
         "x": 14,
-        "y": 739,
-        "w": 342,
-        "h": 202
+        "y": 739
     },
     {
         "id": "0ded4dc7e0bad8c6",
@@ -93,9 +89,7 @@
             "6d55712194850825"
         ],
         "x": 14,
-        "y": 519,
-        "w": 702,
-        "h": 162
+        "y": 519
     },
     {
         "id": "3946bb2aa731ca06",
@@ -113,9 +107,7 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359,
-        "w": 432,
-        "h": 122
+        "y": 359
     },
     {
         "id": "b2babc11e8bbd277",
@@ -145,9 +137,7 @@
             "b5a98e20618ff245"
         ],
         "x": 14,
-        "y": 59,
-        "w": 1022,
-        "h": 342
+        "y": 59
     },
     {
         "id": "16c05c80a31426ee",
@@ -164,9 +154,7 @@
             "b32a2df7d5bcf61c"
         ],
         "x": 14,
-        "y": 419,
-        "w": 692,
-        "h": 82
+        "y": 419
     },
     {
         "id": "8f2d0f85238db2b6",
@@ -184,9 +172,7 @@
             "4f85142130eaa7f7"
         ],
         "x": 1144,
-        "y": 239,
-        "w": 282,
-        "h": 142
+        "y": 239
     },
     {
         "id": "3e883c3af884ef05",
@@ -360,6 +346,16 @@
         "width": "6",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "25947cb1a41e9a46",
+        "type": "ui_spacer",
+        "z": "d4bb3e7314e90c9f",
+        "name": "spacer",
+        "group": "a990a673f13bdb9a",
+        "order": 4,
+        "width": 1,
+        "height": 1
     },
     {
         "id": "fd3024226bbdb1d8",
@@ -1753,7 +1749,7 @@
         "z": "d4bb3e7314e90c9f",
         "name": "",
         "group": "a990a673f13bdb9a",
-        "order": 0,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -1767,13 +1763,14 @@
         "payloadType": "flow",
         "topic": "topic",
         "topicType": "msg",
-        "x": 140,
-        "y": 500,
+        "x": 480,
+        "y": 520,
         "wires": [
             [
                 "635379c668e040d0",
                 "d0183e76f43ae826",
-                "749eb7f01ec5fe71"
+                "749eb7f01ec5fe71",
+                "7c8da6851809ac81"
             ]
         ]
     },
@@ -1808,8 +1805,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 610,
-        "y": 160,
+        "x": 950,
+        "y": 180,
         "wires": []
     },
     {
@@ -1819,8 +1816,8 @@
         "name": "",
         "path": "/worldmap-register",
         "events": "draw",
-        "x": 610,
-        "y": 220,
+        "x": 950,
+        "y": 240,
         "wires": [
             [
                 "027138d41cb394c4",
@@ -1834,7 +1831,7 @@
         "type": "ui_text",
         "z": "d4bb3e7314e90c9f",
         "group": "a990a673f13bdb9a",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1842,8 +1839,8 @@
         "format": "{{msg.payload.name}}",
         "layout": "row-center",
         "className": "",
-        "x": 890,
-        "y": 300,
+        "x": 1230,
+        "y": 320,
         "wires": []
     },
     {
@@ -1851,14 +1848,14 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "store-infos",
-        "func": "flow.set('coordinates', msg.payload)\nflow.set('zero', msg.payload.area[0])\n",
+        "func": "flow.set('coordinates', msg.payload)\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
-        "y": 340,
+        "x": 1250,
+        "y": 360,
         "wires": [
             []
         ]
@@ -1882,8 +1879,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 300,
+        "x": 710,
+        "y": 320,
         "wires": [
             [
                 "027138d41cb394c4"
@@ -1909,8 +1906,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 260,
+        "x": 710,
+        "y": 280,
         "wires": [
             [
                 "04919c313741923b"
@@ -1922,14 +1919,14 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "convert",
-        "func": "converted = {}\nconverted.id = msg.payload.name\nconverted.area = msg.payload.area\nmsg.payload = converted\nmsg.payload.zero = flow.get(\"zero\")\nreturn msg;",
+        "func": "converted = {}\nconverted.id = msg.payload.name\nconverted.area = msg.payload.area\nmsg.payload = converted\nmsg.payload.zero = msg.payload.area[0]\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 500,
+        "x": 720,
+        "y": 520,
         "wires": [
             [
                 "9c56d873ec2bb328",
@@ -1951,8 +1948,8 @@
         "correl": "",
         "expiry": "",
         "broker": "3e883c3af884ef05",
-        "x": 1150,
-        "y": 500,
+        "x": 1490,
+        "y": 520,
         "wires": []
     },
     {
@@ -1966,8 +1963,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 500,
+        "x": 940,
+        "y": 520,
         "wires": [
             [
                 "c10ee6c4c6977924"
@@ -1980,8 +1977,8 @@
         "z": "d4bb3e7314e90c9f",
         "name": "output spec",
         "info": "\ntopic: /site/\"ID\"\nformat: json\n\nexample:\n{\n    \"id\": \"t12344\",\n    \"area\": [\n        {\"lat\": 49.39997689108149, \"lng\": 10.895657332751465 },\n        {\"lat\":49.4000827191041, \"lng\": 10.899039802658868},\n        {\"lat\": 49.40107749136925, \"lng\": 10.898893445787888}\n    ]\n}\n",
-        "x": 1170,
-        "y": 460,
+        "x": 1510,
+        "y": 480,
         "wires": []
     },
     {
@@ -1989,15 +1986,16 @@
         "type": "debug",
         "z": "d4bb3e7314e90c9f",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
-        "y": 380,
+        "x": 1250,
+        "y": 400,
         "wires": []
     },
     {
@@ -2011,8 +2009,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 560,
+        "x": 950,
+        "y": 580,
         "wires": [
             [
                 "5780f7b748098aea"
@@ -2024,14 +2022,14 @@
         "type": "function",
         "z": "d4bb3e7314e90c9f",
         "name": "draw all sites",
-        "func": "// is along in a site?\nvar along = flow.get(\"turfAlong\")\nvar sites = flow.get(\"sites\")\nvar options = flow.get(\"turfOptions\")\n\nnode.log(JSON.stringify(sites, null, 2))\n\nsites.forEach(function(site) {\n\n    var level1 = []\n    var level2 = []\n    node.log(JSON.stringify(site.area, null, 2))\n    site.area.forEach(function(point) {\n        level2.push([point.lat,point.lng])\n    });\n    level1.push(level2)\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id, \n            \"area\": level2,\n            \"color\":\"#fdd0fd\"\n        }\n    })\n});\n",
+        "func": "// is along in a site?\nvar along = flow.get(\"turfAlong\")\nvar sites = flow.get(\"sites\")\nvar options = flow.get(\"turfOptions\")\n\nsites.forEach(function(site) {\n\n    var level1 = []\n    var level2 = []\n    site.area.forEach(function(point) {\n        level2.push([point.lat,point.lng])\n    });\n    level1.push(level2)\n    \n    node.send({\n        \"payload\": {\n            \"name\": site.id, \n            \"area\": level2,\n            \"color\":\"#fdd0fd\"\n        }\n    })\n});\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
-        "y": 560,
+        "x": 1130,
+        "y": 580,
         "wires": [
             [
                 "c99e7268a64ce397"
@@ -2047,8 +2045,8 @@
         "links": [
             "5b27f860dd0d2804"
         ],
-        "x": 905,
-        "y": 560,
+        "x": 1245,
+        "y": 580,
         "wires": []
     },
     {
@@ -2072,8 +2070,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 660,
+        "x": 350,
+        "y": 780,
         "wires": [
             [
                 "390b5f3d936b8e69"
@@ -2091,10 +2089,117 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 660,
+        "x": 520,
+        "y": 780,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "7c8da6851809ac81",
+        "type": "debug",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "ea6fb3b45e2e46b3",
+        "type": "split",
+        "z": "d4bb3e7314e90c9f",
+        "name": "Split in Sites",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 510,
+        "y": 700,
+        "wires": [
+            [
+                "749eb7f01ec5fe71"
+            ]
+        ]
+    },
+    {
+        "id": "0407eda22c70edb4",
+        "type": "ui_button",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "group": "a990a673f13bdb9a",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Inject Maintenance Hall",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"Anmeldung\":{\"action\":\"draw\",\"name\":\"Anmeldung\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425240991617116,\"lng\":11.018650084733965},{\"lat\":49.425073508278246,\"lng\":11.018768101930618},{\"lat\":49.42523575777142,\"lng\":11.019269675016405},{\"lat\":49.4253997513376,\"lng\":11.019151657819748}]},\"Reperatur\":{\"action\":\"draw\",\"name\":\"Reperatur\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.425476514095145,\"lng\":11.01924017071724},{\"lat\":49.42533345613217,\"lng\":11.01933404803276},{\"lat\":49.42552012924479,\"lng\":11.019932180643083},{\"lat\":49.425642251457504,\"lng\":11.019838303327562}]},\"Waschanlage\":{\"action\":\"draw\",\"name\":\"Waschanlage\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42575739497967,\"lng\":11.020251363515854},{\"lat\":49.42566667586359,\"lng\":11.020313054323198},{\"lat\":49.42582892339527,\"lng\":11.020841449499132},{\"lat\":49.42592138680232,\"lng\":11.020782440900804}]},\"Lackiererei\":{\"action\":\"draw\",\"name\":\"Lackiererei\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.42615041356103,\"lng\":11.021234360797948},{\"lat\":49.42603729067904,\"lng\":11.021337850733929},{\"lat\":49.426185004803436,\"lng\":11.021720188552855},{\"lat\":49.42629906224081,\"lng\":11.021623885417988},{\"lat\":49.42624577314324,\"lng\":11.021493085637859},{\"lat\":49.426270080458096,\"lng\":11.021468650514057},{\"lat\":49.42622801009785,\"lng\":11.021357973777},{\"lat\":49.426199963171,\"lng\":11.021379534180346}]}}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 310,
+        "y": 700,
+        "wires": [
+            [
+                "ea6fb3b45e2e46b3"
+            ]
+        ]
+    },
+    {
+        "id": "960fcebced95b895",
+        "type": "ui_button",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "group": "a990a673f13bdb9a",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Inject Train Stations",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"Roßtal\":{\"action\":\"draw\",\"name\":\"Roßtal\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.39994842857308,\"lng\":10.896893629682092},{\"lat\":49.3997851058074,\"lng\":10.897098365254028},{\"lat\":49.400653289015345,\"lng\":10.8990268422542},{\"lat\":49.40079082158053,\"lng\":10.89882871105555}]},\"Anwanden\":{\"action\":\"draw\",\"name\":\"Anwanden\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.41169764641901,\"lng\":10.929314498153936},{\"lat\":49.4114999871494,\"lng\":10.92930128940736},{\"lat\":49.411448423730754,\"lng\":10.931242975154106},{\"lat\":49.41164178627132,\"lng\":10.93126939264726}]},\"Oberasbach\":{\"action\":\"draw\",\"name\":\"Oberasbach\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.41492883292605,\"lng\":10.96047393132776},{\"lat\":49.41479133996086,\"lng\":10.960665458153123},{\"lat\":49.41624788648855,\"lng\":10.963511943040318},{\"lat\":49.416393968416045,\"lng\":10.963280789975231}]},\"Unterasbach\":{\"action\":\"draw\",\"name\":\"Unterasbach\",\"layer\":\"_drawing\",\"options\":{\"stroke\":true,\"color\":\"#910000\",\"weight\":4,\"opacity\":0.5,\"fill\":true,\"fillColor\":null,\"fillOpacity\":0.2,\"clickable\":true},\"area\":[{\"lat\":49.41674628186416,\"lng\":10.98508182619964},{\"lat\":49.416565828950574,\"lng\":10.985035595586622},{\"lat\":49.41657442196151,\"lng\":10.987393356850529},{\"lat\":49.41678924674576,\"lng\":10.987327313117646}]}}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 290,
+        "y": 740,
+        "wires": [
+            [
+                "ea6fb3b45e2e46b3"
+            ]
+        ]
+    },
+    {
+        "id": "06bd17ca526ebcee",
+        "type": "debug",
+        "z": "d4bb3e7314e90c9f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 460,
+        "wires": []
     }
 ]

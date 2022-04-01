@@ -1,20 +1,21 @@
 package edgefarm_network
 
 import (
-	"context"
 	"fmt"
-	"net"
 	"os"
+	"sync"
 	"time"
 
-	"github.com/eclipse/paho.golang/paho"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 // MqttConnection represents the MQTT connection
 type MqttConnection struct {
-	client *paho.Client
-	server string
-	port   string
+	client                 mqtt.Client
+	server                 string
+	port                   string
+	mutex                  sync.Mutex
+	subscriptionHandlerMap map[string]func(mqtt.Message)
 }
 
 const (
@@ -35,74 +36,78 @@ func NewMqttConnection() *MqttConnection {
 	}
 
 	return &MqttConnection{
-		client: &paho.Client{},
-		server: mqttServer,
-		port:   mqttPort,
+		client:                 nil,
+		server:                 mqttServer,
+		port:                   mqttPort,
+		subscriptionHandlerMap: make(map[string]func(mqtt.Message)),
 	}
 }
 
 // Connect to MQTT server. Server URL can be provided via MQTT_SERVER environment variable.
-func (m *MqttConnection) Connect(connectTimeoutSeconds int) error {
-
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", m.server, m.port))
-	if err != nil {
-		return fmt.Errorf("Failed to connect to %s:%s: %s", m.server, m.port, err)
-	}
-
-	// From https://github.com/eclipse/paho.golang/blob/336f2adf08b8233199ac8132b8dd12cbb8c69eca/paho/client.go
-	// client.Conn *MUST* be set to an already connected net.Conn before
-	// Connect() is called.
-	m.client = paho.NewClient(paho.ClientConfig{
-		Conn: conn,
+func (m *MqttConnection) Connect(connectTimeoutSeconds time.Duration) error {
+	fmt.Printf("Connection to mqtt broker. Waiting...\n")
+	opts := mqtt.NewClientOptions().AddBroker(fmt.Sprintf("%s:%s", m.server, m.port))
+	opts.SetConnectTimeout(0)
+	opts.SetConnectRetry(true)
+	opts.SetConnectRetryInterval(time.Second * 1)
+	opts.SetPingTimeout(10 * time.Second)
+	opts.SetKeepAlive(10 * time.Second)
+	opts.SetAutoReconnect(true)
+	opts.SetMaxReconnectInterval(connectTimeoutSeconds)
+	opts.SetConnectionLostHandler(func(c mqtt.Client, err error) {
+		fmt.Printf("mqtt connection lost error: %s\n" + err.Error())
 	})
-
-	for i := 0; i < connectTimeoutSeconds; i++ {
-		// Connect Client to MQTT Broker
-		res, err := m.client.Connect(context.Background(), &paho.Connect{})
-		if err != nil {
-			fmt.Printf("Failed to connect to %s: %s\n", m.server, err.Error())
-		} else if res.ReasonCode != 0 {
-			fmt.Printf("Failed to connect with reason: %d - %s\n", res.ReasonCode, res.Properties.ReasonString)
-		} else {
-			return nil
+	opts.SetReconnectingHandler(func(c mqtt.Client, options *mqtt.ClientOptions) {
+		fmt.Printf("mqtt reconnecting\n")
+	})
+	opts.SetOnConnectHandler(func(c mqtt.Client) {
+		fmt.Printf("mqtt connected\n")
+		for topic, handler := range m.subscriptionHandlerMap {
+			err := m.Subscribe(topic, handler)
+			if err != nil {
+				fmt.Printf("mqtt subsctibing error: %s\n", err.Error())
+			}
 		}
-		time.Sleep(time.Second)
+	})
+	m.client = mqtt.NewClient(opts)
+	if token := m.client.Connect(); token.Wait() && token.Error() != nil {
+		return token.Error()
 	}
-	return fmt.Errorf("Cannot connect to MQTT broker.")
+	return nil
+}
+
+func (m *MqttConnection) genericHandler(c mqtt.Client, msg mqtt.Message) {
+	if m.subscriptionHandlerMap != nil {
+		if _, ok := m.subscriptionHandlerMap[msg.Topic()]; ok {
+			m.subscriptionHandlerMap[msg.Topic()](msg)
+			return
+		}
+	}
 }
 
 // Subscribe to topic, required handler function for message receive.
-func (m *MqttConnection) Subscribe(topic string, handlerFunc interface{}) error {
-	// Check if passed function is of correct type
-	if f, ok := handlerFunc.(func(*paho.Publish)); ok {
-		// Register handler for this topic
-		m.client.Router.RegisterHandler(topic, f)
-		// Subscribe to mqtt topics
-		sa, err := m.client.Subscribe(context.Background(), &paho.Subscribe{
-			Subscriptions: map[string]paho.SubscribeOptions{
-				topic: {QoS: byte(qos)},
-			},
-		})
-		if err != nil {
-			return err
-		}
-		if sa.Reasons[0] != byte(qos) {
-			return fmt.Errorf("Failed to subscribe to %s : %d", topic, sa.Reasons[0])
-		}
-		return nil
+func (m *MqttConnection) Subscribe(topic string, handlerFunc func(mqtt.Message)) error {
+	if m.client == nil {
+		return fmt.Errorf("mqtt client is not connected")
 	}
-	return fmt.Errorf("Provided handlerFunc not of correct type")
+	m.mutex.Lock()
+	m.subscriptionHandlerMap[topic] = handlerFunc
+	m.mutex.Unlock()
+	token := m.client.Subscribe(topic, byte(qos), m.genericHandler)
+	if token.Error() != nil {
+		return token.Error()
+	}
+	return nil
 }
 
 // Publish message to topic provided
 func (m *MqttConnection) Publish(topic string, message []byte) error {
-	_, err := m.client.Publish(context.Background(), &paho.Publish{
-		QoS:     1,
-		Topic:   topic,
-		Payload: message,
-	})
-	if err != nil {
-		return err
+	if m.client == nil {
+		return fmt.Errorf("mqtt client is not connected")
+	}
+	token := m.client.Publish(topic, byte(qos), false, message)
+	if token.Error() != nil {
+		return token.Error()
 	}
 	return nil
 }
@@ -110,7 +115,6 @@ func (m *MqttConnection) Publish(topic string, message []byte) error {
 // Close mqtt connection
 func (m *MqttConnection) Close() {
 	if m.client != nil {
-		d := &paho.Disconnect{ReasonCode: 0}
-		m.client.Disconnect(d)
+		m.client.Disconnect(0)
 	}
 }

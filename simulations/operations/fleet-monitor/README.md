@@ -1,5 +1,5 @@
 # fleet-monitor
-This is a node-red based demo backoffice to simulate an existing cloud endpoint on customers side for fleet-monitor visualization. 
+This is a node-red based demo backoffice to simulate an existing cloud endpoint on customers side for fleet-monitor visualization.
 
 ## How to run
 
