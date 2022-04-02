@@ -49,7 +49,9 @@
             "cfdcb6b959caccc8"
         ],
         "x": 74,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 242
     },
     {
         "id": "c5c4c07b294f31d3",
@@ -69,7 +71,9 @@
             "bb29cd6ca5702fe7"
         ],
         "x": 14,
-        "y": 739
+        "y": 739,
+        "w": 342,
+        "h": 202
     },
     {
         "id": "0ded4dc7e0bad8c6",
@@ -89,7 +93,9 @@
             "6d55712194850825"
         ],
         "x": 14,
-        "y": 519
+        "y": 519,
+        "w": 702,
+        "h": 162
     },
     {
         "id": "3946bb2aa731ca06",
@@ -107,7 +113,9 @@
             "20a7e546304a5619"
         ],
         "x": 94,
-        "y": 359
+        "y": 359,
+        "w": 432,
+        "h": 122
     },
     {
         "id": "b2babc11e8bbd277",
@@ -134,10 +142,14 @@
             "74ad7b22269b4655",
             "6e746161926ab1d9",
             "318cf26753f2b520",
-            "b5a98e20618ff245"
+            "b5a98e20618ff245",
+            "d82a213f508e1907",
+            "970cb6a65bf25c2b"
         ],
         "x": 14,
-        "y": 59
+        "y": 19,
+        "w": 1022,
+        "h": 382
     },
     {
         "id": "16c05c80a31426ee",
@@ -154,7 +166,9 @@
             "b32a2df7d5bcf61c"
         ],
         "x": 14,
-        "y": 419
+        "y": 419,
+        "w": 692,
+        "h": 82
     },
     {
         "id": "8f2d0f85238db2b6",
@@ -172,7 +186,9 @@
             "4f85142130eaa7f7"
         ],
         "x": 1144,
-        "y": 239
+        "y": 239,
+        "w": 282,
+        "h": 142
     },
     {
         "id": "3e883c3af884ef05",
@@ -1215,6 +1231,61 @@
         "wires": [
             [
                 "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "970cb6a65bf25c2b",
+        "type": "function",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "follow command",
+        "func": "msg.payload = {\"command\":{\"panit\":msg.payload}}\nreturn msg\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 60,
+        "wires": [
+            [
+                "a9fc397f79a11088"
+            ]
+        ]
+    },
+    {
+        "id": "d82a213f508e1907",
+        "type": "ui_switch",
+        "z": "713cf011c1d16752",
+        "g": "b2babc11e8bbd277",
+        "name": "",
+        "label": "Follow",
+        "tooltip": "",
+        "group": "f22c89fea9231f90",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "payload",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "970cb6a65bf25c2b"
             ]
         ]
     },

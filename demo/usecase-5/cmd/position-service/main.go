@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 
@@ -21,6 +22,7 @@ const (
 )
 
 var (
+	mutex                    sync.Mutex
 	natsConn                 *edgefarm_network.NatsConnection
 	siteManager              *position.SiteManager
 	connectTimeoutSeconds    int = 30
@@ -33,17 +35,6 @@ func positionMessageHandler(msg *nats.Msg) {
 	tp := position.TrainPosition{}
 	// Check which type of message is received
 	switch msg.Subject {
-	case position.GpsNatsSubject:
-		fmt.Println("Received gps message:", string(msg.Data))
-		// convert message to GpsMessage
-		var gpsMsg position.GpsMessage
-		err := json.Unmarshal(msg.Data, &gpsMsg)
-		if err != nil {
-			fmt.Printf("Error occured during unmarshaling. Error: %s\n", err.Error())
-			return
-		}
-		// Convert GpsMessage to TrainPosition
-		tp = position.GpsToTrainPositon(gpsMsg)
 	case position.TraceletNatsSubject:
 		fmt.Println("Received tracelet message:", string(msg.Data))
 		// convert message to TraceletMessage
@@ -59,6 +50,17 @@ func positionMessageHandler(msg *nats.Msg) {
 			fmt.Printf("Error occured during converting. Error: %s\n", err.Error())
 			return
 		}
+	case position.GpsNatsSubject:
+		fmt.Println("Received gps message:", string(msg.Data))
+		// convert message to GpsMessage
+		var gpsMsg position.GpsMessage
+		err := json.Unmarshal(msg.Data, &gpsMsg)
+		if err != nil {
+			fmt.Printf("Error occured during unmarshaling. Error: %s\n", err.Error())
+			return
+		}
+		// Convert GpsMessage to TrainPosition
+		tp = position.GpsToTrainPositon(gpsMsg)
 	default:
 		fmt.Printf("Unknown message received: %s\n", msg.Subject)
 		return
@@ -67,16 +69,16 @@ func positionMessageHandler(msg *nats.Msg) {
 	// Check if message channel exists for this train id
 	if _, ok := trainIdMessageChannelMap[tp.ID]; !ok {
 		// Create new channel for this train id
-		tpChan := make(chan position.TrainPosition)
+		tpChan := make(chan position.TrainPosition, 200)
+		mutex.Lock()
 		trainIdMessageChannelMap[tp.ID] = tpChan
+		mutex.Unlock()
 		// Start a new goroutine to handle this train id
 		go trainMessageHandler(tpChan)
 	}
-
-	// Send message to channel in a goroutine
-	go func() {
-		trainIdMessageChannelMap[tp.ID] <- tp
-	}()
+	mutex.Lock()
+	trainIdMessageChannelMap[tp.ID] <- tp
+	mutex.Unlock()
 }
 
 func publishTrainPosition(msg position.TrainPosition, lastSiteId string) string {
@@ -133,16 +135,13 @@ func trainMessageHandler(msgChan chan position.TrainPosition) {
 	for {
 		select {
 		case msg := <-msgChan:
-
 			// Check if last message is empty
 			if lastMsg != (position.TrainPosition{}) {
-
 				// If both messages are from the same message type, send the last message and update lastMsg
 				if lastMsg.Position.Hres == msg.Position.Hres {
 					fmt.Println("Sending last message:", lastMsg)
 					lastSiteId = publishTrainPosition(lastMsg, lastSiteId)
 					lastMsg = msg
-
 				} else {
 					// Entering this block means that both messages differ in message type
 					// lastMessage = tracelet message && msg = gps message
